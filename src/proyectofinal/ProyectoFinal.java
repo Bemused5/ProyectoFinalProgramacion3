@@ -5,7 +5,6 @@
 package proyectofinal;
 
 import java.util.Scanner;
-import proyectofinal.UInterfaces.Login;
 
 /**
  *

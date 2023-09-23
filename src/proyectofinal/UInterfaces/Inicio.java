@@ -6,12 +6,23 @@ package proyectofinal.UInterfaces;
 
 import java.awt.Color;
 import java.awt.Frame;
+import javax.swing.ImageIcon;
+
 
 /**
  *
  * @author daasa
  */
 public class Inicio extends javax.swing.JFrame {
+    private Theme darkTheme = new Theme(new Color(0, 0, 51), new Color(255, 255, 255), new Color(100, 100, 100));
+    private Theme lightTheme = new Theme(new Color(255, 255, 255), new Color(0, 0, 0), new Color(200, 200, 200));
+    private ImageIcon sunIcon = new ImageIcon(getClass().getResource("/proyectofinal/UInterfaces/sun.png"));
+    private ImageIcon moonIcon = new ImageIcon(getClass().getResource("/proyectofinal/UInterfaces/moon.png"));
+    private boolean isDarkMode = false;  // Variable para rastrear el tema actual
+
+
+
+
     int xMouse, yMouse;
 
     /**
@@ -19,8 +30,14 @@ public class Inicio extends javax.swing.JFrame {
      */
     public Inicio() {
         initComponents();
+        applyTheme(lightTheme);
+        jLabel6.setIcon(moonIcon);  // Establece el ícono inicial del sol
+        
     }
-
+    private void applyTheme(Theme theme) {
+        jPanel1.setBackground(theme.backgroundColor);
+        jLabel2.setForeground(theme.textColor);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,7 +50,8 @@ public class Inicio extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         header = new javax.swing.JPanel();
         exitButton = new Clases.PanelRound();
-        changeSize = new Clases.PanelRound();
+        changeMode = new Clases.PanelRound();
+        jLabel6 = new javax.swing.JLabel();
         minimizeWindow = new Clases.PanelRound();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -48,7 +66,7 @@ public class Inicio extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(1366, 768));
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(0, 0, 51));
         jPanel1.setMaximumSize(new java.awt.Dimension(1366, 768));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -92,30 +110,39 @@ public class Inicio extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        changeSize.setBackground(new java.awt.Color(255, 204, 0));
-        changeSize.setPreferredSize(new java.awt.Dimension(25, 25));
-        changeSize.setRoundBottomLeft(100);
-        changeSize.setRoundBottomRight(100);
-        changeSize.setRoundTopLeft(100);
-        changeSize.setRoundTopRight(100);
-        changeSize.addMouseListener(new java.awt.event.MouseAdapter() {
+        changeMode.setBackground(new java.awt.Color(102, 0, 153));
+        changeMode.setPreferredSize(new java.awt.Dimension(25, 25));
+        changeMode.setRoundBottomLeft(100);
+        changeMode.setRoundBottomRight(100);
+        changeMode.setRoundTopLeft(100);
+        changeMode.setRoundTopRight(100);
+        changeMode.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                changeModeMouseClicked(evt);
+            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                changeSizeMouseExited(evt);
+                changeModeMouseExited(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                changeSizeMouseEntered(evt);
+                changeModeMouseEntered(evt);
             }
         });
 
-        javax.swing.GroupLayout changeSizeLayout = new javax.swing.GroupLayout(changeSize);
-        changeSize.setLayout(changeSizeLayout);
-        changeSizeLayout.setHorizontalGroup(
-            changeSizeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 25, Short.MAX_VALUE)
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectofinal/UInterfaces/moon.png"))); // NOI18N
+
+        javax.swing.GroupLayout changeModeLayout = new javax.swing.GroupLayout(changeMode);
+        changeMode.setLayout(changeModeLayout);
+        changeModeLayout.setHorizontalGroup(
+            changeModeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, changeModeLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel6))
         );
-        changeSizeLayout.setVerticalGroup(
-            changeSizeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 25, Short.MAX_VALUE)
+        changeModeLayout.setVerticalGroup(
+            changeModeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, changeModeLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel6))
         );
 
         minimizeWindow.setBackground(java.awt.Color.gray);
@@ -155,7 +182,7 @@ public class Inicio extends javax.swing.JFrame {
                 .addContainerGap(1247, Short.MAX_VALUE)
                 .addComponent(minimizeWindow, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(changeSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(changeMode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22))
@@ -165,7 +192,7 @@ public class Inicio extends javax.swing.JFrame {
             .addGroup(headerLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(changeSize, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(changeMode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(exitButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(minimizeWindow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(9, Short.MAX_VALUE))
@@ -174,6 +201,7 @@ public class Inicio extends javax.swing.JFrame {
         jPanel1.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1380, 40));
 
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 48)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Bienvenido a EducaPoli");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 150, -1, -1));
 
@@ -195,11 +223,15 @@ public class Inicio extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 320, 380, 90));
@@ -263,13 +295,13 @@ public class Inicio extends javax.swing.JFrame {
         exitButton.setBackground(Color.red);
     }//GEN-LAST:event_exitButtonMouseExited
 
-    private void changeSizeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changeSizeMouseEntered
-        changeSize.setBackground(new Color(128, 80, 0));
-    }//GEN-LAST:event_changeSizeMouseEntered
+    private void changeModeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changeModeMouseEntered
+        changeMode.setBackground(new Color(90, 0, 138));
+    }//GEN-LAST:event_changeModeMouseEntered
 
-    private void changeSizeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changeSizeMouseExited
-        changeSize.setBackground(Color.orange);
-    }//GEN-LAST:event_changeSizeMouseExited
+    private void changeModeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changeModeMouseExited
+        changeMode.setBackground(new Color(102, 0, 153));
+    }//GEN-LAST:event_changeModeMouseExited
 
     private void minimizeWindowMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeWindowMouseEntered
         minimizeWindow.setBackground(new Color(64, 64, 64));
@@ -282,6 +314,17 @@ public class Inicio extends javax.swing.JFrame {
     private void minimizeWindowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeWindowMouseClicked
         this.setState(Frame.ICONIFIED);  // Minimiza la ventana
     }//GEN-LAST:event_minimizeWindowMouseClicked
+
+    private void changeModeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changeModeMouseClicked
+        if (isDarkMode) {
+            applyTheme(lightTheme);  // Cambiar al tema claro
+            jLabel6.setIcon(moonIcon);  // Mostrar la luna
+        } else {
+            applyTheme(darkTheme);   // Cambiar al tema oscuro
+            jLabel6.setIcon(sunIcon);  // Mostrar el sol
+        }
+        isDarkMode = !isDarkMode;  // Invertir el estado del tema
+    }//GEN-LAST:event_changeModeMouseClicked
                                   
 
 
@@ -321,13 +364,14 @@ public class Inicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private Clases.PanelRound changeSize;
+    private Clases.PanelRound changeMode;
     private Clases.PanelRound exitButton;
     private javax.swing.JPanel header;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
