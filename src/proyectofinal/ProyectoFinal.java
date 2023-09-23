@@ -5,6 +5,7 @@
 package proyectofinal;
 
 import java.util.Scanner;
+import proyectofinal.UInterfaces.Login;
 
 /**
  *
@@ -15,6 +16,7 @@ public class ProyectoFinal {
         Scanner entrada = new Scanner(System.in);
         Usuario usuario = new Usuario();
         Puntuacion puntuacion = new Puntuacion();
+
         int id = 0; // Inicializar a un valor no válido
 
         System.out.println("Selecciona una opción:");
