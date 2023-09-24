@@ -5,6 +5,8 @@
 package proyectofinal;
 
 import java.util.Scanner;
+import proyectofinal.UInterfaces.Inicio;
+import proyectofinal.UInterfaces.Registro;
 
 /**
  *
@@ -17,27 +19,13 @@ public class ProyectoFinal {
         Puntuacion puntuacion = new Puntuacion();
 
         int id = 0; // Inicializar a un valor no válido
+        
+        Inicio inicio = new Inicio();
+        inicio.setVisible(true);
+        
 
-        System.out.println("Selecciona una opción:");
-        System.out.println("1: Hacer login");
-        System.out.println("2: Crear nuevo usuario");
 
-        String opcionInicial = entrada.nextLine();
 
-        if ("1".equals(opcionInicial)) {
-            id = usuario.hacerLogin(); // Método para manejar el login (debes implementarlo)
-        } else if ("2".equals(opcionInicial)) {
-            id = usuario.registrarUsuario(); // Este método debe devolver el id del usuario
-        } else {
-            System.out.println("Opción no válida");
-            System.exit(0); // Termina el programa
-        }
-
-        // Comprobar si se obtuvo un ID de usuario válido
-        if (id <= 0) {
-            System.out.println("No se pudo obtener un ID de usuario válido.");
-            System.exit(0); // Termina el programa
-        }
 
         while (true) {
             System.out.println("Selecciona un juego (1 al 6) o escribe 'salir' para terminar:");
@@ -68,6 +56,8 @@ public class ProyectoFinal {
             System.out.println("Has obtenido " + puntosObtenidos + " puntos en el juego " + juegoID);
 
             puntuacion.almacenarPuntuacion(juegoID, puntosObtenidos,id);
+            RankingJuego ranking = new RankingJuego();
+            ranking.obtenerRanking(juegoID);
         }
 
         entrada.close();

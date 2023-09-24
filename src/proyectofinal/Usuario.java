@@ -15,12 +15,8 @@ public class Usuario {
     int usuarioID;
     Scanner entrada = new Scanner(System.in);
 
-    public int registrarUsuario() {
-        System.out.println("Dame tu nombre");
-        nombre = entrada.nextLine();
-
-        System.out.println("Dame tu nombre de usuario");
-        usuario = entrada.nextLine();
+    public int registrarUsuario(String nombre, String usuario) {
+        usuarioID=0;
 
         // Inicia el bloque try-catch para manejar las excepciones SQL
         try {
@@ -41,10 +37,10 @@ public class Usuario {
                 ResultSet generatedKeys = insertStmt.getGeneratedKeys();
                 if (generatedKeys.next()) {
                     usuarioID = generatedKeys.getInt(1);
+                    System.out.println(usuarioID+"primerCheck");
                 }
-            } else {
-                usuarioID = rs.getInt("usuario_id");
             }
+            System.out.println(usuarioID);
 
             // Cerrar las conexiones y resultados
             rs.close();
@@ -56,9 +52,8 @@ public class Usuario {
         return usuarioID;
     }
 
-    public int hacerLogin() {
-        System.out.println("Introduce tu nombre de usuario:");
-        usuario = entrada.nextLine();
+    public int hacerLogin(char[] contrasena) {
+        usuario = new String(contrasena);
 
         int idRetornado = 0; // Valor predeterminado en caso de fallo
 
