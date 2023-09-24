@@ -212,6 +212,11 @@ public class Inicio extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(102, 153, 255));
         jPanel3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel3MouseClicked(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -325,6 +330,12 @@ public class Inicio extends javax.swing.JFrame {
         }
         isDarkMode = !isDarkMode;  // Invertir el estado del tema
     }//GEN-LAST:event_changeModeMouseClicked
+
+    private void jPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseClicked
+        Login loginFrame = new Login();
+        loginFrame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jPanel3MouseClicked
                                   
 
 

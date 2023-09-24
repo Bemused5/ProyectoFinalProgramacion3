@@ -383,7 +383,9 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jPasswordField1ActionPerformed
 
     private void backButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButtonMouseClicked
-        // TODO add your handling code here:
+        Inicio inicioFrame = new Inicio();
+        inicioFrame.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_backButtonMouseClicked
 
     private void backButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButtonMouseExited
