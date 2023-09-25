@@ -55,7 +55,8 @@ public class PuntuacionFinal extends javax.swing.JFrame {
         minimizeWindow = new Clases.PanelRound();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -197,16 +198,21 @@ public class PuntuacionFinal extends javax.swing.JFrame {
         jPanel1.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1380, 40));
 
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 48)); // NOI18N
-        jLabel2.setText("Obtuviste una puntuacion de:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 250, -1, -1));
+        jLabel2.setText("Muchas Felicidades Sigue Asi");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 440, -1, -1));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectofinal/UInterfaces/motivacional.jpg"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 140, 340, 420));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectofinal/UInterfaces/child estudying.jpg"))); // NOI18N
+        jLabel1.setText("jLabel1");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 0, 340, 770));
 
-        jLabel5.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 48)); // NOI18N
-        jLabel5.setText("100");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 370, -1, -1));
+        jLabel3.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 48)); // NOI18N
+        jLabel3.setText("Tu puntuacion en la prueba es de:");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, -1, -1));
+
+        jLabel4.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 48)); // NOI18N
+        jLabel4.setText("100");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 290, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -320,7 +326,8 @@ public class PuntuacionFinal extends javax.swing.JFrame {
     private javax.swing.JPanel header;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private Clases.PanelRound minimizeWindow;
