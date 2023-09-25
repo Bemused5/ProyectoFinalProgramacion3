@@ -415,7 +415,7 @@ public class Login extends javax.swing.JFrame {
             jLabel8.setText("No se pudo encontrar el usuario ingresado, vuelve a intentarlo");
         }else{
             jLabel8.setText("");
-            MenuActividades menuActividades = new MenuActividades();
+            MenuActividades menuActividades = new MenuActividades(idRetornado);
             menuActividades.setVisible(true);
             this.dispose();
         }

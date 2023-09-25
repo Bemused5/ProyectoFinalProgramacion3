@@ -19,6 +19,7 @@ public class MenuActividades extends javax.swing.JFrame {
     private ImageIcon sunIcon = new ImageIcon(getClass().getResource("/proyectofinal/UInterfaces/sun.png"));
     private ImageIcon moonIcon = new ImageIcon(getClass().getResource("/proyectofinal/UInterfaces/moon.png"));
     private boolean isDarkMode = false;  // Variable para rastrear el tema actual
+    static int userIDF;
 
 
 
@@ -27,8 +28,10 @@ public class MenuActividades extends javax.swing.JFrame {
 
     /**
      * Creates new form Inicio
+     * @param userID
      */
-    public MenuActividades() {
+    public MenuActividades(int userID) {
+        userIDF=userID;
         initComponents();
         applyTheme(lightTheme);
         jLabel6.setIcon(moonIcon);  // Establece el ícono inicial del sol
@@ -541,7 +544,7 @@ public class MenuActividades extends javax.swing.JFrame {
     }//GEN-LAST:event_backButtonMouseEntered
 
     private void jPanel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel11MouseClicked
-        MenuPuntuaciones menuPuntuaciones = new MenuPuntuaciones();
+        MenuPuntuaciones menuPuntuaciones = new MenuPuntuaciones(userIDF);
         menuPuntuaciones.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jPanel11MouseClicked
@@ -581,7 +584,7 @@ public class MenuActividades extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuActividades().setVisible(true);
+                new MenuActividades(userIDF).setVisible(true);
             }
         });
     }

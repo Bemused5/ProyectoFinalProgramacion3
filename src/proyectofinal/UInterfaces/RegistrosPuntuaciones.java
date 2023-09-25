@@ -31,7 +31,7 @@ public class RegistrosPuntuaciones extends javax.swing.JFrame {
 
 
     int xMouse, yMouse;
-    static int usuarioID;
+    static int usuarioIDF;
     static int juegoID;
 
     /**
@@ -40,12 +40,13 @@ public class RegistrosPuntuaciones extends javax.swing.JFrame {
      * @param juegoID
      */
     public RegistrosPuntuaciones(int usuarioID, int juegoID) {
+        usuarioIDF=usuarioID;
         initComponents();
         applyTheme(lightTheme);
         jLabel6.setIcon(moonIcon);  // Establece el ícono inicial del sol
             
         Puntuacion puntuacion = new Puntuacion();
-        Map<String, ArrayList> rankingMap = puntuacion.obtenerPuntuacionesPorUsuarioYJuego(usuarioID, juegoID);
+        Map<String, ArrayList> rankingMap = puntuacion.obtenerPuntuacionesPorUsuarioYJuego(usuarioIDF, juegoID);
         
         ArrayList<Integer> puntuaciones = rankingMap.get("puntuaciones");
         ArrayList<Timestamp> fechas = rankingMap.get("fechas");
@@ -376,7 +377,7 @@ public class RegistrosPuntuaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_changeModeMouseClicked
 
     private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
-        MenuPuntuaciones menuPuntuaciones = new MenuPuntuaciones();
+        MenuPuntuaciones menuPuntuaciones = new MenuPuntuaciones(usuarioIDF);
         menuPuntuaciones.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jPanel4MouseClicked
@@ -420,7 +421,7 @@ public class RegistrosPuntuaciones extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RegistrosPuntuaciones(usuarioID,juegoID).setVisible(true);
+                new RegistrosPuntuaciones(usuarioIDF,juegoID).setVisible(true);
             }
         });
     }

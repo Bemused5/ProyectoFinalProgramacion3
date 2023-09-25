@@ -27,13 +27,14 @@ public class Ranking extends javax.swing.JFrame {
     Map<String, ArrayList<String>> rankingMap = rankingJuego.obtenerRanking(1);
 
 
-
+    static int userIDF;
     int xMouse, yMouse;
 
     /**
      * Creates new form Inicio
      */
-    public Ranking() {
+    public Ranking(int userID) {
+        userIDF =userID;
         initComponents();
         applyTheme(lightTheme);
         jLabel6.setIcon(moonIcon);  // Establece el ícono inicial del sol
@@ -362,7 +363,7 @@ public class Ranking extends javax.swing.JFrame {
     }//GEN-LAST:event_changeModeMouseClicked
 
     private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
-        MenuActividades menuActividades = new MenuActividades();
+        MenuActividades menuActividades = new MenuActividades(userIDF);
         menuActividades.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jPanel4MouseClicked
@@ -402,7 +403,7 @@ public class Ranking extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Ranking().setVisible(true);
+                new Ranking(userIDF).setVisible(true);
             }
         });
     }

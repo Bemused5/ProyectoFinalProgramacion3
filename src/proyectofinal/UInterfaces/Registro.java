@@ -21,9 +21,6 @@ public class Registro extends javax.swing.JFrame {
     private ImageIcon moonIcon = new ImageIcon(getClass().getResource("/proyectofinal/UInterfaces/moon.png"));
     private boolean isDarkMode = false;  // Variable para rastrear el tema actual
 
-
-
-
     int xMouse, yMouse;
 
     /**
@@ -424,7 +421,7 @@ public class Registro extends javax.swing.JFrame {
             jLabel9.setText("El usuario ya existe intenta, otra vez");
         }else{
             jLabel9.setText("Registro Exitoso");
-            MenuActividades menuActividades = new MenuActividades();
+            MenuActividades menuActividades = new MenuActividades(idRetornado);
             menuActividades.setVisible(true);
             this.dispose();
         }

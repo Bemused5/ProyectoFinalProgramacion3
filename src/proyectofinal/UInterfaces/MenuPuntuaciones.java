@@ -20,15 +20,14 @@ public class MenuPuntuaciones extends javax.swing.JFrame {
     private ImageIcon moonIcon = new ImageIcon(getClass().getResource("/proyectofinal/UInterfaces/moon.png"));
     private boolean isDarkMode = false;  // Variable para rastrear el tema actual
 
-
-
-
+    static int userIDF;
     int xMouse, yMouse;
 
     /**
      * Creates new form Inicio
      */
-    public MenuPuntuaciones() {
+    public MenuPuntuaciones(int userID) {
+        userIDF=userID;
         initComponents();
         applyTheme(lightTheme);
         jLabel6.setIcon(moonIcon);  // Establece el ícono inicial del sol
@@ -529,7 +528,7 @@ public class MenuPuntuaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_changeModeMouseClicked
 
     private void backButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButtonMouseClicked
-        MenuActividades menuActividades = new MenuActividades();
+        MenuActividades menuActividades = new MenuActividades(userIDF);
         menuActividades.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backButtonMouseClicked
@@ -543,19 +542,19 @@ public class MenuPuntuaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_backButtonMouseEntered
 
     private void jPanel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MouseClicked
-        RegistrosPuntuaciones registrosPuntuaciones = new RegistrosPuntuaciones(1,1);
+        RegistrosPuntuaciones registrosPuntuaciones = new RegistrosPuntuaciones(userIDF,1);
         registrosPuntuaciones.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jPanel7MouseClicked
 
     private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
-        RegistrosPuntuaciones registrosPuntuaciones = new RegistrosPuntuaciones(1,2);
+        RegistrosPuntuaciones registrosPuntuaciones = new RegistrosPuntuaciones(userIDF,2);
         registrosPuntuaciones.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jPanel5MouseClicked
 
     private void jPanel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel9MouseClicked
-        RegistrosPuntuaciones registrosPuntuaciones = new RegistrosPuntuaciones(1,3);
+        RegistrosPuntuaciones registrosPuntuaciones = new RegistrosPuntuaciones(userIDF,3);
         registrosPuntuaciones.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jPanel9MouseClicked
@@ -565,19 +564,19 @@ public class MenuPuntuaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel6MouseDragged
 
     private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
-        RegistrosPuntuaciones registrosPuntuaciones = new RegistrosPuntuaciones(1,4);
+        RegistrosPuntuaciones registrosPuntuaciones = new RegistrosPuntuaciones(userIDF,4);
         registrosPuntuaciones.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jPanel6MouseClicked
 
     private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
-        RegistrosPuntuaciones registrosPuntuaciones = new RegistrosPuntuaciones(1,5);
+        RegistrosPuntuaciones registrosPuntuaciones = new RegistrosPuntuaciones(userIDF,5);
         registrosPuntuaciones.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jPanel4MouseClicked
 
     private void jPanel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MouseClicked
-        RegistrosPuntuaciones registrosPuntuaciones = new RegistrosPuntuaciones(1,6);
+        RegistrosPuntuaciones registrosPuntuaciones = new RegistrosPuntuaciones(userIDF,6);
         registrosPuntuaciones.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jPanel8MouseClicked
@@ -617,7 +616,7 @@ public class MenuPuntuaciones extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuPuntuaciones().setVisible(true);
+                new MenuPuntuaciones(userIDF).setVisible(true);
             }
         });
     }
