@@ -6,6 +6,11 @@ package proyectofinal;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Puntuacion {
     int userID;
@@ -26,6 +31,38 @@ public class Puntuacion {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    public Map<String, ArrayList> obtenerPuntuacionesPorUsuarioYJuego(int usuarioID, int juegoID){
+        ArrayList<Integer> puntuaciones = new ArrayList<>();
+        ArrayList<Timestamp> fechas = new ArrayList<>();
+        try {
+            
+            Connection con = ConexionABase.inicializaBaseDeDatos();
+            PreparedStatement stmnt = con.prepareStatement(
+                    "SELECT puntuacion, fecha FROM puntuaciones WHERE usuario_id = ? AND juego_id = ? ORDER BY fecha DESC");
+            stmnt.setInt(1, usuarioID);
+            stmnt.setInt(2, juegoID);
+            ResultSet rs = stmnt.executeQuery();
+
+            
+            while (rs.next()) {
+                puntuaciones.add(rs.getInt("puntuacion"));
+                fechas.add(rs.getTimestamp("fecha"));
+            }
+
+
+            rs.close();
+            stmnt.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        Map<String, ArrayList> map = new HashMap<>();
+        map.put("puntuaciones", puntuaciones);
+        map.put("fechas", fechas);
+
+        return map;
     }
 }
 

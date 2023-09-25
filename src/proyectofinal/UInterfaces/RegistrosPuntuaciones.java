@@ -6,10 +6,12 @@ package proyectofinal.UInterfaces;
 
 import java.awt.Color;
 import java.awt.Frame;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Map;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import proyectofinal.Puntuacion;
 import proyectofinal.RankingJuego;
 
 
@@ -17,7 +19,7 @@ import proyectofinal.RankingJuego;
  *
  * @author daasa
  */
-public class Ranking extends javax.swing.JFrame {
+public class RegistrosPuntuaciones extends javax.swing.JFrame {
     private Theme darkTheme = new Theme(new Color(0, 0, 51), new Color(255, 255, 255), new Color(100, 100, 100));
     private Theme lightTheme = new Theme(new Color(255, 255, 255), new Color(0, 0, 0), new Color(200, 200, 200));
     private ImageIcon sunIcon = new ImageIcon(getClass().getResource("/proyectofinal/UInterfaces/sun.png"));
@@ -29,27 +31,36 @@ public class Ranking extends javax.swing.JFrame {
 
 
     int xMouse, yMouse;
+    static int usuarioID;
+    static int juegoID;
 
     /**
      * Creates new form Inicio
+     * @param usuarioID
+     * @param juegoID
      */
-    public Ranking() {
+    public RegistrosPuntuaciones(int usuarioID, int juegoID) {
         initComponents();
         applyTheme(lightTheme);
         jLabel6.setIcon(moonIcon);  // Establece el ícono inicial del sol
             
-        ArrayList<String> nombres = rankingMap.get("nombres");
-        ArrayList<String> puntuaciones = rankingMap.get("puntuaciones");
+        Puntuacion puntuacion = new Puntuacion();
+        Map<String, ArrayList> rankingMap = puntuacion.obtenerPuntuacionesPorUsuarioYJuego(usuarioID, juegoID);
         
-        DefaultListModel<String> modelNombres = new DefaultListModel<>();
+        ArrayList<Integer> puntuaciones = rankingMap.get("puntuaciones");
+        ArrayList<Timestamp> fechas = rankingMap.get("fechas");
+
         DefaultListModel<String> modelPuntuaciones = new DefaultListModel<>();
-        for (int i = 0; i < nombres.size() && i < 10; i++) {
-            modelNombres.addElement(nombres.get(i));
-            modelPuntuaciones.addElement(puntuaciones.get(i));
+        DefaultListModel<String> modelFechas = new DefaultListModel<>();
+
+        for (int i = 0; i < puntuaciones.size() && i < 10; i++) {
+            modelPuntuaciones.addElement(puntuaciones.get(i).toString());
+            modelFechas.addElement(fechas.get(i).toString());
         }
 
-        jListRankingNombres.setModel(modelNombres);
         jListRankingPuntuaciones.setModel(modelPuntuaciones);
+        jListRankingFechas.setModel(modelFechas);
+       
     }
     private void applyTheme(Theme theme) {
         jPanel1.setBackground(theme.backgroundColor);
@@ -57,10 +68,10 @@ public class Ranking extends javax.swing.JFrame {
         jLabel5.setForeground(theme.textColor); 
         jLabel3.setForeground(theme.textColor);
         jLabel7.setForeground(theme.textColor); 
-        jListRankingNombres.setBackground( theme.backgroundColor);
-        jListRankingNombres.setForeground(theme.textColor);
         jListRankingPuntuaciones.setBackground( theme.backgroundColor);
         jListRankingPuntuaciones.setForeground(theme.textColor);
+        jListRankingFechas.setBackground( theme.backgroundColor);
+        jListRankingFechas.setForeground(theme.textColor);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -84,8 +95,9 @@ public class Ranking extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jListRankingNombres = new javax.swing.JList<>();
         jListRankingPuntuaciones = new javax.swing.JList<>();
+        jListRankingFechas = new javax.swing.JList<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -227,7 +239,7 @@ public class Ranking extends javax.swing.JFrame {
         jPanel1.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1380, 40));
 
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 48)); // NOI18N
-        jLabel2.setText("Top mejores jugadores");
+        jLabel2.setText("Tus registros en el juego");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, -1, -1));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -245,7 +257,7 @@ public class Ranking extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Continuar");
+        jLabel4.setText("Regresar a mis registros");
         jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -264,25 +276,16 @@ public class Ranking extends javax.swing.JFrame {
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 700, 310, 40));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel5.setText("¿Estas entre los mejores?");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 160, -1, -1));
+        jLabel5.setText("Veamos tus ultimos 10 intentos");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 160, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 36)); // NOI18N
-        jLabel3.setText("Puntuación");
+        jLabel3.setText("Fecha");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 220, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 36)); // NOI18N
-        jLabel7.setText("Nombre");
+        jLabel7.setText("Puntuación");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, -1, -1));
-
-        jListRankingNombres.setBorder(null);
-        jListRankingNombres.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
-        jListRankingNombres.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jPanel1.add(jListRankingNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 290, 580, -1));
 
         jListRankingPuntuaciones.setBorder(null);
         jListRankingPuntuaciones.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
@@ -291,7 +294,18 @@ public class Ranking extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jPanel1.add(jListRankingPuntuaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 290, -1, -1));
+        jListRankingPuntuaciones.setSelectionBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(jListRankingPuntuaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 290, 580, -1));
+
+        jListRankingFechas.setBorder(null);
+        jListRankingFechas.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
+        jListRankingFechas.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jPanel1.add(jListRankingFechas, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 290, -1, -1));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 290, 570, 170));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -362,8 +376,8 @@ public class Ranking extends javax.swing.JFrame {
     }//GEN-LAST:event_changeModeMouseClicked
 
     private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
-        MenuActividades menuActividades = new MenuActividades();
-        menuActividades.setVisible(true);
+        MenuPuntuaciones menuPuntuaciones = new MenuPuntuaciones();
+        menuPuntuaciones.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jPanel4MouseClicked
                                   
@@ -386,14 +400,18 @@ public class Ranking extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Ranking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistrosPuntuaciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Ranking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistrosPuntuaciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Ranking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistrosPuntuaciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Ranking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistrosPuntuaciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -402,7 +420,7 @@ public class Ranking extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Ranking().setVisible(true);
+                new RegistrosPuntuaciones(usuarioID,juegoID).setVisible(true);
             }
         });
     }
@@ -418,10 +436,11 @@ public class Ranking extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JList<String> jListRankingNombres;
+    private javax.swing.JList<String> jListRankingFechas;
     private javax.swing.JList<String> jListRankingPuntuaciones;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
     private Clases.PanelRound minimizeWindow;
     // End of variables declaration//GEN-END:variables
 }

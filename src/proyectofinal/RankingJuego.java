@@ -11,11 +11,13 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.Comparator;
+import java.util.HashMap;
 
 
 public class RankingJuego extends Usuario {
-    public ArrayList<String> obtenerRanking(int juegoID) {
-    ArrayList<String> ranking = new ArrayList<>();
+    public Map<String, ArrayList<String>> obtenerRanking(int juegoID){
+    ArrayList<String> rankingNombres = new ArrayList<>();
+    ArrayList<String> rankingPuntuaciones = new ArrayList<>();
     TreeMap<Integer, String> sortedRanking = new TreeMap<>(Comparator.reverseOrder());
 
     try {
@@ -49,21 +51,19 @@ public class RankingJuego extends Usuario {
         for (Map.Entry<Integer, String> entry : sortedRanking.entrySet()) {
             int puntuacion = entry.getKey();
             String nombre = entry.getValue();
-            ranking.add("Usuario: " + nombre + " Puntuación: " + puntuacion);
+            rankingNombres.add(nombre);
+            rankingPuntuaciones.add(String.valueOf(puntuacion));
         }
 
     } catch (Exception e) {
         e.printStackTrace();
     }
 
-    // Código de testeo (opcional)
-    System.out.println("=== Inicio de la sección de testeo ===");
-    for (String rank : ranking) {
-        System.out.println(rank);
+     // Aquí creamos un mapa para devolver ambos ArrayLists
+    Map<String, ArrayList<String>> rankingMap = new HashMap<>();
+    rankingMap.put("nombres", rankingNombres);
+    rankingMap.put("puntuaciones", rankingPuntuaciones);
+        
+    return rankingMap;
     }
-    System.out.println("=== Fin de la sección de testeo ===");
-
-    return ranking;
-    }
-
 }
