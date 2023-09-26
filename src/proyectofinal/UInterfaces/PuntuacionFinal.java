@@ -7,6 +7,7 @@ package proyectofinal.UInterfaces;
 import java.awt.Color;
 import java.awt.Frame;
 import javax.swing.ImageIcon;
+import proyectofinal.Puntuacion;
 
 
 /**
@@ -20,17 +21,26 @@ public class PuntuacionFinal extends javax.swing.JFrame {
     private ImageIcon moonIcon = new ImageIcon(getClass().getResource("/proyectofinal/UInterfaces/moon.png"));
     private boolean isDarkMode = false;  // Variable para rastrear el tema actual
 
-
-
+    static int userIDF;
+    static int puntuacionF;
+    static int idJuegoF;
 
     int xMouse, yMouse;
 
     /**
      * Creates new form Inicio
      */
-    public PuntuacionFinal() {
+    public PuntuacionFinal(int userID,int puntuacion,int idJuego) {
+        userIDF = userID;
+        puntuacionF =puntuacion;
+        idJuegoF = idJuego;
+        
+        Puntuacion puntuacion1 = new Puntuacion();
+        puntuacion1.almacenarPuntuacion(idJuegoF, puntuacionF, userIDF);
+        
         initComponents();
         applyTheme(lightTheme);
+        jLabel4.setText(String.valueOf(puntuacionF));
         jLabel6.setIcon(moonIcon);  // Establece el ícono inicial del sol
         
     }
@@ -57,6 +67,8 @@ public class PuntuacionFinal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -202,7 +214,7 @@ public class PuntuacionFinal extends javax.swing.JFrame {
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 440, -1, -1));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectofinal/UInterfaces/child estudying.jpg"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectofinal/UInterfaces/motivacion.png"))); // NOI18N
         jLabel1.setText("jLabel1");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 0, 340, 770));
 
@@ -213,6 +225,35 @@ public class PuntuacionFinal extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 48)); // NOI18N
         jLabel4.setText("100");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 290, -1, -1));
+
+        jPanel4.setBackground(new java.awt.Color(255, 153, 51));
+        jPanel4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jPanel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel4MouseClicked(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 24)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Continuar");
+        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 700, 310, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -281,6 +322,12 @@ public class PuntuacionFinal extends javax.swing.JFrame {
         }
         isDarkMode = !isDarkMode;  // Invertir el estado del tema
     }//GEN-LAST:event_changeModeMouseClicked
+
+    private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
+        Ranking ranking = new Ranking(userIDF,idJuegoF);
+        ranking.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jPanel4MouseClicked
                                   
 
 
@@ -315,7 +362,7 @@ public class PuntuacionFinal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PuntuacionFinal().setVisible(true);
+                new PuntuacionFinal(userIDF,puntuacionF,idJuegoF).setVisible(true);
             }
         });
     }
@@ -328,8 +375,10 @@ public class PuntuacionFinal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel4;
     private Clases.PanelRound minimizeWindow;
     // End of variables declaration//GEN-END:variables
 }

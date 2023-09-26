@@ -23,18 +23,20 @@ public class Ranking extends javax.swing.JFrame {
     private ImageIcon sunIcon = new ImageIcon(getClass().getResource("/proyectofinal/UInterfaces/sun.png"));
     private ImageIcon moonIcon = new ImageIcon(getClass().getResource("/proyectofinal/UInterfaces/moon.png"));
     private boolean isDarkMode = false;  // Variable para rastrear el tema actual
-    RankingJuego rankingJuego = new RankingJuego();
-    Map<String, ArrayList<String>> rankingMap = rankingJuego.obtenerRanking(1);
-
-
+    
+    static int gameIDF;
     static int userIDF;
     int xMouse, yMouse;
 
     /**
      * Creates new form Inicio
      */
-    public Ranking(int userID) {
+    public Ranking(int userID,int gameID) {
+        gameIDF = gameID;
         userIDF =userID;
+        RankingJuego rankingJuego = new RankingJuego();
+        Map<String, ArrayList<String>> rankingMap = rankingJuego.obtenerRanking(gameIDF);
+        
         initComponents();
         applyTheme(lightTheme);
         jLabel6.setIcon(moonIcon);  // Establece el ícono inicial del sol
@@ -403,7 +405,7 @@ public class Ranking extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Ranking(userIDF).setVisible(true);
+                new Ranking(userIDF,gameIDF).setVisible(true);
             }
         });
     }

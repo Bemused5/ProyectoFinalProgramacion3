@@ -6,6 +6,7 @@ package proyectofinal.UInterfaces;
 
 import java.awt.Color;
 import java.awt.Frame;
+import java.util.Random;
 import javax.swing.ImageIcon;
 
 
@@ -272,6 +273,11 @@ public class MenuActividades extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(255, 153, 51));
         jPanel4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jPanel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel4MouseClicked(evt);
+            }
+        });
 
         jLabel12.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 24)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
@@ -302,6 +308,11 @@ public class MenuActividades extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(255, 153, 51));
         jPanel5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jPanel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel5MouseClicked(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -313,9 +324,9 @@ public class MenuActividades extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -328,6 +339,11 @@ public class MenuActividades extends javax.swing.JFrame {
 
         jPanel6.setBackground(new java.awt.Color(255, 153, 51));
         jPanel6.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jPanel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel6MouseClicked(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 24)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
@@ -354,6 +370,11 @@ public class MenuActividades extends javax.swing.JFrame {
 
         jPanel8.setBackground(new java.awt.Color(255, 153, 51));
         jPanel8.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jPanel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel8MouseClicked(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 24)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -380,6 +401,11 @@ public class MenuActividades extends javax.swing.JFrame {
 
         jPanel9.setBackground(new java.awt.Color(255, 153, 51));
         jPanel9.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jPanel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel9MouseClicked(evt);
+            }
+        });
 
         jLabel11.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 24)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
@@ -412,6 +438,11 @@ public class MenuActividades extends javax.swing.JFrame {
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("Actividad 5");
         jLabel10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -548,6 +579,54 @@ public class MenuActividades extends javax.swing.JFrame {
         menuPuntuaciones.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jPanel11MouseClicked
+
+    private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
+        Random generador = new Random();
+        int puntuacion = generador.nextInt(100);
+        PuntuacionFinal puntuacionFinal = new PuntuacionFinal(userIDF,puntuacion,1);
+        puntuacionFinal.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jPanel5MouseClicked
+
+    private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
+        Random generador = new Random();
+        int puntuacion = generador.nextInt(100);
+        PuntuacionFinal puntuacionFinal = new PuntuacionFinal(userIDF,puntuacion,2);
+        puntuacionFinal.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jPanel6MouseClicked
+
+    private void jPanel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel9MouseClicked
+        Random generador = new Random();
+        int puntuacion = generador.nextInt(100);
+        PuntuacionFinal puntuacionFinal = new PuntuacionFinal(userIDF,puntuacion,3);
+        puntuacionFinal.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jPanel9MouseClicked
+
+    private void jPanel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MouseClicked
+        Random generador = new Random();
+        int puntuacion = generador.nextInt(100);
+        PuntuacionFinal puntuacionFinal = new PuntuacionFinal(userIDF,puntuacion,4);
+        puntuacionFinal.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jPanel8MouseClicked
+
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+        Random generador = new Random();
+        int puntuacion = generador.nextInt(100);
+        PuntuacionFinal puntuacionFinal = new PuntuacionFinal(userIDF,puntuacion,5);
+        puntuacionFinal.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel10MouseClicked
+
+    private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
+        Random generador = new Random();
+        int puntuacion = generador.nextInt(100);
+        PuntuacionFinal puntuacionFinal = new PuntuacionFinal(userIDF,puntuacion,6);
+        puntuacionFinal.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jPanel4MouseClicked
                                   
 
 
