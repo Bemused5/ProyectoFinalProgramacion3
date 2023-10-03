@@ -613,10 +613,8 @@ public class MenuActividades extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel8MouseClicked
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
-        Random generador = new Random();
-        int puntuacion = generador.nextInt(100);
-        PuntuacionFinal puntuacionFinal = new PuntuacionFinal(userIDF,puntuacion,5);
-        puntuacionFinal.setVisible(true);
+        Anagrama anagrama = new Anagrama(0,5,userIDF,1);
+        anagrama.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel10MouseClicked
 

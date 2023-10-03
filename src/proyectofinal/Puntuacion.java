@@ -14,17 +14,19 @@ import java.util.Map;
 
 public class Puntuacion {
     int userID;
-    int juegoID;
-    int puntuacion;
+    int juegoIDF;
+    int puntuacionF;
 
     public void almacenarPuntuacion(int juegoID, int puntuacion, int id) {
         userID=id;
+        juegoIDF = juegoID;
+        puntuacionF = puntuacion;
         try {
             Connection con = ConexionABase.inicializaBaseDeDatos();
             PreparedStatement stmnt = con.prepareStatement("INSERT INTO puntuaciones(usuario_id, juego_id, puntuacion) VALUES (?, ?, ?)");
             stmnt.setInt(1,userID);
-            stmnt.setInt(2, juegoID);
-            stmnt.setInt(3, puntuacion);
+            stmnt.setInt(2, juegoIDF);
+            stmnt.setInt(3, puntuacionF);
             stmnt.executeUpdate();
             stmnt.close();
             con.close();
