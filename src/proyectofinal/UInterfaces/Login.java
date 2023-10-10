@@ -411,13 +411,21 @@ public class Login extends javax.swing.JFrame {
         char[] contrasena = jPasswordField1.getPassword();
         Usuario usuario = new Usuario();
         int idRetornado = usuario.hacerLogin(contrasena);
+        int userTipe= usuario.hacerLogin2(contrasena);
         if (idRetornado==0){
             jLabel8.setText("No se pudo encontrar el usuario ingresado, vuelve a intentarlo");
         }else{
-            jLabel8.setText("");
-            MenuActividades menuActividades = new MenuActividades(idRetornado);
-            menuActividades.setVisible(true);
-            this.dispose();
+            if(userTipe==2){
+                jLabel8.setText("");
+                MenuActividades menuActividades = new MenuActividades(idRetornado);
+                menuActividades.setVisible(true);
+                this.dispose();
+            }else{
+                MenuAdministrador menuAdministrador = new MenuAdministrador(idRetornado);
+                menuAdministrador.setVisible(true);
+                this.dispose();
+            }
+            
         }
     }//GEN-LAST:event_jPanel4MouseClicked
                                   
