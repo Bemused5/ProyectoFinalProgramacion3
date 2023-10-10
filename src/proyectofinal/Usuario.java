@@ -13,14 +13,15 @@ public class Usuario {
     String nombre;
     String usuario;
     int usuarioID;
+    int userTipe = 2;  // Valor por defecto
     Scanner entrada = new Scanner(System.in);
 
     public int registrarUsuario(String nombre, String usuario) {
-        usuarioID=0;
+        usuarioID = 0;
 
-        // Inicia el bloque try-catch para manejar las excepciones SQL
         try {
-            Connection con = ConexionABase.inicializaBaseDeDatos(); // Asume que tienes una clase ConexionABase que hace esto
+            Connection con = ConexionABase.inicializaBaseDeDatos();
+
             // Verifica si el usuario ya existe
             PreparedStatement checkStmt = con.prepareStatement("SELECT usuario_id FROM usuarios WHERE nombre_de_usuario = ?");
             checkStmt.setString(1, usuario);
@@ -28,9 +29,10 @@ public class Usuario {
 
             if (!rs.next()) {
                 // Inserta el nuevo usuario
-                PreparedStatement insertStmt = con.prepareStatement("INSERT INTO usuarios(nombre, nombre_de_usuario) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS);
+                PreparedStatement insertStmt = con.prepareStatement("INSERT INTO usuarios(nombre, nombre_de_usuario, userTipe) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
                 insertStmt.setString(1, nombre);
                 insertStmt.setString(2, usuario);
+                insertStmt.setInt(3, userTipe);  // Insertar el valor por defecto de userTipe
                 insertStmt.executeUpdate();
 
                 // Obtener el ID generado
