@@ -168,7 +168,7 @@
                 <Component class="javax.swing.JLabel" name="jLabel6">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/proyectofinal/UInterfaces/moon.png"/>
+                      <Image iconType="3" name="/proyectofinal/UInterfaces/resources/moon.png"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -280,7 +280,7 @@
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/proyectofinal/UInterfaces/child estudying.jpg"/>
+              <Image iconType="3" name="/proyectofinal/UInterfaces/resources/child estudying.jpg"/>
             </Property>
             <Property name="text" type="java.lang.String" value="jLabel1"/>
           </Properties>
