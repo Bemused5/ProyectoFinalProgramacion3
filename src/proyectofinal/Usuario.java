@@ -14,6 +14,19 @@ public class Usuario {
     String usuario;
     int usuarioID;
     int userTipe = 2;  // Valor por defecto
+    
+    
+    private String nombreDeUsuario;
+    
+    public Usuario(int usuarioID, String nombre, String nombreDeUsuario, int userTipe) {
+        this.usuarioID = usuarioID;
+        this.nombre = nombre;
+        this.nombreDeUsuario = nombreDeUsuario;
+        this.userTipe = userTipe;
+    }
+    public Usuario() {
+        
+    }
     Scanner entrada = new Scanner(System.in);
 
     public int registrarUsuario(String nombre, String usuario) {
@@ -113,5 +126,14 @@ public class Usuario {
 
         return userTipe;
     }
+    
+    public int getUsuarioID() {
+        return usuarioID;
+    }
 
+    @Override
+    public String toString() {
+        return "ID: " + usuarioID + ", Nombre: " + nombre + ", Usuario: " + nombreDeUsuario + ", Tipo: " + userTipe;
+    }
+    
 }

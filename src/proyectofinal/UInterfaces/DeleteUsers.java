@@ -6,7 +6,17 @@ package proyectofinal.UInterfaces;
 
 import java.awt.Color;
 import java.awt.Frame;
+import java.util.List;  
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import proyectofinal.ConexionABase;
+import proyectofinal.Usuario;
 
 
 /**
@@ -19,6 +29,7 @@ public class DeleteUsers extends javax.swing.JFrame {
     private ImageIcon sunIcon = new ImageIcon(getClass().getResource("/proyectofinal/UInterfaces/resources/sun.png"));
     private ImageIcon moonIcon = new ImageIcon(getClass().getResource("/proyectofinal/UInterfaces/resources/moon.png"));
     private boolean isDarkMode = false;  // Variable para rastrear el tema actual
+    
 
 
 
@@ -32,7 +43,8 @@ public class DeleteUsers extends javax.swing.JFrame {
         initComponents();
         applyTheme(lightTheme);
         jLabel6.setIcon(moonIcon);  // Establece el ícono inicial del sol
-        
+
+        updateUsuarioList();  // Actualiza la lista de usuarios cuando se inicializa el JFrame
     }
     private void applyTheme(Theme theme) {
         jPanel1.setBackground(theme.backgroundColor);
@@ -214,19 +226,22 @@ public class DeleteUsers extends javax.swing.JFrame {
         jLabel5.setText("Eliminar usuarios");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 100, -1, -1));
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
+        jList1.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 22)); // NOI18N
         jScrollPane1.setViewportView(jList1);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 240, 810, 310));
 
         jPanel2.setBackground(java.awt.Color.red);
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel2MouseClicked(evt);
+            }
+        });
 
+        jLabel3.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Elimina");
+        jLabel3.setText("Eliminar Usuario Seleccionado");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -308,7 +323,59 @@ public class DeleteUsers extends javax.swing.JFrame {
         }
         isDarkMode = !isDarkMode;  // Invertir el estado del tema
     }//GEN-LAST:event_changeModeMouseClicked
-                                  
+
+    private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
+        Usuario selectedUser = jList1.getSelectedValue();
+        if (selectedUser != null) {
+            deleteUser(selectedUser);
+            updateUsuarioList();  // Actualiza la lista después de eliminar
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecciona un usuario para eliminar.");
+        }
+    }//GEN-LAST:event_jPanel2MouseClicked
+    private List<Usuario> getUsuariosFromDB() {
+    List<Usuario> usuarios = new ArrayList<>();
+
+    try {
+        Connection con = ConexionABase.inicializaBaseDeDatos(); 
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT usuario_id, nombre, nombre_de_usuario, userTipe FROM usuarios");
+
+        while (rs.next()) {
+            usuarios.add(new Usuario(rs.getInt("usuario_id"), rs.getString("nombre"), rs.getString("nombre_de_usuario"), rs.getInt("userTipe")));
+        }
+
+        rs.close();
+        stmt.close();
+        con.close();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return usuarios;
+}
+
+    private void updateUsuarioList() {
+        DefaultListModel<Usuario> model = new DefaultListModel<>();
+        for (Usuario usuario : getUsuariosFromDB()) {
+            model.addElement(usuario);
+        }
+        jList1.setModel(model);
+    }
+    
+    private void deleteUser(Usuario usuario) {
+    try {
+        Connection con = ConexionABase.inicializaBaseDeDatos(); 
+        PreparedStatement stmt = con.prepareStatement("DELETE FROM usuarios WHERE usuario_id = ?");
+        stmt.setInt(1, usuario.getUsuarioID());
+        stmt.executeUpdate();
+
+        stmt.close();
+        con.close();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+
 
 
     /**
@@ -356,7 +423,7 @@ public class DeleteUsers extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JList<String> jList1;
+    private javax.swing.JList<Usuario> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
