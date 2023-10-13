@@ -136,4 +136,21 @@ public class Usuario {
         return "ID: " + usuarioID + ", Nombre: " + nombre + ", Usuario: " + nombreDeUsuario + ", Tipo: " + userTipe;
     }
     
+    public String toSimpleString() {
+        return this.nombre + " (" + this.nombreDeUsuario + ")";
+    }
+
+
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getNombre_de_usuario() {
+        return nombreDeUsuario;
+    }
+
+    public Object getUserTipe() {
+        return userTipe;
+    }
 }
