@@ -66,6 +66,41 @@ public class Usuario {
         }
         return usuarioID;
     }
+    
+    public int registrarUsuario1(String nombre, String usuario, int userTipe) {
+        usuarioID = 0;
+        try {
+            Connection con = ConexionABase.inicializaBaseDeDatos();
+
+            // Verifica si el usuario ya existe
+            PreparedStatement checkStmt = con.prepareStatement("SELECT usuario_id FROM usuarios WHERE nombre_de_usuario = ?");
+            checkStmt.setString(1, usuario);
+            ResultSet rs = checkStmt.executeQuery();
+
+            if (!rs.next()) {
+                // Inserta el nuevo usuario
+                PreparedStatement insertStmt = con.prepareStatement("INSERT INTO usuarios(nombre, nombre_de_usuario, userTipe) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+                insertStmt.setString(1, nombre);
+                insertStmt.setString(2, usuario);
+                insertStmt.setInt(3, userTipe);
+                insertStmt.executeUpdate();
+
+                // Obtener el ID generado
+                ResultSet generatedKeys = insertStmt.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    usuarioID = generatedKeys.getInt(1);
+                }
+            }
+
+            // Cerrar las conexiones y resultados
+            rs.close();
+            checkStmt.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return usuarioID;
+    }
 
     public int hacerLogin(char[] contrasena) {
         usuario = new String(contrasena);
