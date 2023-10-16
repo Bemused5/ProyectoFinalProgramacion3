@@ -6,6 +6,7 @@ package proyectofinal.UInterfaces;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Frame;
 import java.sql.Connection;
 
@@ -15,7 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;  // Importa Statement para usar Statement.RETURN_GENERATED_KEYS
 import java.util.Locale;
-
+//Librerias para generar grafico de barras
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -23,19 +24,39 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 import proyectofinal.ConexionABase;
 
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+import org.jfree.chart.ChartUtils;
+
+
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
+
+
+
+
+
+
 
 /**
  *
  * @author daasa
  */
-public class ActividadesMasUsadas extends javax.swing.JFrame {
+public class ActividadesMasUsadas extends javax.swing.JFrame{
     private Theme darkTheme = new Theme(new Color(0, 0, 51), new Color(255, 255, 255), new Color(100, 100, 100));
     private Theme lightTheme = new Theme(new Color(255, 255, 255), new Color(0, 0, 0), new Color(200, 200, 200));
     private ImageIcon sunIcon = new ImageIcon(getClass().getResource("/proyectofinal/UInterfaces/resources/sun.png"));
     private ImageIcon moonIcon = new ImageIcon(getClass().getResource("/proyectofinal/UInterfaces/resources/moon.png"));
     private boolean isDarkMode = false;  // Variable para rastrear el tema actual
-
-
+    JFreeChart barChart;
 
 
     int xMouse, yMouse;
@@ -54,6 +75,7 @@ public class ActividadesMasUsadas extends javax.swing.JFrame {
         }
         this.revalidate();
         this.repaint();
+        jPanelReporte.addMouseListener(new java.awt.event.MouseAdapter() {});
 
     }
     private void applyTheme(Theme theme) {
@@ -75,10 +97,15 @@ public class ActividadesMasUsadas extends javax.swing.JFrame {
         changeMode = new Clases.PanelRound();
         jLabel6 = new javax.swing.JLabel();
         minimizeWindow = new Clases.PanelRound();
+        backButton = new Clases.PanelRound();
+        jLabel7 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jPanelGrafico = new javax.swing.JPanel();
+        jPanelReporte = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabelResultado = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -193,12 +220,55 @@ public class ActividadesMasUsadas extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        backButton.setBackground(java.awt.Color.green);
+        backButton.setPreferredSize(new java.awt.Dimension(25, 25));
+        backButton.setRoundBottomLeft(100);
+        backButton.setRoundBottomRight(100);
+        backButton.setRoundTopLeft(100);
+        backButton.setRoundTopRight(100);
+        backButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backButtonMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                backButtonMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                backButtonMouseEntered(evt);
+            }
+        });
+
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectofinal/UInterfaces/resources/back.png"))); // NOI18N
+
+        javax.swing.GroupLayout backButtonLayout = new javax.swing.GroupLayout(backButton);
+        backButton.setLayout(backButtonLayout);
+        backButtonLayout.setHorizontalGroup(
+            backButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 25, Short.MAX_VALUE)
+            .addGroup(backButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(backButtonLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel7)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        backButtonLayout.setVerticalGroup(
+            backButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 25, Short.MAX_VALUE)
+            .addGroup(backButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(backButtonLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel7)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
         headerLayout.setHorizontalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
-                .addContainerGap(1247, Short.MAX_VALUE)
+                .addGap(15, 15, 15)
+                .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1207, Short.MAX_VALUE)
                 .addComponent(minimizeWindow, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(changeMode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -210,10 +280,12 @@ public class ActividadesMasUsadas extends javax.swing.JFrame {
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(headerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(changeMode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(exitButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(minimizeWindow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(changeMode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(exitButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(minimizeWindow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
@@ -240,10 +312,38 @@ public class ActividadesMasUsadas extends javax.swing.JFrame {
         );
         jPanelGraficoLayout.setVerticalGroup(
             jPanelGraficoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 470, Short.MAX_VALUE)
+            .addGap(0, 440, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanelGrafico, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 230, 810, 470));
+        jPanel1.add(jPanelGrafico, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, 810, 440));
+
+        jPanelReporte.setBackground(java.awt.Color.blue);
+        jPanelReporte.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanelReporteMouseClicked(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 22)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Obtener reporte en PDF");
+
+        javax.swing.GroupLayout jPanelReporteLayout = new javax.swing.GroupLayout(jPanelReporte);
+        jPanelReporte.setLayout(jPanelReporteLayout);
+        jPanelReporteLayout.setHorizontalGroup(
+            jPanelReporteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanelReporteLayout.setVerticalGroup(
+            jPanelReporteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(jPanelReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 690, 260, 60));
+
+        jLabelResultado.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 24)); // NOI18N
+        jPanel1.add(jLabelResultado, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 690, 460, 60));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -312,6 +412,102 @@ public class ActividadesMasUsadas extends javax.swing.JFrame {
         }
         isDarkMode = !isDarkMode;  // Invertir el estado del tema
     }//GEN-LAST:event_changeModeMouseClicked
+
+    private void backButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButtonMouseClicked
+        Inicio inicioFrame = new Inicio();
+        inicioFrame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_backButtonMouseClicked
+
+    private void backButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButtonMouseExited
+        backButton.setBackground(Color.GREEN);
+    }//GEN-LAST:event_backButtonMouseExited
+
+    private void backButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButtonMouseEntered
+        backButton.setBackground(new Color(0, 178, 0));
+    }//GEN-LAST:event_backButtonMouseEntered
+
+    private void jPanelReporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelReporteMouseClicked
+       String dest = "reporte.pdf";
+       jLabelResultado.setText("Generando PDF...");
+        try (PDDocument document = new PDDocument()) {
+            // Tamaño Carta
+            PDPage page = new PDPage(new PDRectangle(612, 792)); // 8.5" x 11" en puntos
+            document.addPage(page);
+
+            PDPageContentStream contentStream = new PDPageContentStream(document, page);
+
+            // EducaPoli: centrado, negritas y tamaño 16
+            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 16);
+            String text1 = "EducaPoli";
+            float text1Width = PDType1Font.HELVETICA_BOLD.getStringWidth(text1) / 1000 * 16;
+            float xPosition1 = (page.getMediaBox().getWidth() - text1Width) / 2;
+            contentStream.beginText();
+            contentStream.newLineAtOffset(xPosition1, page.getMediaBox().getHeight() - 100);
+            contentStream.showText(text1);
+            contentStream.endText();
+
+            // Texto personalizado centrado y tamaño 12
+            contentStream.setFont(PDType1Font.HELVETICA, 12);
+            String text2 = "Aquí te presentamos un reporte de las actividades más usadas a la fecha";
+            float text2Width = PDType1Font.HELVETICA.getStringWidth(text2) / 1000 * 12;
+            float xPosition2 = (page.getMediaBox().getWidth() - text2Width) / 2;
+            contentStream.beginText();
+            contentStream.newLineAtOffset(xPosition2, page.getMediaBox().getHeight() - 120);
+            contentStream.showText(text2);
+            contentStream.endText();
+
+            // Fecha alineada a la derecha
+            String fecha = "Reporte al: " + new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+            float text3Width = PDType1Font.HELVETICA.getStringWidth(fecha) / 1000 * 12;
+            float xPosition3 = page.getMediaBox().getWidth() - text3Width - 100;
+            contentStream.beginText();
+            contentStream.newLineAtOffset(xPosition3, page.getMediaBox().getHeight() - 140);
+            contentStream.showText(fecha);
+            contentStream.endText();
+
+            // Agregar la gráfica
+            File chartFile = new File("chart.png");
+            ChartUtils.saveChartAsPNG(chartFile, barChart, 500, 400);
+            PDImageXObject pdImage = PDImageXObject.createFromFile(chartFile.getAbsolutePath(), document);
+
+            // Calcular posición x para centrar la imagen
+            float widthOfImage = 500; // Ancho de la imagen en puntos
+            float xPositionImage = (page.getMediaBox().getWidth() - widthOfImage) / 2;
+
+            // Insertar imagen
+            contentStream.drawImage(pdImage, xPositionImage, page.getMediaBox().getHeight() - 600, widthOfImage, 400); // Ajusta las coordenadas y tamaño según sea necesario
+
+            Files.delete(chartFile.toPath());  // Limpieza del archivo temporal
+
+            // [El resto del código permanece igual...]
+
+            contentStream.close();
+            document.save(dest);
+            
+            // Actualizar JLabel
+            jLabelResultado.setText("Abriendo el PDF");
+        
+            // Intentar abrir el PDF
+            if (Desktop.isDesktopSupported()) {
+                try {
+                    File myFile = new File(dest);
+                    Desktop.getDesktop().open(myFile);
+                } catch (IOException ex) {
+                    // Manejar el caso en que el archivo no se pueda abrir
+                    jLabelResultado.setText("No se puede abrir, búscalo en los archivos.");
+                    ex.printStackTrace();
+                }
+            } else {
+                // Manejar el caso en que Desktop no está disponible
+                jLabelResultado.setText("No se puede abrir, búscalo en los archivos.");
+                System.out.println("No se puede abrir el archivo, Desktop no es compatible");
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jPanelReporteMouseClicked
        
     private void generateBarChart() throws SQLException, ClassNotFoundException {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
@@ -328,7 +524,7 @@ public class ActividadesMasUsadas extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
-        JFreeChart barChart = ChartFactory.createBarChart(
+        barChart = ChartFactory.createBarChart(
                 "Actividades más usadas",
                 "Juego",
                 "Veces jugado",
@@ -350,6 +546,7 @@ public class ActividadesMasUsadas extends javax.swing.JFrame {
         jPanelGrafico.repaint();
     }
 
+    
 
 
     /**
@@ -390,15 +587,20 @@ public class ActividadesMasUsadas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private Clases.PanelRound backButton;
     private Clases.PanelRound changeMode;
     private Clases.PanelRound exitButton;
     private javax.swing.JPanel header;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabelResultado;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelGrafico;
+    private javax.swing.JPanel jPanelReporte;
     private Clases.PanelRound minimizeWindow;
     // End of variables declaration//GEN-END:variables
 }

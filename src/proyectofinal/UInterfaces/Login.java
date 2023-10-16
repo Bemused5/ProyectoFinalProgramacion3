@@ -202,7 +202,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectofinal/UInterfaces/back.png"))); // NOI18N
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectofinal/UInterfaces/resources/back.png"))); // NOI18N
 
         javax.swing.GroupLayout backButtonLayout = new javax.swing.GroupLayout(backButton);
         backButton.setLayout(backButtonLayout);
