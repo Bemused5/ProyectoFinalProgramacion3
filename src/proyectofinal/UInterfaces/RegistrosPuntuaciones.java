@@ -5,12 +5,22 @@
 package proyectofinal.UInterfaces;
 
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Frame;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import proyectofinal.Puntuacion;
 import proyectofinal.RankingJuego;
 
@@ -32,7 +42,7 @@ public class RegistrosPuntuaciones extends javax.swing.JFrame {
 
     int xMouse, yMouse;
     static int usuarioIDF;
-    static int juegoID;
+    static int juegoIDF;
 
     /**
      * Creates new form Inicio
@@ -40,13 +50,15 @@ public class RegistrosPuntuaciones extends javax.swing.JFrame {
      * @param juegoID
      */
     public RegistrosPuntuaciones(int usuarioID, int juegoID) {
-        usuarioIDF=usuarioID;
+        //usuarioIDF=usuarioID;
+        usuarioIDF=1;
+        juegoIDF=1;
         initComponents();
         applyTheme(lightTheme);
         jLabel6.setIcon(moonIcon);  // Establece el ícono inicial del sol
             
         Puntuacion puntuacion = new Puntuacion();
-        Map<String, ArrayList> rankingMap = puntuacion.obtenerPuntuacionesPorUsuarioYJuego(usuarioIDF, juegoID);
+        Map<String, ArrayList> rankingMap = puntuacion.obtenerPuntuacionesPorUsuarioYJuego(usuarioIDF, juegoIDF);
         
         ArrayList<Integer> puntuaciones = rankingMap.get("puntuaciones");
         ArrayList<Timestamp> fechas = rankingMap.get("fechas");
@@ -54,7 +66,7 @@ public class RegistrosPuntuaciones extends javax.swing.JFrame {
         DefaultListModel<String> modelPuntuaciones = new DefaultListModel<>();
         DefaultListModel<String> modelFechas = new DefaultListModel<>();
 
-        for (int i = 0; i < puntuaciones.size() && i < 10; i++) {
+        for (int i = 0; i < puntuaciones.size() ; i++) {
             modelPuntuaciones.addElement(puntuaciones.get(i).toString());
             modelFechas.addElement(fechas.get(i).toString());
         }
@@ -92,13 +104,15 @@ public class RegistrosPuntuaciones extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jListRankingPuntuaciones = new javax.swing.JList<>();
         jListRankingFechas = new javax.swing.JList<>();
         jScrollPane1 = new javax.swing.JScrollPane();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -255,26 +269,28 @@ public class RegistrosPuntuaciones extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 24)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Regresar a mis registros");
-        jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel8.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 24)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("Regresar a mis registros");
+        jLabel8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 700, 310, 40));
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 690, 310, 40));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel5.setText("Veamos tus ultimos 10 intentos");
@@ -307,6 +323,37 @@ public class RegistrosPuntuaciones extends javax.swing.JFrame {
         });
         jPanel1.add(jListRankingFechas, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 290, -1, -1));
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 290, 570, 170));
+
+        jPanel5.setBackground(new java.awt.Color(255, 153, 51));
+        jPanel5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jPanel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel5MouseClicked(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Generar reporte ");
+        jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 690, -1, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -381,7 +428,101 @@ public class RegistrosPuntuaciones extends javax.swing.JFrame {
         menuPuntuaciones.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jPanel4MouseClicked
-                                  
+
+    private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
+        //Llamar data
+        Puntuacion puntuacion1 = new Puntuacion();
+        Map<String, ArrayList> rankingMap2 = puntuacion1.obtenerPuntuacionesPorUsuarioYJuego(usuarioIDF, juegoIDF);
+        
+        ArrayList<Integer> puntuaciones2 = rankingMap2.get("puntuaciones");
+        ArrayList<Timestamp> fechas2 = rankingMap2.get("fechas");
+
+
+
+        // Generar PDF
+        String dest = "Reporte Registros de Puntuaciones.pdf";
+        //jLabelResultado.setText("Generando PDF...");
+
+        try (PDDocument document = new PDDocument()) {
+            PDPage page = new PDPage(new PDRectangle(612, 792)); // Tamaño Carta
+            document.addPage(page);
+
+            try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {
+                // EducaPoli: centrado, negritas y tamaño 16
+            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 16);
+            String text1 = "EducaPoli";
+            float text1Width = PDType1Font.HELVETICA_BOLD.getStringWidth(text1) / 1000 * 16;
+            float xPosition1 = (page.getMediaBox().getWidth() - text1Width) / 2;
+            contentStream.beginText();
+            contentStream.newLineAtOffset(xPosition1, page.getMediaBox().getHeight() - 100);
+            contentStream.showText(text1);
+            contentStream.endText();
+
+            // Texto personalizado centrado y tamaño 12
+            contentStream.setFont(PDType1Font.HELVETICA, 12);
+            String text2 = "Aquí te presentamos un reporte de los mayores puntajes del juego 1 a la fecha";
+            float text2Width = PDType1Font.HELVETICA.getStringWidth(text2) / 1000 * 12;
+            float xPosition2 = (page.getMediaBox().getWidth() - text2Width) / 2;
+            contentStream.beginText();
+            contentStream.newLineAtOffset(xPosition2, page.getMediaBox().getHeight() - 120);
+            contentStream.showText(text2);
+            contentStream.endText();
+
+            // Fecha alineada a la derecha
+            String fecha = "Reporte al: " + new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+            float text3Width = PDType1Font.HELVETICA.getStringWidth(fecha) / 1000 * 12;
+            float xPosition3 = page.getMediaBox().getWidth() - text3Width - 100;
+            contentStream.beginText();
+            contentStream.newLineAtOffset(xPosition3, page.getMediaBox().getHeight() - 140);
+            contentStream.showText(fecha);
+            contentStream.endText();
+
+                // Después de imprimir la fecha, imprime las puntuaciones
+                contentStream.setFont(PDType1Font.HELVETICA, 12);
+                contentStream.beginText();
+                contentStream.newLineAtOffset(100, page.getMediaBox().getHeight() - 160); // Ajustar según sea necesario
+
+                // Aquí, iterará a través de sus datos de puntuación.
+                // Debe recuperar sus datos de puntuación y reemplazar esta sección con la lógica de iteración adecuada.
+                for (int i = 0; i < puntuaciones2.size(); i++) {
+                    // Asumiendo que tiene una lista de strings para las puntuaciones.
+                    String puntuacion = "Puntuación: " + puntuaciones2.get(i).toString() + " Fecha: " + fechas2.get(i).toString();
+                    contentStream.showText(puntuacion);
+                    contentStream.newLineAtOffset(0, -15); // Mueva a la siguiente línea
+                }
+
+                contentStream.endText();
+            }
+
+            document.save(dest);
+            
+            // Actualizar JLabel
+            //jLabelResultado.setText("Abriendo el PDF");
+        
+            // Intentar abrir el PDF
+            if (Desktop.isDesktopSupported()) {
+                try {
+                    File myFile = new File(dest);
+                    Desktop.getDesktop().open(myFile);
+                } catch (IOException ex) {
+                    // Manejar el caso en que el archivo no se pueda abrir
+                    //jLabelResultado.setText("No se puede abrir, búscalo en los archivos.");
+                    ex.printStackTrace();
+                }
+            } else {
+                // Manejar el caso en que Desktop no está disponible
+                //jLabelResultado.setText("No se puede abrir, búscalo en los archivos.");
+                System.out.println("No se puede abrir el archivo, Desktop no es compatible");
+            }
+        } catch (IOException e) {
+            //jLabelResultado.setText("Error al generar PDF. " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        //jLabelResultado.setText("PDF generado exitosamente.");    
+
+    }//GEN-LAST:event_jPanel5MouseClicked
+      
 
 
     /**
@@ -421,7 +562,7 @@ public class RegistrosPuntuaciones extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RegistrosPuntuaciones(usuarioIDF,juegoID).setVisible(true);
+                new RegistrosPuntuaciones(usuarioIDF,juegoIDF).setVisible(true);
             }
         });
     }
@@ -437,10 +578,12 @@ public class RegistrosPuntuaciones extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JList<String> jListRankingFechas;
     private javax.swing.JList<String> jListRankingPuntuaciones;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private Clases.PanelRound minimizeWindow;
     // End of variables declaration//GEN-END:variables
