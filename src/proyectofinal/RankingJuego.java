@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Scanner;
 
 
 public class RankingJuego extends Usuario {
@@ -66,4 +67,6 @@ public class RankingJuego extends Usuario {
         
     return rankingMap;
     }
+
+    
 }

@@ -8,79 +8,66 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Frame;
-import java.sql.Connection;
-
-import javax.swing.ImageIcon;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;  // Importa Statement para usar Statement.RETURN_GENERATED_KEYS
-import java.util.Locale;
-//Librerias para generar grafico de barras
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.category.DefaultCategoryDataset;
-import proyectofinal.ConexionABase;
-
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.common.PDRectangle;
-import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
-import org.jfree.chart.ChartUtils;
-
-
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
+import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
-
-
-
-
-
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.ChartUtils;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+import proyectofinal.RankingJuego;
 
 
 /**
  *
  * @author daasa
  */
-public class ActividadesMasUsadas extends javax.swing.JFrame{
+public class RankingGrafico extends javax.swing.JFrame {
     private Theme darkTheme = new Theme(new Color(0, 0, 51), new Color(255, 255, 255), new Color(100, 100, 100));
     private Theme lightTheme = new Theme(new Color(255, 255, 255), new Color(0, 0, 0), new Color(200, 200, 200));
     private ImageIcon sunIcon = new ImageIcon(getClass().getResource("/proyectofinal/UInterfaces/resources/sun.png"));
     private ImageIcon moonIcon = new ImageIcon(getClass().getResource("/proyectofinal/UInterfaces/resources/moon.png"));
     private boolean isDarkMode = false;  // Variable para rastrear el tema actual
-    JFreeChart barChart;
-
-
+    
+    static int gameIDF;
+    static int userIDF;
     int xMouse, yMouse;
+    JFreeChart barChart;
 
     /**
      * Creates new form Inicio
      */
-    public ActividadesMasUsadas() {
+    public RankingGrafico(int userID,int gameID) {
+        gameIDF = 1;
+        userIDF =userID;
+        
         initComponents();
         applyTheme(lightTheme);
-        jLabel6.setIcon(moonIcon);  
-        try {
-            generateBarChart();
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();  // Considera manejar este error de una manera que sea significativa para tu aplicación.
-        }
-        this.revalidate();
-        this.repaint();
-        jPanelReporte.addMouseListener(new java.awt.event.MouseAdapter() {});
+        jLabel6.setIcon(moonIcon);  // Establece el ícono inicial del sol
+            
+
+        generateBarChart();
 
     }
     private void applyTheme(Theme theme) {
         jPanel1.setBackground(theme.backgroundColor);
         jLabel2.setForeground(theme.textColor);
+        jLabel5.setForeground(theme.textColor); 
+
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -97,14 +84,12 @@ public class ActividadesMasUsadas extends javax.swing.JFrame{
         changeMode = new Clases.PanelRound();
         jLabel6 = new javax.swing.JLabel();
         minimizeWindow = new Clases.PanelRound();
-        backButton = new Clases.PanelRound();
-        jLabel7 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jPanelGrafico = new javax.swing.JPanel();
-        jPanelReporte = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
         jLabelResultado = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -220,55 +205,12 @@ public class ActividadesMasUsadas extends javax.swing.JFrame{
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        backButton.setBackground(java.awt.Color.green);
-        backButton.setPreferredSize(new java.awt.Dimension(25, 25));
-        backButton.setRoundBottomLeft(100);
-        backButton.setRoundBottomRight(100);
-        backButton.setRoundTopLeft(100);
-        backButton.setRoundTopRight(100);
-        backButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                backButtonMouseClicked(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                backButtonMouseExited(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                backButtonMouseEntered(evt);
-            }
-        });
-
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectofinal/UInterfaces/resources/back.png"))); // NOI18N
-
-        javax.swing.GroupLayout backButtonLayout = new javax.swing.GroupLayout(backButton);
-        backButton.setLayout(backButtonLayout);
-        backButtonLayout.setHorizontalGroup(
-            backButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 25, Short.MAX_VALUE)
-            .addGroup(backButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(backButtonLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jLabel7)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        backButtonLayout.setVerticalGroup(
-            backButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 25, Short.MAX_VALUE)
-            .addGroup(backButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(backButtonLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jLabel7)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
         headerLayout.setHorizontalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1207, Short.MAX_VALUE)
+                .addContainerGap(1247, Short.MAX_VALUE)
                 .addComponent(minimizeWindow, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(changeMode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -280,155 +222,94 @@ public class ActividadesMasUsadas extends javax.swing.JFrame{
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(headerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(changeMode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(exitButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(minimizeWindow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(changeMode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(exitButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(minimizeWindow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
         jPanel1.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1380, 40));
 
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 48)); // NOI18N
-        jLabel2.setText("Actividades mas usadas");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 60, -1, -1));
+        jLabel2.setText("Top mejores jugadores");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, -1, -1));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectofinal/UInterfaces/resources/child estudying.jpg"))); // NOI18N
-        jLabel1.setText("jLabel1");
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectofinal/UInterfaces/resources/podium.jpg"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 0, 340, 770));
 
-        jLabel5.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 20)); // NOI18N
-        jLabel5.setText("A continuacion se muestran cuales son las actividades mas usada y cuanto se han usado");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, -1, -1));
+        jPanel4.setBackground(new java.awt.Color(255, 153, 51));
+        jPanel4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jPanel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel4MouseClicked(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Continuar");
+        jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 700, 310, 40));
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel5.setText("¿Estas entre los mejores?");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 160, -1, -1));
 
         javax.swing.GroupLayout jPanelGraficoLayout = new javax.swing.GroupLayout(jPanelGrafico);
         jPanelGrafico.setLayout(jPanelGraficoLayout);
         jPanelGraficoLayout.setHorizontalGroup(
             jPanelGraficoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 810, Short.MAX_VALUE)
+            .addGap(0, 890, Short.MAX_VALUE)
         );
         jPanelGraficoLayout.setVerticalGroup(
             jPanelGraficoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 440, Short.MAX_VALUE)
+            .addGap(0, 410, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanelGrafico, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, 810, 440));
-
-        jPanelReporte.setBackground(java.awt.Color.blue);
-        jPanelReporte.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanelReporteMouseClicked(evt);
-            }
-        });
-
-        jLabel3.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 22)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Obtener reporte en PDF");
-
-        javax.swing.GroupLayout jPanelReporteLayout = new javax.swing.GroupLayout(jPanelReporte);
-        jPanelReporte.setLayout(jPanelReporteLayout);
-        jPanelReporteLayout.setHorizontalGroup(
-            jPanelReporteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanelReporteLayout.setVerticalGroup(
-            jPanelReporteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-        );
-
-        jPanel1.add(jPanelReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 690, 260, 60));
+        jPanel1.add(jPanelGrafico, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, 890, 410));
 
         jLabelResultado.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 24)); // NOI18N
-        jPanel1.add(jLabelResultado, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 690, 460, 60));
+        jPanel1.add(jLabelResultado, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 690, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void headerMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headerMousePressed
-        xMouse = evt.getX();
-        yMouse = evt.getY();
-    }//GEN-LAST:event_headerMousePressed
-
-    private void headerMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headerMouseDragged
-        int x = evt.getXOnScreen();
-        int y = evt.getYOnScreen();
-        this.setLocation(x - xMouse,y - yMouse);
-    }//GEN-LAST:event_headerMouseDragged
-
-    private void exitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseClicked
-        System.exit(0);
-    }//GEN-LAST:event_exitButtonMouseClicked
-
-    private void exitButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseEntered
-        exitButton.setBackground(new Color(128, 0, 0));
-    }//GEN-LAST:event_exitButtonMouseEntered
-
-    private void exitButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseExited
-        exitButton.setBackground(Color.red);
-    }//GEN-LAST:event_exitButtonMouseExited
-
-    private void changeModeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changeModeMouseEntered
-        changeMode.setBackground(new Color(90, 0, 138));
-    }//GEN-LAST:event_changeModeMouseEntered
-
-    private void changeModeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changeModeMouseExited
-        changeMode.setBackground(new Color(102, 0, 153));
-    }//GEN-LAST:event_changeModeMouseExited
-
-    private void minimizeWindowMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeWindowMouseEntered
-        minimizeWindow.setBackground(new Color(64, 64, 64));
-    }//GEN-LAST:event_minimizeWindowMouseEntered
-
-    private void minimizeWindowMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeWindowMouseExited
-        minimizeWindow.setBackground(Color.gray);
-    }//GEN-LAST:event_minimizeWindowMouseExited
-
-    private void minimizeWindowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeWindowMouseClicked
-        this.setState(Frame.ICONIFIED);  // Minimiza la ventana
-    }//GEN-LAST:event_minimizeWindowMouseClicked
-
-    private void changeModeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changeModeMouseClicked
-        if (isDarkMode) {
-            applyTheme(lightTheme);  // Cambiar al tema claro
-            jLabel6.setIcon(moonIcon);  // Mostrar la luna
-        } else {
-            applyTheme(darkTheme);   // Cambiar al tema oscuro
-            jLabel6.setIcon(sunIcon);  // Mostrar el sol
-        }
-        isDarkMode = !isDarkMode;  // Invertir el estado del tema
-    }//GEN-LAST:event_changeModeMouseClicked
-
-    private void backButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButtonMouseClicked
-        Inicio inicioFrame = new Inicio();
-        inicioFrame.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_backButtonMouseClicked
-
-    private void backButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButtonMouseExited
-        backButton.setBackground(Color.GREEN);
-    }//GEN-LAST:event_backButtonMouseExited
-
-    private void backButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButtonMouseEntered
-        backButton.setBackground(new Color(0, 178, 0));
-    }//GEN-LAST:event_backButtonMouseEntered
-
-    private void jPanelReporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelReporteMouseClicked
-       String dest = "Reporte Actividades Mas usadas.pdf";
+    private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
+        String dest = "Reporte Mayores Puntajes Juego 1.pdf";
        jLabelResultado.setText("Generando PDF...");
         try (PDDocument document = new PDDocument()) {
             // Tamaño Carta
@@ -449,7 +330,7 @@ public class ActividadesMasUsadas extends javax.swing.JFrame{
 
             // Texto personalizado centrado y tamaño 12
             contentStream.setFont(PDType1Font.HELVETICA, 12);
-            String text2 = "Aquí te presentamos un reporte de las actividades más usadas a la fecha";
+            String text2 = "Aquí te presentamos un reporte de los mayores puntajes del juego 1 a la fecha";
             float text2Width = PDType1Font.HELVETICA.getStringWidth(text2) / 1000 * 12;
             float xPosition2 = (page.getMediaBox().getWidth() - text2Width) / 2;
             contentStream.beginText();
@@ -506,53 +387,109 @@ public class ActividadesMasUsadas extends javax.swing.JFrame{
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }//GEN-LAST:event_jPanelReporteMouseClicked
-       
-    private void generateBarChart() throws SQLException, ClassNotFoundException {
+    }//GEN-LAST:event_jPanel4MouseClicked
+
+    private void headerMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headerMousePressed
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+    }//GEN-LAST:event_headerMousePressed
+
+    private void headerMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headerMouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xMouse,y - yMouse);
+    }//GEN-LAST:event_headerMouseDragged
+
+    private void minimizeWindowMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeWindowMouseEntered
+        minimizeWindow.setBackground(new Color(64, 64, 64));
+    }//GEN-LAST:event_minimizeWindowMouseEntered
+
+    private void minimizeWindowMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeWindowMouseExited
+        minimizeWindow.setBackground(Color.gray);
+    }//GEN-LAST:event_minimizeWindowMouseExited
+
+    private void minimizeWindowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeWindowMouseClicked
+        this.setState(Frame.ICONIFIED);  // Minimiza la ventana
+    }//GEN-LAST:event_minimizeWindowMouseClicked
+
+    private void changeModeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changeModeMouseEntered
+        changeMode.setBackground(new Color(90, 0, 138));
+    }//GEN-LAST:event_changeModeMouseEntered
+
+    private void changeModeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changeModeMouseExited
+        changeMode.setBackground(new Color(102, 0, 153));
+    }//GEN-LAST:event_changeModeMouseExited
+
+    private void changeModeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changeModeMouseClicked
+        if (isDarkMode) {
+            applyTheme(lightTheme);  // Cambiar al tema claro
+            jLabel6.setIcon(moonIcon);  // Mostrar la luna
+        } else {
+            applyTheme(darkTheme);   // Cambiar al tema oscuro
+            jLabel6.setIcon(sunIcon);  // Mostrar el sol
+        }
+        isDarkMode = !isDarkMode;  // Invertir el estado del tema
+    }//GEN-LAST:event_changeModeMouseClicked
+
+    private void exitButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseEntered
+        exitButton.setBackground(new Color(128, 0, 0));
+    }//GEN-LAST:event_exitButtonMouseEntered
+
+    private void exitButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseExited
+        exitButton.setBackground(Color.red);
+    }//GEN-LAST:event_exitButtonMouseExited
+
+    private void exitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_exitButtonMouseClicked
+                                  
+
+    private void generateBarChart() {
+    // Crear un dataset para almacenar la información de las barras
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        Connection con = ConexionABase.inicializaBaseDeDatos();
-        // Resto del código de conexión y consulta de base de datos...
-        try (Statement stmt = con.createStatement()) {
-            ResultSet rs = stmt.executeQuery("SELECT juego_id, COUNT(*) as count FROM puntuaciones GROUP BY juego_id");
-            while(rs.next()) {
-                int juegoId = rs.getInt("juego_id");
-                int count = rs.getInt("count");
-                dataset.addValue(count, "Juegos", "Juego " + juegoId);
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+
+        // Obtener la información de ranking
+        RankingJuego rankingJuego = new RankingJuego();
+        Map<String, ArrayList<String>> rankingMap = rankingJuego.obtenerRanking(gameIDF);
+
+        ArrayList<String> nombres = rankingMap.get("nombres");
+        ArrayList<String> puntuaciones = rankingMap.get("puntuaciones");
+        for (int i = 0; i < nombres.size() && i < 10; i++) { // Suponiendo que quieres un top 10
+            String jugador = nombres.get(i);
+            String puntuacion = puntuaciones.get(i); 
+            dataset.addValue(Integer.valueOf(puntuacion), "Puntuaciones", jugador); // Añade la puntuación, la categoría, y el nombre del jugador
         }
 
+        // Crear el gráfico de barras
         barChart = ChartFactory.createBarChart(
-                "Actividades más usadas",
-                "Juego",
-                "Veces jugado",
-                dataset,
-                PlotOrientation.VERTICAL,
-                false, true, false
+            "Top 10 Ranking", // título del gráfico
+            "Jugador",        // etiqueta del eje de dominio
+            "Puntuación",     // etiqueta del eje de rango
+            dataset,          // datos
+            PlotOrientation.VERTICAL,
+            true,             // incluir leyendas
+            true,             // tooltips
+            false             // URLs
         );
 
+        // Crear un panel para mostrar el gráfico
         ChartPanel chartPanel = new ChartPanel(barChart);
 
-        // Asegúrate de que tu jPanelGrafico está usando un LayoutManager adecuado o ningún LayoutManager.
-        jPanelGrafico.setLayout(new java.awt.BorderLayout());
-
-        // Añadir el ChartPanel a tu jPanelGrafico.
-        jPanelGrafico.add(chartPanel, BorderLayout.CENTER);
-
-        // Refresca el jPanel si es necesario
-        jPanelGrafico.revalidate();
-        jPanelGrafico.repaint();
-    }
-
-    
+    // Asegúrate de que tu jPanelGrafico está usando un LayoutManager adecuado o ningún LayoutManager.
+    jPanelGrafico.setLayout(new java.awt.BorderLayout());
+    // Añadir el ChartPanel a tu jPanelGrafico.
+    jPanelGrafico.add(chartPanel, BorderLayout.CENTER);
+    System.out.println("repaint graphic");
+    // Refresca el jPanel si es necesario
+    jPanelGrafico.revalidate();
+    jPanelGrafico.repaint();
+}
 
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        Locale.setDefault(Locale.US);
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -566,40 +503,44 @@ public class ActividadesMasUsadas extends javax.swing.JFrame{
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ActividadesMasUsadas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RankingGrafico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ActividadesMasUsadas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RankingGrafico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ActividadesMasUsadas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RankingGrafico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ActividadesMasUsadas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RankingGrafico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ActividadesMasUsadas().setVisible(true);
+                new RankingGrafico(userIDF,gameIDF).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private Clases.PanelRound backButton;
     private Clases.PanelRound changeMode;
     private Clases.PanelRound exitButton;
     private javax.swing.JPanel header;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabelResultado;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanelGrafico;
-    private javax.swing.JPanel jPanelReporte;
     private Clases.PanelRound minimizeWindow;
     // End of variables declaration//GEN-END:variables
 }
