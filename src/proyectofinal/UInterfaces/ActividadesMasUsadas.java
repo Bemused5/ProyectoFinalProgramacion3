@@ -57,6 +57,7 @@ public class ActividadesMasUsadas extends javax.swing.JFrame{
     private ImageIcon moonIcon = new ImageIcon(getClass().getResource("/proyectofinal/UInterfaces/resources/moon.png"));
     private boolean isDarkMode = false;  // Variable para rastrear el tema actual
     JFreeChart barChart;
+    static int userIDF;
 
 
     int xMouse, yMouse;
@@ -64,7 +65,8 @@ public class ActividadesMasUsadas extends javax.swing.JFrame{
     /**
      * Creates new form Inicio
      */
-    public ActividadesMasUsadas() {
+    public ActividadesMasUsadas(int userID) {
+        userIDF = userID;
         initComponents();
         applyTheme(lightTheme);
         jLabel6.setIcon(moonIcon);  
@@ -414,8 +416,8 @@ public class ActividadesMasUsadas extends javax.swing.JFrame{
     }//GEN-LAST:event_changeModeMouseClicked
 
     private void backButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButtonMouseClicked
-        Inicio inicioFrame = new Inicio();
-        inicioFrame.setVisible(true);
+        MenuAdministrador menuAdministrador = new MenuAdministrador(userIDF);
+        menuAdministrador.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backButtonMouseClicked
 
@@ -580,7 +582,7 @@ public class ActividadesMasUsadas extends javax.swing.JFrame{
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ActividadesMasUsadas().setVisible(true);
+                new ActividadesMasUsadas(userIDF).setVisible(true);
             }
         });
     }

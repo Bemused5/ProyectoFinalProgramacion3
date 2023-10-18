@@ -29,7 +29,7 @@ public class DeleteUsers extends javax.swing.JFrame {
     private ImageIcon sunIcon = new ImageIcon(getClass().getResource("/proyectofinal/UInterfaces/resources/sun.png"));
     private ImageIcon moonIcon = new ImageIcon(getClass().getResource("/proyectofinal/UInterfaces/resources/moon.png"));
     private boolean isDarkMode = false;  // Variable para rastrear el tema actual
-    
+    static int userIDF;
 
 
 
@@ -39,7 +39,8 @@ public class DeleteUsers extends javax.swing.JFrame {
     /**
      * Creates new form Inicio
      */
-    public DeleteUsers() {
+    public DeleteUsers(int userID) {
+        userIDF=userID;
         initComponents();
         applyTheme(lightTheme);
         jLabel6.setIcon(moonIcon);  // Establece el ícono inicial del sol
@@ -66,6 +67,8 @@ public class DeleteUsers extends javax.swing.JFrame {
         changeMode = new Clases.PanelRound();
         jLabel6 = new javax.swing.JLabel();
         minimizeWindow = new Clases.PanelRound();
+        backButton = new Clases.PanelRound();
+        jLabel13 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -187,12 +190,49 @@ public class DeleteUsers extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        backButton.setBackground(java.awt.Color.green);
+        backButton.setPreferredSize(new java.awt.Dimension(25, 25));
+        backButton.setRoundBottomLeft(100);
+        backButton.setRoundBottomRight(100);
+        backButton.setRoundTopLeft(100);
+        backButton.setRoundTopRight(100);
+        backButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backButtonMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                backButtonMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                backButtonMouseEntered(evt);
+            }
+        });
+
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectofinal/UInterfaces/resources/back.png"))); // NOI18N
+
+        javax.swing.GroupLayout backButtonLayout = new javax.swing.GroupLayout(backButton);
+        backButton.setLayout(backButtonLayout);
+        backButtonLayout.setHorizontalGroup(
+            backButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backButtonLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel13))
+        );
+        backButtonLayout.setVerticalGroup(
+            backButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backButtonLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel13))
+        );
+
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
         headerLayout.setHorizontalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
-                .addContainerGap(1247, Short.MAX_VALUE)
+                .addGap(16, 16, 16)
+                .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1206, Short.MAX_VALUE)
                 .addComponent(minimizeWindow, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(changeMode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -204,10 +244,12 @@ public class DeleteUsers extends javax.swing.JFrame {
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(headerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(changeMode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(exitButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(minimizeWindow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(changeMode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(exitButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(minimizeWindow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
@@ -333,6 +375,20 @@ public class DeleteUsers extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Selecciona un usuario para eliminar.");
         }
     }//GEN-LAST:event_jPanel2MouseClicked
+
+    private void backButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButtonMouseClicked
+        MenuAdministrador menuAdministrador = new MenuAdministrador(userIDF);
+        menuAdministrador.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_backButtonMouseClicked
+
+    private void backButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButtonMouseExited
+        backButton.setBackground(Color.GREEN);
+    }//GEN-LAST:event_backButtonMouseExited
+
+    private void backButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButtonMouseEntered
+        backButton.setBackground(new Color(0, 178, 0));
+    }//GEN-LAST:event_backButtonMouseEntered
     private List<Usuario> getUsuariosFromDB() {
     List<Usuario> usuarios = new ArrayList<>();
 
@@ -409,16 +465,18 @@ public class DeleteUsers extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DeleteUsers().setVisible(true);
+                new DeleteUsers(userIDF).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private Clases.PanelRound backButton;
     private Clases.PanelRound changeMode;
     private Clases.PanelRound exitButton;
     private javax.swing.JPanel header;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;

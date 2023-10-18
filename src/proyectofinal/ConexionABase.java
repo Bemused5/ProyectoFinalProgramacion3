@@ -7,6 +7,7 @@ package proyectofinal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
 public class ConexionABase {
     public static Connection inicializaBaseDeDatos() throws SQLException, ClassNotFoundException {
         String dbDriver = "com.mysql.cj.jdbc.Driver";
@@ -19,4 +20,5 @@ public class ConexionABase {
         Connection con = DriverManager.getConnection(dbURL + dbName, dbUsername, dbPassword);
         return con;
     }
+
 }

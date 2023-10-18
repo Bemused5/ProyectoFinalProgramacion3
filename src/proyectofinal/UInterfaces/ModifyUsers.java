@@ -29,7 +29,7 @@ public class ModifyUsers extends javax.swing.JFrame {
     private ImageIcon sunIcon = new ImageIcon(getClass().getResource("/proyectofinal/UInterfaces/resources/sun.png"));
     private ImageIcon moonIcon = new ImageIcon(getClass().getResource("/proyectofinal/UInterfaces/resources/moon.png"));
     private boolean isDarkMode = false;  // Variable para rastrear el tema actual
-    
+    static int userIDF;
 
 
 
@@ -39,7 +39,8 @@ public class ModifyUsers extends javax.swing.JFrame {
     /**
      * Creates new form Inicio
      */
-    public ModifyUsers() {
+    public ModifyUsers(int userID) {
+        userIDF = userID;
         initComponents();
         applyTheme(lightTheme);
         jLabel6.setIcon(moonIcon);  // Establece el ícono inicial del sol
@@ -66,6 +67,8 @@ public class ModifyUsers extends javax.swing.JFrame {
         changeMode = new Clases.PanelRound();
         jLabel6 = new javax.swing.JLabel();
         minimizeWindow = new Clases.PanelRound();
+        backButton4 = new Clases.PanelRound();
+        jLabel13 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -198,12 +201,49 @@ public class ModifyUsers extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        backButton4.setBackground(java.awt.Color.green);
+        backButton4.setPreferredSize(new java.awt.Dimension(25, 25));
+        backButton4.setRoundBottomLeft(100);
+        backButton4.setRoundBottomRight(100);
+        backButton4.setRoundTopLeft(100);
+        backButton4.setRoundTopRight(100);
+        backButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backButton4MouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                backButton4MouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                backButton4MouseEntered(evt);
+            }
+        });
+
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectofinal/UInterfaces/resources/back.png"))); // NOI18N
+
+        javax.swing.GroupLayout backButton4Layout = new javax.swing.GroupLayout(backButton4);
+        backButton4.setLayout(backButton4Layout);
+        backButton4Layout.setHorizontalGroup(
+            backButton4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backButton4Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel13))
+        );
+        backButton4Layout.setVerticalGroup(
+            backButton4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backButton4Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel13))
+        );
+
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
         headerLayout.setHorizontalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
-                .addContainerGap(1247, Short.MAX_VALUE)
+                .addGap(16, 16, 16)
+                .addComponent(backButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1206, Short.MAX_VALUE)
                 .addComponent(minimizeWindow, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(changeMode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -215,10 +255,12 @@ public class ModifyUsers extends javax.swing.JFrame {
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(headerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(changeMode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(exitButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(minimizeWindow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(backButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(changeMode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(exitButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(minimizeWindow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
@@ -417,6 +459,20 @@ public class ModifyUsers extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Por favor, seleccione un usuario y rellene todos los campos correctamente.");
         }
     }//GEN-LAST:event_jPanelModificarMouseClicked
+
+    private void backButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButton4MouseClicked
+        MenuAdministrador menuAdministrador = new MenuAdministrador(userIDF);
+        menuAdministrador.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_backButton4MouseClicked
+
+    private void backButton4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButton4MouseExited
+        backButton4.setBackground(Color.GREEN);
+    }//GEN-LAST:event_backButton4MouseExited
+
+    private void backButton4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButton4MouseEntered
+        backButton4.setBackground(new Color(0, 178, 0));
+    }//GEN-LAST:event_backButton4MouseEntered
     private List<Usuario> getUsuariosFromDB() {
     List<Usuario> usuarios = new ArrayList<>();
 
@@ -513,16 +569,18 @@ public class ModifyUsers extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ModifyUsers().setVisible(true);
+                new ModifyUsers(userIDF).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private Clases.PanelRound backButton4;
     private Clases.PanelRound changeMode;
     private Clases.PanelRound exitButton;
     private javax.swing.JPanel header;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

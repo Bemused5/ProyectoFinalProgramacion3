@@ -542,48 +542,38 @@ public class MenuAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_backButtonMouseEntered
 
     private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
-        Random generador = new Random();
-        int puntuacion = generador.nextInt(100);
-        PuntuacionFinal puntuacionFinal = new PuntuacionFinal(userIDF,puntuacion,1);
-        puntuacionFinal.setVisible(true);
+        CreateUsers createUsers = new CreateUsers(userIDF);
+        createUsers.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jPanel5MouseClicked
 
     private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
-        Random generador = new Random();
-        int puntuacion = generador.nextInt(100);
-        PuntuacionFinal puntuacionFinal = new PuntuacionFinal(userIDF,puntuacion,2);
-        puntuacionFinal.setVisible(true);
+        ModifyUsers modifyUsers = new ModifyUsers(userIDF);
+        modifyUsers.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jPanel6MouseClicked
 
     private void jPanel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel9MouseClicked
-        Random generador = new Random();
-        int puntuacion = generador.nextInt(100);
-        PuntuacionFinal puntuacionFinal = new PuntuacionFinal(userIDF,puntuacion,3);
-        puntuacionFinal.setVisible(true);
+        DeleteUsers deleteUsers = new DeleteUsers(userIDF);
+        deleteUsers.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jPanel9MouseClicked
 
     private void jPanel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MouseClicked
-        Random generador = new Random();
-        int puntuacion = generador.nextInt(100);
-        PuntuacionFinal puntuacionFinal = new PuntuacionFinal(userIDF,puntuacion,4);
-        puntuacionFinal.setVisible(true);
+        ActividadesMasUsadas actividadesMasUsadas = new ActividadesMasUsadas(userIDF);
+        actividadesMasUsadas.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jPanel8MouseClicked
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
-        Anagrama anagrama = new Anagrama(0,5,userIDF,1);
-        anagrama.setVisible(true);
+        MenuActividadesAdmin menuActividadesAdmin = new MenuActividadesAdmin(userIDF);
+        menuActividadesAdmin.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel10MouseClicked
 
     private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
-        Random generador = new Random();
-        int puntuacion = generador.nextInt(100);
-        PuntuacionFinal puntuacionFinal = new PuntuacionFinal(userIDF,puntuacion,6);
-        puntuacionFinal.setVisible(true);
+        IntentosHastaElExito intentosHastaElExito = new IntentosHastaElExito(userIDF);
+        intentosHastaElExito.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jPanel4MouseClicked
                                   

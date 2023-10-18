@@ -575,8 +575,8 @@ public class MenuActividades extends javax.swing.JFrame {
     }//GEN-LAST:event_backButtonMouseEntered
 
     private void jPanel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel11MouseClicked
-        MenuPuntuaciones menuPuntuaciones = new MenuPuntuaciones(userIDF);
-        menuPuntuaciones.setVisible(true);
+        MenuCentroDeControl menuCentroDeControl = new MenuCentroDeControl(userIDF);
+        menuCentroDeControl.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jPanel11MouseClicked
 

@@ -50,9 +50,8 @@ public class RegistrosPuntuaciones extends javax.swing.JFrame {
      * @param juegoID
      */
     public RegistrosPuntuaciones(int usuarioID, int juegoID) {
-        //usuarioIDF=usuarioID;
-        usuarioIDF=1;
-        juegoIDF=1;
+        usuarioIDF=usuarioID;
+        juegoIDF=juegoID;
         initComponents();
         applyTheme(lightTheme);
         jLabel6.setIcon(moonIcon);  // Establece el ícono inicial del sol
@@ -440,7 +439,7 @@ public class RegistrosPuntuaciones extends javax.swing.JFrame {
 
 
         // Generar PDF
-        String dest = "Reporte Registros de Puntuaciones.pdf";
+        String dest = "Reporte Registros de Puntuaciones del Juego"+juegoIDF+" del usuario con el ID"+usuarioIDF+".pdf";
         //jLabelResultado.setText("Generando PDF...");
 
         try (PDDocument document = new PDDocument()) {
@@ -460,7 +459,7 @@ public class RegistrosPuntuaciones extends javax.swing.JFrame {
 
             // Texto personalizado centrado y tamaño 12
             contentStream.setFont(PDType1Font.HELVETICA, 12);
-            String text2 = "Aquí te presentamos un reporte de los mayores puntajes del juego 1 a la fecha";
+            String text2 = "Aquí te presentamos un reporte de tus puntuaciones obtenidas en el juego 1";
             float text2Width = PDType1Font.HELVETICA.getStringWidth(text2) / 1000 * 12;
             float xPosition2 = (page.getMediaBox().getWidth() - text2Width) / 2;
             contentStream.beginText();
