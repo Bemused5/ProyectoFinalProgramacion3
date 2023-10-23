@@ -435,6 +435,7 @@ public class ModifyUsers extends javax.swing.JFrame {
 
     private void jPanelSeleccionarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelSeleccionarMouseClicked
             Usuario selectedUsuario = jList1.getSelectedValue();
+        
         if (selectedUsuario != null) {
             jTextNombre.setText(selectedUsuario.getNombre());
             jTextUsuario.setText(selectedUsuario.getNombre_de_usuario());
@@ -446,6 +447,34 @@ public class ModifyUsers extends javax.swing.JFrame {
 
     private void jPanelModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelModificarMouseClicked
         Usuario selectedUsuario = jList1.getSelectedValue();
+        // Obtener valores de los campos de texto
+        String nombre = jTextNombre.getText();
+        String usuario = jTextUsuario.getText();
+        String tipoStr =jTextTipo.getText();
+
+        // Validar que 'nombre' contenga solo letras y espacios
+        if (!nombre.matches("^[\\p{L} .'-]+$")) {
+            JOptionPane.showMessageDialog(this, "El nombre solo debe contener letras.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Verificar que 'usuario' contenga al menos una letra
+        if (!usuario.matches(".*[a-zA-Z].*")) {
+            JOptionPane.showMessageDialog(this, "El nombre de usuario debe contener al menos una letra.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Validar que 'tipo' sea un número entero y sea 1 o 2
+        int tipo;
+        try {
+            tipo = Integer.parseInt(tipoStr);
+            if (tipo != 1 && tipo != 2) {
+                throw new NumberFormatException(); // Lanzar esta excepción para manejar ambos casos en el mismo bloque catch.
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Tipo debe ser un número (1 o 2).", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         if (selectedUsuario != null && validateTextFields()) {
             updateUsuarioInDB(
                 selectedUsuario.getUsuarioID(),

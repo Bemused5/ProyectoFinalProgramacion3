@@ -8,6 +8,10 @@ import java.awt.Color;
 import java.awt.Frame;
 import javax.swing.ImageIcon;
 import proyectofinal.Usuario;
+import javax.swing.JOptionPane;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 
 /**
@@ -328,7 +332,7 @@ public class Registro extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 24)); // NOI18N
         jLabel9.setForeground(java.awt.Color.green);
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 510, 480, 40));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 510, 730, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -413,14 +417,45 @@ public class Registro extends javax.swing.JFrame {
     }//GEN-LAST:event_backButtonMouseEntered
 
     private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
-        String nombre =jTextField1.getText();
-        String username =jTextField2.getText();
+        // Obtenemos el texto de ambos campos de texto.
+        String nombre = jTextField1.getText().trim(); // Eliminar espacios en blanco al principio y al final.
+        String username = jTextField2.getText().trim();
+        jLabel9.setForeground(Color.red);
+
+        // Verificamos que los campos no estén vacíos.
+        if (nombre.isEmpty() || username.isEmpty()) {
+            // Mostrar un mensaje de error si algún campo está vacío.
+            jLabel9.setText("Por favor, complete todos los campos.");
+            return;
+        }
+
+        // Verificamos que 'nombre' contenga solo letras y espacios.
+        Pattern pattern = Pattern.compile("^[\\p{L} .'-]+$", Pattern.UNICODE_CHARACTER_CLASS);
+        Matcher matcher = pattern.matcher(nombre);
+        if (!matcher.matches()) {
+            // Mostrar un mensaje de error si el nombre contiene caracteres no permitidos.
+            jLabel9.setText("El nombre solo debe contener letras.");
+            return;
+        }
+
+        
+        // Verificamos que 'username' contenga al menos una letra.
+        Pattern letterPattern = Pattern.compile(".*[a-zA-Z].*"); // La expresión regular significa "cualquier cadena que contenga al menos una letra".
+        Matcher letterMatcher = letterPattern.matcher(username);
+        if (!letterMatcher.matches()) {
+            // Mostrar un mensaje de error si 'username' no contiene al menos una letra.
+            jLabel9.setText("El nombre de usuario debe contener al menos una letra");
+            return;
+        }
+        // Si llegamos a este punto, significa que las validaciones fueron exitosas.
+        // Aquí continúa el proceso de registro como estaba previsto inicialmente.
+
         Usuario usuario = new Usuario();
-        int idRetornado = usuario.registrarUsuario(nombre,username);
-        if (idRetornado==0){
-            jLabel9.setText("El usuario ya existe intenta, otra vez");
-        }else{
-            jLabel9.setText("Registro Exitoso");
+        int idRetornado = usuario.registrarUsuario(nombre, username);
+        if (idRetornado == 0) {
+            jLabel9.setText("El usuario ya existe, intenta otra vez.");
+        } else {
+            jLabel9.setText("Registro exitoso");
             MenuActividades menuActividades = new MenuActividades(idRetornado);
             menuActividades.setVisible(true);
             this.dispose();

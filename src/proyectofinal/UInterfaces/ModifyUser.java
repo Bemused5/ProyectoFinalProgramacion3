@@ -404,9 +404,21 @@ public class ModifyUser extends javax.swing.JFrame {
 
     private void jPanelModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelModificarMouseClicked
         if (validateTextFields()) {
-        String nombre = jTextNombre.getText().trim();
-        String usuario = jTextUsuario.getText().trim();
-        // Aquí podrías obtener más campos si los necesitas para la actualización
+        // Obtener valores de los campos de texto
+        String nombre = jTextNombre.getText();
+        String usuario = jTextUsuario.getText();
+
+        // Validar que 'nombre' contenga solo letras y espacios
+        if (!nombre.matches("^[\\p{L} .'-]+$")) {
+            JOptionPane.showMessageDialog(this, "El nombre solo debe contener letras.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Verificar que 'usuario' contenga al menos una letra
+        if (!usuario.matches(".*[a-zA-Z].*")) {
+            JOptionPane.showMessageDialog(this, "El nombre de usuario debe contener al menos una letra.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         
         updateUsuarioInDB(userIDF, nombre, usuario, /* Suponiendo que necesitas un tipo */ 1);
         JOptionPane.showMessageDialog(this, "Datos de usuario actualizados correctamente.");
