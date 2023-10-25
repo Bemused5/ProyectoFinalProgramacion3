@@ -1,7 +1,7 @@
 ¿Que tipo de rima es usada en los sonetos?	Consonante	Asonante	Libre	Ninguna	Consonante
 ¿Que elemento NO es tipico de una leyenda?	Hechos historicos	Milagros o magia	Elementos ficticios	Espacio exterior	Espacio exterior
 ¿Cual es el primer paso al estructurar un ensayo?	Escribir la conclusión	Redactar el cuerpo	Definir la tesis	Elegir un titulo	Definir la tesis
-¿Quien escribio "Cien años de soledad"?	Julio Cortazar	Gabriel Garcia Márquez	Mario Vargas Llosa	Carlos Fuentes	Gabriel Garcia Marquez
+¿Quien escribio "Cien años de soledad"?	Julio Cortazar	Gabriel Garcia Marquez	Mario Vargas Llosa	Carlos Fuentes	Gabriel Garcia Marquez
 ¿Cual es la metrica del haiku?	5-7-5	7-5-7	5-5-7	7-7-5	5-7-5
 ¿Que es una metafora?	Comparacion directa	Exageracion	Descripcion literal	Comparacion implícita	Comparacion implícita
 ¿Cual de los siguientes NO es un genero literario?	Lirico	Dramatico	Didactico	Culinario	Culinario

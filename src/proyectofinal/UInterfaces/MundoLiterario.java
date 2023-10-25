@@ -143,7 +143,7 @@ public class MundoLiterario extends javax.swing.JFrame {
             }
             }
         });
-
+        
         
     }
     public MundoLiterario() {}
@@ -708,6 +708,7 @@ public class MundoLiterario extends javax.swing.JFrame {
 
         jTextFieldOpcion1.setEditable(false);
         jTextFieldOpcion1.setBackground(new java.awt.Color(51, 255, 51));
+        jTextFieldOpcion1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         jTextFieldOpcion1.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldOpcion1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextFieldOpcion1.setText("jTextField1");
@@ -735,6 +736,7 @@ public class MundoLiterario extends javax.swing.JFrame {
 
         jTextFieldOpcion2.setEditable(false);
         jTextFieldOpcion2.setBackground(new java.awt.Color(51, 255, 51));
+        jTextFieldOpcion2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         jTextFieldOpcion2.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldOpcion2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextFieldOpcion2.setText("jTextField1");
@@ -762,6 +764,7 @@ public class MundoLiterario extends javax.swing.JFrame {
 
         jTextFieldOpcion3.setEditable(false);
         jTextFieldOpcion3.setBackground(new java.awt.Color(51, 255, 51));
+        jTextFieldOpcion3.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         jTextFieldOpcion3.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldOpcion3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextFieldOpcion3.setText("jTextField1");
@@ -789,6 +792,7 @@ public class MundoLiterario extends javax.swing.JFrame {
 
         jTextFieldOpcion4.setEditable(false);
         jTextFieldOpcion4.setBackground(new java.awt.Color(51, 255, 51));
+        jTextFieldOpcion4.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         jTextFieldOpcion4.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldOpcion4.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextFieldOpcion4.setText("jTextField1");
@@ -906,6 +910,8 @@ public class MundoLiterario extends javax.swing.JFrame {
     private void panelNivel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelNivel2MouseClicked
         
         if(puntos==10){
+            nivelSeleccionado=2;
+
             panelNivelMouseClicked(2);
             iniciarTemporizador();
         } else{
@@ -926,6 +932,7 @@ public class MundoLiterario extends javax.swing.JFrame {
     private void panelNivel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelNivel3MouseClicked
         
         if(puntos==20){
+            nivelSeleccionado=3;
             panelNivelMouseClicked(3); // para el nivel 1
             iniciarTemporizador();
         } else{
@@ -944,6 +951,7 @@ public class MundoLiterario extends javax.swing.JFrame {
 
     private void panelNivel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelNivel4MouseClicked
         if(puntos==30){
+            nivelSeleccionado=4;
             panelNivelMouseClicked(4); // para el nivel 1
             iniciarTemporizador();
         } else{
@@ -962,6 +970,7 @@ public class MundoLiterario extends javax.swing.JFrame {
 
     private void panelNivel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelNivel6MouseClicked
         if(puntos==50){
+            nivelSeleccionado=6;
             panelNivelMouseClicked(6); // para el nivel 1
             iniciarTemporizador();
         } else{
@@ -982,6 +991,7 @@ public class MundoLiterario extends javax.swing.JFrame {
     private void panelNivel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelNivel7MouseClicked
         
         if(puntos==60){
+            nivelSeleccionado=7;
             panelNivelMouseClicked(7); // para el nivel 1
             iniciarTemporizador();
         } else{
@@ -1001,6 +1011,7 @@ public class MundoLiterario extends javax.swing.JFrame {
     private void panelNivel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelNivel8MouseClicked
         
         if(puntos==70){
+            nivelSeleccionado=8;
             panelNivelMouseClicked(8); // para el nivel 1
             iniciarTemporizador();
         } else{
@@ -1020,6 +1031,7 @@ public class MundoLiterario extends javax.swing.JFrame {
     private void panelNivel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelNivel9MouseClicked
         
         if(puntos==80){
+            nivelSeleccionado=9;
             panelNivelMouseClicked(9); // para el nivel 1
             iniciarTemporizador();
         } else{
@@ -1039,6 +1051,7 @@ public class MundoLiterario extends javax.swing.JFrame {
     private void panelNivel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelNivel10MouseClicked
         
         if(puntos==90){
+            nivelSeleccionado=10;
             panelNivelMouseClicked(10); // para el nivel 1
             iniciarTemporizador();
         } else{
@@ -1058,6 +1071,7 @@ public class MundoLiterario extends javax.swing.JFrame {
     private void panelNivel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelNivel5MouseClicked
         
         if(puntos==40){
+            nivelSeleccionado=5;
             panelNivelMouseClicked(5); // para el nivel 1
             iniciarTemporizador();
         } else{
@@ -1135,6 +1149,7 @@ public class MundoLiterario extends javax.swing.JFrame {
             jTextFieldOpcion3.setText(preguntaYRespuestas[3]);
             jTextFieldOpcion4.setText(preguntaYRespuestas[4]);
             respuestaCorrecta = preguntaYRespuestas[5];
+            System.out.println(respuestaCorrecta);
 
             // Aquí deberías guardar también la respuesta correcta desde preguntaYRespuestas[5] 
             // para usarla cuando el usuario elija una respuesta.
@@ -1225,6 +1240,7 @@ public class MundoLiterario extends javax.swing.JFrame {
                 if(intentosNivel1==0){
                     puntos+=10;
                     jLabel15.setText(String.valueOf(puntos));
+                    intentosNivel1++;
                 }else{
                     jLabelResultado.setText("Ya pasaste este nivel no puedes ganar mas puntuación");
                     repaint();
@@ -1243,6 +1259,7 @@ public class MundoLiterario extends javax.swing.JFrame {
                 if(intentosNivel2==0){
                     puntos+=10;
                     jLabel15.setText(String.valueOf(puntos));
+                    intentosNivel2++;
                 }else{
                     jLabelResultado.setText("Ya pasaste este nivel no puedes ganar mas puntuación");
                     repaint();
@@ -1263,6 +1280,7 @@ public class MundoLiterario extends javax.swing.JFrame {
                 if(intentosNivel3==0){
                     puntos+=10;
                     jLabel15.setText(String.valueOf(puntos));
+                    intentosNivel3++;
                 }else{
                     jLabelResultado.setText("Ya pasaste este nivel no puedes ganar mas puntuación");
                     repaint();
@@ -1282,6 +1300,7 @@ public class MundoLiterario extends javax.swing.JFrame {
                 if(intentosNivel4==0){
                     puntos+=10;
                     jLabel15.setText(String.valueOf(puntos));
+                    intentosNivel4++;
                 }else{
                     jLabelResultado.setText("Ya pasaste este nivel no puedes ganar mas puntuación");
                     repaint();
@@ -1300,6 +1319,7 @@ public class MundoLiterario extends javax.swing.JFrame {
                 if(intentosNivel5==0){
                     puntos+=10;
                     jLabel15.setText(String.valueOf(puntos));
+                    intentosNivel5++;
                 }else{
                     jLabelResultado.setText("Ya pasaste este nivel no puedes ganar mas puntuación");
                     repaint();
@@ -1319,6 +1339,7 @@ public class MundoLiterario extends javax.swing.JFrame {
                 if(intentosNivel6==0){
                     puntos+=10;
                     jLabel15.setText(String.valueOf(puntos));
+                    intentosNivel6++;
                 }else{
                     jLabelResultado.setText("Ya pasaste este nivel no puedes ganar mas puntuación");
                     repaint();
@@ -1338,6 +1359,7 @@ public class MundoLiterario extends javax.swing.JFrame {
                 if(intentosNivel7==0){
                     puntos+=10;
                     jLabel15.setText(String.valueOf(puntos));
+                    intentosNivel7++;
                 }else{
                     jLabelResultado.setText("Ya pasaste este nivel no puedes ganar mas puntuación");
                     repaint();
@@ -1356,6 +1378,7 @@ public class MundoLiterario extends javax.swing.JFrame {
                 if(intentosNivel8==0){
                     puntos+=10;
                     jLabel15.setText(String.valueOf(puntos));
+                    intentosNivel8++;
                 }else{
                     jLabelResultado.setText("Ya pasaste este nivel no puedes ganar mas puntuación");
                     repaint();
@@ -1374,6 +1397,7 @@ public class MundoLiterario extends javax.swing.JFrame {
                 if(intentosNivel9==0){
                     puntos+=10;
                     jLabel15.setText(String.valueOf(puntos));
+                    intentosNivel9++;
                 }else{
                     jLabelResultado.setText("Ya pasaste este nivel no puedes ganar mas puntuación");
                     repaint();
@@ -1389,10 +1413,12 @@ public class MundoLiterario extends javax.swing.JFrame {
                 jLabelPregunta.setVisible(false);
                 jScrollPane1.setVisible(false);
                 Temporizador.setVisible(false);
-                jLabelResultado.setText("¡Felicidades! Pasaste el nivel.");
+                jLabelResultado.setText("¡Felicidades! Pasaste el nivel. Completaste el Juego exitosamente");
                 if(intentosNivel10==0){
                     puntos+=10;
                     jLabel15.setText(String.valueOf(puntos));
+                    intentosNivel10++;
+                    verificarAcabado();
                 }else{
                     jLabelResultado.setText("Ya pasaste este nivel no puedes ganar mas puntuación");
                     repaint();
@@ -1437,7 +1463,31 @@ public class MundoLiterario extends javax.swing.JFrame {
         timer.setRepeats(false); // Esto es importante para que el Timer solo se ejecute una vez
         timer.start();
     }
-
+    
+    private void verificarAcabado(){
+        
+            Puntuacion puntuacion = new Puntuacion();
+            System.out.println(idJuegoF);
+            System.out.println(puntos);
+            System.out.println(userIDF);
+            MundoLiterario mundoLiterario = new MundoLiterario();
+            
+        if(intentosNivel10==1){
+             
+            puntuacion.almacenarPuntuacion(idJuegoF, puntos, userIDF);
+            
+        }
+        javax.swing.Timer timer = new javax.swing.Timer(5000, new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                Ranking ranking = new Ranking(userIDF,idJuegoF);
+                ranking.setVisible(true);
+                mundoLiterario.dispose();
+            }
+        });
+        timer.setRepeats(false); // Esto es importante para que el Timer solo se ejecute una vez
+        timer.start();
+    }
     
 
 
