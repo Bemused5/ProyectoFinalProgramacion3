@@ -8,16 +8,39 @@ import java.awt.Color;
 import java.awt.Frame;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.util.TimerTask;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JTextField;
+import proyectofinal.Puntuacion;
+import static proyectofinal.UInterfaces.PuntuacionRonda.idJuegoF;
+import static proyectofinal.UInterfaces.PuntuacionRonda.puntuacionF;
+import static proyectofinal.UInterfaces.PuntuacionRonda.userIDF;
 /**
  *
  * @author daasa
  */
-public class MundoLiterario extends javax.swing.JFrame implements KeyListener {
+public class MundoLiterario extends javax.swing.JFrame {
     private Theme darkTheme = new Theme(new Color(0, 0, 51), new Color(255, 255, 255), new Color(100, 100, 100));
     private Theme lightTheme = new Theme(new Color(255, 255, 255), new Color(0, 0, 0), new Color(200, 200, 200));
     private ImageIcon sunIcon = new ImageIcon(getClass().getResource("/proyectofinal/UInterfaces/resources/sun.png"));
@@ -27,10 +50,24 @@ public class MundoLiterario extends javax.swing.JFrame implements KeyListener {
     private int playerX = 50; // posición inicial X del jugador
     private int playerY = 50; // posición inicial Y del jugador
     private JLabel playerDot; // representa el jugador en el mapa
-
+    Timer tempo;
+    int vidas = 3; // suponiendo que empiezas con 3 vidas
+    private String respuestaCorrecta; // Almacena la respuesta correcta del nivel actual
+    int puntos=0;
+    int intentosNivel1=0;
+    int intentosNivel2=0;
+    int intentosNivel3=0;
+    int intentosNivel4=0;
+    int intentosNivel5=0;
+    int intentosNivel6=0;
+    int intentosNivel7=0;
+    int intentosNivel8=0;
+    int intentosNivel9=0;
+    int intentosNivel10=0;
+    int nivelSeleccionado=0;
     
-private int entryX = 150; // posición X ficticia de entrada
-private int entryY = 150; // posición Y ficticia de entrada
+    static int userIDF;
+    static int idJuegoF;
 
 
     int xMouse, yMouse;
@@ -38,22 +75,78 @@ private int entryY = 150; // posición Y ficticia de entrada
     /**
      * Creates new form Inicio
      */
-    public MundoLiterario() {
+    public MundoLiterario(int idJuego,int userID) {
         initComponents();
+        userIDF=userID;
+        idJuegoF= idJuego;
         applyTheme(lightTheme);
         jLabel6.setIcon(moonIcon);  // Establece el ícono inicial del sol
+        jLabel15.setText(String.valueOf(puntos));
+        jLabelPregunta.setVisible(false);
+        jScrollPane1.setVisible(false); // Asumiendo que este es el contenedor de jLabelPregunta
+        // Ocultar paneles de opciones
+        jPanelOpcion1.setVisible(false);
+        jPanelOpcion2.setVisible(false);
+        jPanelOpcion3.setVisible(false);
+        jPanelOpcion4.setVisible(false);
         
-        // Inicializar el punto del jugador
-        playerDot = new JLabel();
-        playerDot.setBounds(playerX, playerY, 10, 10);
-        playerDot.setOpaque(true);
-        playerDot.setBackground(Color.RED);
-        jPanel1.add(playerDot); // Añadir el punto al jPanel1
-        this.addKeyListener(this); // Agregar el KeyListener a tu JFrame
+        // Agrega ActionListeners a los JTextFields
+        ActionListener actionListener = (ActionEvent e) -> {
+            try {
+                verificarRespuesta(((JTextField) e.getSource()).getText());
+            } catch (InterruptedException ex) {
+                Logger.getLogger(MundoLiterario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        };
+
+        jTextFieldOpcion1.addMouseListener(new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+                ActionListener actionListener1 = actionListener;
+            try {
+                verificarRespuesta(((JTextField) e.getSource()).getText());
+            } catch (InterruptedException ex) {
+                Logger.getLogger(MundoLiterario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            }
+        });
+        jTextFieldOpcion2.addMouseListener(new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+                ActionListener actionListener1 = actionListener;
+            try {
+                verificarRespuesta(((JTextField) e.getSource()).getText());
+            } catch (InterruptedException ex) {
+                Logger.getLogger(MundoLiterario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            }
+        });
+        jTextFieldOpcion3.addMouseListener(new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+                ActionListener actionListener1 = actionListener;
+            try {
+                verificarRespuesta(((JTextField) e.getSource()).getText());
+            } catch (InterruptedException ex) {
+                Logger.getLogger(MundoLiterario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            }
+        });
+        jTextFieldOpcion4.addMouseListener(new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+                ActionListener actionListener1 = actionListener;
+            try {
+                verificarRespuesta(((JTextField) e.getSource()).getText());
+            } catch (InterruptedException ex) {
+                Logger.getLogger(MundoLiterario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            }
+        });
+
         
-        this.setFocusable(true); // Permitir que tu JFrame reciba eventos del teclado
-        setFocusable(true); // Permite que el JFrame reciba eventos de teclado
     }
+    public MundoLiterario() {}
     private void applyTheme(Theme theme) {
         jPanel1.setBackground(theme.backgroundColor);
         jLabel2.setForeground(theme.textColor);
@@ -97,7 +190,21 @@ private int entryY = 150; // posición Y ficticia de entrada
         jLabel1 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
+        jLabelPregunta = new javax.swing.JLabel();
+        jLabelCorazon = new javax.swing.JLabel();
+        jLabelVida = new javax.swing.JLabel();
+        jPanelOpcion1 = new javax.swing.JPanel();
+        jTextFieldOpcion1 = new javax.swing.JTextField();
+        jPanelOpcion2 = new javax.swing.JPanel();
+        jTextFieldOpcion2 = new javax.swing.JTextField();
+        jPanelOpcion3 = new javax.swing.JPanel();
+        jTextFieldOpcion3 = new javax.swing.JTextField();
+        jPanelOpcion4 = new javax.swing.JPanel();
+        jTextFieldOpcion4 = new javax.swing.JTextField();
+        jLabelResultado = new javax.swing.JLabel();
+        Temporizador = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -247,6 +354,11 @@ private int entryY = 150; // posición Y ficticia de entrada
         panelNivel5.setRoundBottomRight(100);
         panelNivel5.setRoundTopLeft(100);
         panelNivel5.setRoundTopRight(100);
+        panelNivel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panelNivel5MouseClicked(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 30)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -275,6 +387,11 @@ private int entryY = 150; // posición Y ficticia de entrada
         panelNivel2.setRoundBottomRight(100);
         panelNivel2.setRoundTopLeft(100);
         panelNivel2.setRoundTopRight(100);
+        panelNivel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panelNivel2MouseClicked(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 30)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -284,25 +401,30 @@ private int entryY = 150; // posición Y ficticia de entrada
         panelNivel2.setLayout(panelNivel2Layout);
         panelNivel2Layout.setHorizontalGroup(
             panelNivel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelNivel2Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelNivel2Layout.createSequentialGroup()
+                .addContainerGap(17, Short.MAX_VALUE)
                 .addComponent(jLabel4)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap())
         );
         panelNivel2Layout.setVerticalGroup(
             panelNivel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelNivel2Layout.createSequentialGroup()
-                .addComponent(jLabel4)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelNivel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel4))
         );
 
-        jPanel1.add(panelNivel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 610, -1, 40));
+        jPanel1.add(panelNivel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 610, 40, 40));
 
         panelNivel3.setBackground(new java.awt.Color(255, 51, 153));
         panelNivel3.setRoundBottomLeft(100);
         panelNivel3.setRoundBottomRight(100);
         panelNivel3.setRoundTopLeft(100);
         panelNivel3.setRoundTopRight(100);
+        panelNivel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panelNivel3MouseClicked(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 30)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -331,6 +453,11 @@ private int entryY = 150; // posición Y ficticia de entrada
         panelNivel4.setRoundBottomRight(100);
         panelNivel4.setRoundTopLeft(100);
         panelNivel4.setRoundTopRight(100);
+        panelNivel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panelNivel4MouseClicked(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 30)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
@@ -340,25 +467,30 @@ private int entryY = 150; // posición Y ficticia de entrada
         panelNivel4.setLayout(panelNivel4Layout);
         panelNivel4Layout.setHorizontalGroup(
             panelNivel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelNivel4Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelNivel4Layout.createSequentialGroup()
+                .addContainerGap(17, Short.MAX_VALUE)
                 .addComponent(jLabel7)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap())
         );
         panelNivel4Layout.setVerticalGroup(
             panelNivel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelNivel4Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel7))
+            .addGroup(panelNivel4Layout.createSequentialGroup()
+                .addComponent(jLabel7)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanel1.add(panelNivel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 520, -1, 40));
+        jPanel1.add(panelNivel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 520, -1, 40));
 
         panelNivel1.setBackground(new java.awt.Color(255, 51, 153));
         panelNivel1.setRoundBottomLeft(100);
         panelNivel1.setRoundBottomRight(100);
         panelNivel1.setRoundTopLeft(100);
         panelNivel1.setRoundTopRight(100);
+        panelNivel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panelNivel1MouseClicked(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 30)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -387,6 +519,11 @@ private int entryY = 150; // posición Y ficticia de entrada
         panelNivel10.setRoundBottomRight(100);
         panelNivel10.setRoundTopLeft(100);
         panelNivel10.setRoundTopRight(100);
+        panelNivel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panelNivel10MouseClicked(evt);
+            }
+        });
 
         jLabel13.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 30)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
@@ -403,18 +540,23 @@ private int entryY = 150; // posición Y ficticia de entrada
         );
         panelNivel10Layout.setVerticalGroup(
             panelNivel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelNivel10Layout.createSequentialGroup()
-                .addComponent(jLabel13)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelNivel10Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel13))
         );
 
-        jPanel1.add(panelNivel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 210, -1, 40));
+        jPanel1.add(panelNivel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 210, -1, 40));
 
         panelNivel7.setBackground(new java.awt.Color(255, 51, 153));
         panelNivel7.setRoundBottomLeft(100);
         panelNivel7.setRoundBottomRight(100);
         panelNivel7.setRoundTopLeft(100);
         panelNivel7.setRoundTopRight(100);
+        panelNivel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panelNivel7MouseClicked(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 30)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -443,6 +585,11 @@ private int entryY = 150; // posición Y ficticia de entrada
         panelNivel8.setRoundBottomRight(100);
         panelNivel8.setRoundTopLeft(100);
         panelNivel8.setRoundTopRight(100);
+        panelNivel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panelNivel8MouseClicked(evt);
+            }
+        });
 
         jLabel11.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 30)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
@@ -471,6 +618,11 @@ private int entryY = 150; // posición Y ficticia de entrada
         panelNivel6.setRoundBottomRight(100);
         panelNivel6.setRoundTopLeft(100);
         panelNivel6.setRoundTopRight(100);
+        panelNivel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panelNivel6MouseClicked(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 30)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
@@ -499,6 +651,11 @@ private int entryY = 150; // posición Y ficticia de entrada
         panelNivel9.setRoundBottomRight(100);
         panelNivel9.setRoundTopLeft(100);
         panelNivel9.setRoundTopRight(100);
+        panelNivel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panelNivel9MouseClicked(evt);
+            }
+        });
 
         jLabel12.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 30)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
@@ -524,19 +681,153 @@ private int entryY = 150; // posición Y ficticia de entrada
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectofinal/UInterfaces/resources/mapaWorld 1.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 40, 410, 730));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 40, 400, 730));
 
         jLabel14.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 36)); // NOI18N
         jLabel14.setText("Selecciona los niveles de menor a mayor ");
         jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, -1, -1));
 
-        jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
-        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel15.setText("jLabel15");
-        jLabel15.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jScrollPane1.setViewportView(jLabel15);
+        jLabelPregunta.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
+        jLabelPregunta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelPregunta.setText("jLabel15");
+        jLabelPregunta.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jScrollPane1.setViewportView(jLabelPregunta);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 870, 180));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, 870, 180));
+
+        jLabelCorazon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectofinal/UInterfaces/resources/vida.png"))); // NOI18N
+        jLabelCorazon.setText("jLabel16");
+        jPanel1.add(jLabelCorazon, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, 60, 60));
+
+        jLabelVida.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 36)); // NOI18N
+        jLabelVida.setText("3");
+        jPanel1.add(jLabelVida, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, -1, -1));
+
+        jPanelOpcion1.setBackground(new java.awt.Color(51, 255, 51));
+        jPanelOpcion1.setForeground(new java.awt.Color(51, 255, 51));
+
+        jTextFieldOpcion1.setEditable(false);
+        jTextFieldOpcion1.setBackground(new java.awt.Color(51, 255, 51));
+        jTextFieldOpcion1.setForeground(new java.awt.Color(255, 255, 255));
+        jTextFieldOpcion1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldOpcion1.setText("jTextField1");
+        jTextFieldOpcion1.setBorder(null);
+        jTextFieldOpcion1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextFieldOpcion1MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelOpcion1Layout = new javax.swing.GroupLayout(jPanelOpcion1);
+        jPanelOpcion1.setLayout(jPanelOpcion1Layout);
+        jPanelOpcion1Layout.setHorizontalGroup(
+            jPanelOpcion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jTextFieldOpcion1, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
+        );
+        jPanelOpcion1Layout.setVerticalGroup(
+            jPanelOpcion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jTextFieldOpcion1, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(jPanelOpcion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 470, 420, 100));
+
+        jPanelOpcion2.setBackground(new java.awt.Color(0, 255, 0));
+
+        jTextFieldOpcion2.setEditable(false);
+        jTextFieldOpcion2.setBackground(new java.awt.Color(51, 255, 51));
+        jTextFieldOpcion2.setForeground(new java.awt.Color(255, 255, 255));
+        jTextFieldOpcion2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldOpcion2.setText("jTextField1");
+        jTextFieldOpcion2.setBorder(null);
+        jTextFieldOpcion2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextFieldOpcion2MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelOpcion2Layout = new javax.swing.GroupLayout(jPanelOpcion2);
+        jPanelOpcion2.setLayout(jPanelOpcion2Layout);
+        jPanelOpcion2Layout.setHorizontalGroup(
+            jPanelOpcion2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jTextFieldOpcion2, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
+        );
+        jPanelOpcion2Layout.setVerticalGroup(
+            jPanelOpcion2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jTextFieldOpcion2, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(jPanelOpcion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 470, -1, -1));
+
+        jPanelOpcion3.setBackground(new java.awt.Color(0, 255, 0));
+
+        jTextFieldOpcion3.setEditable(false);
+        jTextFieldOpcion3.setBackground(new java.awt.Color(51, 255, 51));
+        jTextFieldOpcion3.setForeground(new java.awt.Color(255, 255, 255));
+        jTextFieldOpcion3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldOpcion3.setText("jTextField1");
+        jTextFieldOpcion3.setBorder(null);
+        jTextFieldOpcion3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextFieldOpcion3MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelOpcion3Layout = new javax.swing.GroupLayout(jPanelOpcion3);
+        jPanelOpcion3.setLayout(jPanelOpcion3Layout);
+        jPanelOpcion3Layout.setHorizontalGroup(
+            jPanelOpcion3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jTextFieldOpcion3, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
+        );
+        jPanelOpcion3Layout.setVerticalGroup(
+            jPanelOpcion3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jTextFieldOpcion3, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(jPanelOpcion3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 590, -1, -1));
+
+        jPanelOpcion4.setBackground(new java.awt.Color(51, 255, 51));
+
+        jTextFieldOpcion4.setEditable(false);
+        jTextFieldOpcion4.setBackground(new java.awt.Color(51, 255, 51));
+        jTextFieldOpcion4.setForeground(new java.awt.Color(255, 255, 255));
+        jTextFieldOpcion4.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldOpcion4.setText("jTextField1");
+        jTextFieldOpcion4.setBorder(null);
+        jTextFieldOpcion4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextFieldOpcion4MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelOpcion4Layout = new javax.swing.GroupLayout(jPanelOpcion4);
+        jPanelOpcion4.setLayout(jPanelOpcion4Layout);
+        jPanelOpcion4Layout.setHorizontalGroup(
+            jPanelOpcion4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelOpcion4Layout.createSequentialGroup()
+                .addComponent(jTextFieldOpcion4, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jPanelOpcion4Layout.setVerticalGroup(
+            jPanelOpcion4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jTextFieldOpcion4, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(jPanelOpcion4, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 590, -1, -1));
+
+        jLabelResultado.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 24)); // NOI18N
+        jLabelResultado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel1.add(jLabelResultado, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 700, 720, 50));
+
+        Temporizador.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 36)); // NOI18N
+        jPanel1.add(Temporizador, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 190, -1, -1));
+
+        jLabel15.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 36)); // NOI18N
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel15.setText("0");
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 190, 80, -1));
+
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectofinal/UInterfaces/resources/estrellaPuntuacion-removebg-preview.png"))); // NOI18N
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 180, 110, 60));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -605,47 +896,549 @@ private int entryY = 150; // posición Y ficticia de entrada
         }
         isDarkMode = !isDarkMode;  // Invertir el estado del tema
     }//GEN-LAST:event_changeModeMouseClicked
+
+    private void panelNivel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelNivel1MouseClicked
+        panelNivelMouseClicked(1); // para el nivel 1
+        iniciarTemporizador();
+        nivelSeleccionado=1;
+    }//GEN-LAST:event_panelNivel1MouseClicked
+
+    private void panelNivel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelNivel2MouseClicked
+        
+        if(puntos==10){
+            panelNivelMouseClicked(2);
+            iniciarTemporizador();
+        } else{
+            jLabelResultado.setVisible(true);
+            jLabelResultado.setText("Todavia no puedes acceder a este nivel");
+            javax.swing.Timer timer = new javax.swing.Timer(3000, new java.awt.event.ActionListener() {
+                @Override
+                public void actionPerformed(java.awt.event.ActionEvent e) {
+                    jLabelResultado.setVisible(false);
+                }
+            });
+            timer.setRepeats(false); // Esto es importante para que el Timer solo se ejecute una vez
+            timer.start();
+        }
+        
+    }//GEN-LAST:event_panelNivel2MouseClicked
+
+    private void panelNivel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelNivel3MouseClicked
+        
+        if(puntos==20){
+            panelNivelMouseClicked(3); // para el nivel 1
+            iniciarTemporizador();
+        } else{
+            jLabelResultado.setVisible(true);
+            jLabelResultado.setText("Todavia no puedes acceder a este nivel");
+            javax.swing.Timer timer = new javax.swing.Timer(3000, new java.awt.event.ActionListener() {
+                @Override
+                public void actionPerformed(java.awt.event.ActionEvent e) {
+                    jLabelResultado.setVisible(false);
+                }
+            });
+            timer.setRepeats(false); // Esto es importante para que el Timer solo se ejecute una vez
+            timer.start();
+        }
+    }//GEN-LAST:event_panelNivel3MouseClicked
+
+    private void panelNivel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelNivel4MouseClicked
+        if(puntos==30){
+            panelNivelMouseClicked(4); // para el nivel 1
+            iniciarTemporizador();
+        } else{
+            jLabelResultado.setVisible(true);
+            jLabelResultado.setText("Todavia no puedes acceder a este nivel");
+            javax.swing.Timer timer = new javax.swing.Timer(3000, new java.awt.event.ActionListener() {
+                @Override
+                public void actionPerformed(java.awt.event.ActionEvent e) {
+                    jLabelResultado.setVisible(false);
+                }
+            });
+            timer.setRepeats(false); // Esto es importante para que el Timer solo se ejecute una vez
+            timer.start();
+        }
+    }//GEN-LAST:event_panelNivel4MouseClicked
+
+    private void panelNivel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelNivel6MouseClicked
+        if(puntos==50){
+            panelNivelMouseClicked(6); // para el nivel 1
+            iniciarTemporizador();
+        } else{
+            jLabelResultado.setVisible(true);
+            jLabelResultado.setText("Todavia no puedes acceder a este nivel");
+            javax.swing.Timer timer = new javax.swing.Timer(3000, new java.awt.event.ActionListener() {
+                @Override
+                public void actionPerformed(java.awt.event.ActionEvent e) {
+                    jLabelResultado.setVisible(false);
+                }
+            });
+            timer.setRepeats(false); // Esto es importante para que el Timer solo se ejecute una vez
+            timer.start();
+        }
+        
+    }//GEN-LAST:event_panelNivel6MouseClicked
+
+    private void panelNivel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelNivel7MouseClicked
+        
+        if(puntos==60){
+            panelNivelMouseClicked(7); // para el nivel 1
+            iniciarTemporizador();
+        } else{
+            jLabelResultado.setVisible(true);
+            jLabelResultado.setText("Todavia no puedes acceder a este nivel");
+            javax.swing.Timer timer = new javax.swing.Timer(3000, new java.awt.event.ActionListener() {
+                @Override
+                public void actionPerformed(java.awt.event.ActionEvent e) {
+                    jLabelResultado.setVisible(false);
+                }
+            });
+            timer.setRepeats(false); // Esto es importante para que el Timer solo se ejecute una vez
+            timer.start();
+        }
+    }//GEN-LAST:event_panelNivel7MouseClicked
+
+    private void panelNivel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelNivel8MouseClicked
+        
+        if(puntos==70){
+            panelNivelMouseClicked(8); // para el nivel 1
+            iniciarTemporizador();
+        } else{
+            jLabelResultado.setVisible(true);
+            jLabelResultado.setText("Todavia no puedes acceder a este nivel");
+            javax.swing.Timer timer = new javax.swing.Timer(3000, new java.awt.event.ActionListener() {
+                @Override
+                public void actionPerformed(java.awt.event.ActionEvent e) {
+                    jLabelResultado.setVisible(false);
+                }
+            });
+            timer.setRepeats(false); // Esto es importante para que el Timer solo se ejecute una vez
+            timer.start();
+        }
+    }//GEN-LAST:event_panelNivel8MouseClicked
+
+    private void panelNivel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelNivel9MouseClicked
+        
+        if(puntos==80){
+            panelNivelMouseClicked(9); // para el nivel 1
+            iniciarTemporizador();
+        } else{
+            jLabelResultado.setVisible(true);
+            jLabelResultado.setText("Todavia no puedes acceder a este nivel");
+            javax.swing.Timer timer = new javax.swing.Timer(3000, new java.awt.event.ActionListener() {
+                @Override
+                public void actionPerformed(java.awt.event.ActionEvent e) {
+                    jLabelResultado.setVisible(false);
+                }
+            });
+            timer.setRepeats(false); // Esto es importante para que el Timer solo se ejecute una vez
+            timer.start();
+        }
+    }//GEN-LAST:event_panelNivel9MouseClicked
+
+    private void panelNivel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelNivel10MouseClicked
+        
+        if(puntos==90){
+            panelNivelMouseClicked(10); // para el nivel 1
+            iniciarTemporizador();
+        } else{
+            jLabelResultado.setVisible(true);
+            jLabelResultado.setText("Todavia no puedes acceder a este nivel");
+            javax.swing.Timer timer = new javax.swing.Timer(3000, new java.awt.event.ActionListener() {
+                @Override
+                public void actionPerformed(java.awt.event.ActionEvent e) {
+                    jLabelResultado.setVisible(false);
+                }
+            });
+            timer.setRepeats(false); // Esto es importante para que el Timer solo se ejecute una vez
+            timer.start();
+        }
+    }//GEN-LAST:event_panelNivel10MouseClicked
+
+    private void panelNivel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelNivel5MouseClicked
+        
+        if(puntos==40){
+            panelNivelMouseClicked(5); // para el nivel 1
+            iniciarTemporizador();
+        } else{
+            jLabelResultado.setVisible(true);
+            jLabelResultado.setText("Todavia no puedes acceder a este nivel");
+            javax.swing.Timer timer = new javax.swing.Timer(3000, new java.awt.event.ActionListener() {
+                @Override
+                public void actionPerformed(java.awt.event.ActionEvent e) {
+                    jLabelResultado.setVisible(false);
+                }
+            });
+            timer.setRepeats(false); // Esto es importante para que el Timer solo se ejecute una vez
+            timer.start();
+        }
+    }//GEN-LAST:event_panelNivel5MouseClicked
+
+    private void jTextFieldOpcion1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldOpcion1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldOpcion1MouseClicked
+
+    private void jTextFieldOpcion2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldOpcion2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldOpcion2MouseClicked
+
+    private void jTextFieldOpcion3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldOpcion3MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldOpcion3MouseClicked
+
+    private void jTextFieldOpcion4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldOpcion4MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldOpcion4MouseClicked
              
 
-    public void testPlayerMovementAndEntryDetection() {
-    // Mover el jugador a una posición alejada de la entrada
-    playerX = 10;
-    playerY = 10;
-    playerDot.setLocation(playerX, playerY);
-    
-    // Mover el jugador hacia la entrada en pasos de 10 unidades
-    while (playerX != entryX || playerY != entryY) {
-        if (playerX < entryX) {
-            playerX += 10;
-        } else if (playerX > entryX) {
-            playerX -= 10;
+    private String[] cargarPreguntaDesdeArchivo(int nivel) {
+    // El nivel corresponde al número del panelNivel clickeado
+        String[] datos = null;
+        try (InputStream inputStream = getClass().getResourceAsStream("/proyectofinal/UInterfaces/resources/dataMundoLiterario1.txt");
+             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.ISO_8859_1))) {
+            
+            String linea;
+            int contadorLinea = 0;
+            while ((linea = reader.readLine()) != null) {
+                contadorLinea++;
+                if (contadorLinea == nivel) {
+                    datos = linea.split("\t");
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace(); // Manejo de error adecuado según tu proyecto
         }
+        return datos; // Retorna la línea relevante dividida en un array
+    }
 
-        if (playerY < entryY) {
-            playerY += 10;
-        } else if (playerY > entryY) {
-            playerY -= 10;
-        }
+    private void panelNivelMouseClicked(int nivel) { // 'nivel' es el número del nivel clickeado
+    // Cargar datos desde el archivo
+        
+         
+        String[] preguntaYRespuestas = cargarPreguntaDesdeArchivo(nivel);
 
-        playerDot.setLocation(playerX, playerY);
-        System.out.println("Player position: " + playerX + ", " + playerY);
+        if (preguntaYRespuestas != null && preguntaYRespuestas.length == 6) {
+            // Mostrar los componentes ocultos
+            Temporizador.setVisible(true);
+            jLabelPregunta.setText(preguntaYRespuestas[0]);
+            jLabelPregunta.setVisible(true);
+            jScrollPane1.setVisible(true);
+            jPanelOpcion1.setVisible(true);
+            jPanelOpcion2.setVisible(true);
+            jPanelOpcion3.setVisible(true);
+            jPanelOpcion4.setVisible(true);
 
-        // Si el jugador está en la entrada, mostrar un mensaje
-        if (isPlayerAtEntry()) {
-            System.out.println("Player has reached the entry!");
-            break;
-        }
+            // Rellenar los campos de texto con las opciones
+            jTextFieldOpcion1.setText(preguntaYRespuestas[1]);
+            jTextFieldOpcion2.setText(preguntaYRespuestas[2]);
+            jTextFieldOpcion3.setText(preguntaYRespuestas[3]);
+            jTextFieldOpcion4.setText(preguntaYRespuestas[4]);
+            respuestaCorrecta = preguntaYRespuestas[5];
 
-        // Agrega un pequeño retraso para visualizar el movimiento del jugador
-        try {
-            Thread.sleep(500);  // Esperar 500 milisegundos (0.5 segundos) antes del siguiente movimiento
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            // Aquí deberías guardar también la respuesta correcta desde preguntaYRespuestas[5] 
+            // para usarla cuando el usuario elija una respuesta.
+        } else {
+            // Manejar error
+            JOptionPane.showMessageDialog(this, "Error al cargar la pregunta y las opciones.");
         }
     }
+
+
+
+
+    private void iniciarTemporizador() {
+    if (tempo != null) {
+        tempo.cancel();  // Asegura que cualquier temporizador previo esté cancelado
+    }
+
+    tempo = new Timer();
+    tempo.scheduleAtFixedRate(new TimerTask() {
+        int tiempoRestante = 47;
+
+        @Override
+        public void run() {
+            Temporizador.setText("Tiempo: " + (tiempoRestante-7) + " segundos");
+            tiempoRestante--;
+
+            if (tiempoRestante == 5) {
+                jLabelResultado.setText("NO PUDISTE RESPONDER A TIEMPO VUELVE A INTENTARLO");
+                Temporizador.setVisible(false);
+            }
+
+            if (tiempoRestante == 0) {
+                // Aquí desapareces los elementos que mencionaste
+               
+                jPanelOpcion1.setVisible(false);
+                jPanelOpcion2.setVisible(false);
+                jPanelOpcion3.setVisible(false);
+                jPanelOpcion4.setVisible(false);
+                jLabelPregunta.setVisible(false);
+                jScrollPane1.setVisible(false);
+                jLabelResultado.setVisible(false);
+
+                // Decrementas la vida
+                vidas--;
+                jLabelVida.setText(String.valueOf(vidas));
+
+                // Si las vidas llegan a 0, muestras el mensaje
+                if (vidas == 0) {
+                    //JOptionPane.showMessageDialog(null, "Has perdido.");
+                    this.cancel();  // Detiene el temporizador
+                }
+            }
+
+            if (tiempoRestante < 0) {
+                // Si las vidas llegan a 0, muestras el mensaje
+                if (vidas == 0) {
+                    Ranking ranking = new Ranking(userIDF,idJuegoF);
+                    Puntuacion puntuacion = new Puntuacion();
+                    System.out.println(idJuegoF);
+                    System.out.println(puntos);
+                    System.out.println(userIDF);
+                    puntuacion.almacenarPuntuacion(idJuegoF, puntos, userIDF);
+                    ranking.setVisible(true);
+                    MundoLiterario mundoLiterario = new MundoLiterario();
+                    mundoLiterario.dispose();
+                }
+                this.cancel();  // Detiene el temporizador
+                
+            }
+        }
+    }, 0, 1000);  // Se ejecuta cada segundo
+    
 }
 
+    private void verificarRespuesta(String respuestaSeleccionada) throws InterruptedException {
+        jLabelResultado.setVisible(true);
+        if (respuestaSeleccionada.equalsIgnoreCase(respuestaCorrecta)) {
+            
+            if(nivelSeleccionado==1){
+                jPanelOpcion1.setVisible(false);
+                jPanelOpcion2.setVisible(false);
+                jPanelOpcion3.setVisible(false);
+                jPanelOpcion4.setVisible(false);
+                jLabelPregunta.setVisible(false);
+                jScrollPane1.setVisible(false);
+                Temporizador.setVisible(false);
+                jLabelResultado.setText("¡Felicidades! Pasaste el nivel.");
+                if(intentosNivel1==0){
+                    puntos+=10;
+                    jLabel15.setText(String.valueOf(puntos));
+                }else{
+                    jLabelResultado.setText("Ya pasaste este nivel no puedes ganar mas puntuación");
+                    repaint();
+                }
+            }
+            
+            if(nivelSeleccionado==2){
+                jPanelOpcion1.setVisible(false);
+                jPanelOpcion2.setVisible(false);
+                jPanelOpcion3.setVisible(false);
+                jPanelOpcion4.setVisible(false);
+                jLabelPregunta.setVisible(false);
+                jScrollPane1.setVisible(false);
+                Temporizador.setVisible(false);
+                jLabelResultado.setText("¡Felicidades! Pasaste el nivel.");
+                if(intentosNivel2==0){
+                    puntos+=10;
+                    jLabel15.setText(String.valueOf(puntos));
+                }else{
+                    jLabelResultado.setText("Ya pasaste este nivel no puedes ganar mas puntuación");
+                    repaint();
+                }
+            }
+            
+            
+            
+            if(nivelSeleccionado==3){
+                jPanelOpcion1.setVisible(false);
+                jPanelOpcion2.setVisible(false);
+                jPanelOpcion3.setVisible(false);
+                jPanelOpcion4.setVisible(false);
+                jLabelPregunta.setVisible(false);
+                jScrollPane1.setVisible(false);
+                Temporizador.setVisible(false);
+                jLabelResultado.setText("¡Felicidades! Pasaste el nivel.");
+                if(intentosNivel3==0){
+                    puntos+=10;
+                    jLabel15.setText(String.valueOf(puntos));
+                }else{
+                    jLabelResultado.setText("Ya pasaste este nivel no puedes ganar mas puntuación");
+                    repaint();
+                }
+            }
+            
+            
+            if(nivelSeleccionado==4){
+                jPanelOpcion1.setVisible(false);
+                jPanelOpcion2.setVisible(false);
+                jPanelOpcion3.setVisible(false);
+                jPanelOpcion4.setVisible(false);
+                jLabelPregunta.setVisible(false);
+                jScrollPane1.setVisible(false);
+                Temporizador.setVisible(false);
+                jLabelResultado.setText("¡Felicidades! Pasaste el nivel.");
+                if(intentosNivel4==0){
+                    puntos+=10;
+                    jLabel15.setText(String.valueOf(puntos));
+                }else{
+                    jLabelResultado.setText("Ya pasaste este nivel no puedes ganar mas puntuación");
+                    repaint();
+                }
+            }
+            
+            if(nivelSeleccionado==5){
+                jPanelOpcion1.setVisible(false);
+                jPanelOpcion2.setVisible(false);
+                jPanelOpcion3.setVisible(false);
+                jPanelOpcion4.setVisible(false);
+                jLabelPregunta.setVisible(false);
+                jScrollPane1.setVisible(false);
+                Temporizador.setVisible(false);
+                jLabelResultado.setText("¡Felicidades! Pasaste el nivel.");
+                if(intentosNivel5==0){
+                    puntos+=10;
+                    jLabel15.setText(String.valueOf(puntos));
+                }else{
+                    jLabelResultado.setText("Ya pasaste este nivel no puedes ganar mas puntuación");
+                    repaint();
+                }
+            }
+            
+            
+            if(nivelSeleccionado==6){
+                jPanelOpcion1.setVisible(false);
+                jPanelOpcion2.setVisible(false);
+                jPanelOpcion3.setVisible(false);
+                jPanelOpcion4.setVisible(false);
+                jLabelPregunta.setVisible(false);
+                jScrollPane1.setVisible(false);
+                Temporizador.setVisible(false);
+                jLabelResultado.setText("¡Felicidades! Pasaste el nivel.");
+                if(intentosNivel6==0){
+                    puntos+=10;
+                    jLabel15.setText(String.valueOf(puntos));
+                }else{
+                    jLabelResultado.setText("Ya pasaste este nivel no puedes ganar mas puntuación");
+                    repaint();
+                }
+            }
+            
+            
+            if(nivelSeleccionado==7){
+                jPanelOpcion1.setVisible(false);
+                jPanelOpcion2.setVisible(false);
+                jPanelOpcion3.setVisible(false);
+                jPanelOpcion4.setVisible(false);
+                jLabelPregunta.setVisible(false);
+                jScrollPane1.setVisible(false);
+                Temporizador.setVisible(false);
+                jLabelResultado.setText("¡Felicidades! Pasaste el nivel.");
+                if(intentosNivel7==0){
+                    puntos+=10;
+                    jLabel15.setText(String.valueOf(puntos));
+                }else{
+                    jLabelResultado.setText("Ya pasaste este nivel no puedes ganar mas puntuación");
+                    repaint();
+                }
+            }
+            
+            if(nivelSeleccionado==8){
+                jPanelOpcion1.setVisible(false);
+                jPanelOpcion2.setVisible(false);
+                jPanelOpcion3.setVisible(false);
+                jPanelOpcion4.setVisible(false);
+                jLabelPregunta.setVisible(false);
+                jScrollPane1.setVisible(false);
+                Temporizador.setVisible(false);
+                jLabelResultado.setText("¡Felicidades! Pasaste el nivel.");
+                if(intentosNivel8==0){
+                    puntos+=10;
+                    jLabel15.setText(String.valueOf(puntos));
+                }else{
+                    jLabelResultado.setText("Ya pasaste este nivel no puedes ganar mas puntuación");
+                    repaint();
+                }
+            }
+            
+            if(nivelSeleccionado==9){
+                jPanelOpcion1.setVisible(false);
+                jPanelOpcion2.setVisible(false);
+                jPanelOpcion3.setVisible(false);
+                jPanelOpcion4.setVisible(false);
+                jLabelPregunta.setVisible(false);
+                jScrollPane1.setVisible(false);
+                Temporizador.setVisible(false);
+                jLabelResultado.setText("¡Felicidades! Pasaste el nivel.");
+                if(intentosNivel9==0){
+                    puntos+=10;
+                    jLabel15.setText(String.valueOf(puntos));
+                }else{
+                    jLabelResultado.setText("Ya pasaste este nivel no puedes ganar mas puntuación");
+                    repaint();
+                }
+            }
+            
+            
+            if(nivelSeleccionado==10){
+                jPanelOpcion1.setVisible(false);
+                jPanelOpcion2.setVisible(false);
+                jPanelOpcion3.setVisible(false);
+                jPanelOpcion4.setVisible(false);
+                jLabelPregunta.setVisible(false);
+                jScrollPane1.setVisible(false);
+                Temporizador.setVisible(false);
+                jLabelResultado.setText("¡Felicidades! Pasaste el nivel.");
+                if(intentosNivel10==0){
+                    puntos+=10;
+                    jLabel15.setText(String.valueOf(puntos));
+                }else{
+                    jLabelResultado.setText("Ya pasaste este nivel no puedes ganar mas puntuación");
+                    repaint();
+                }
+            }
 
+            
+        } else {
+            
+            jLabelResultado.setText("Respuesta incorrecta. ¡Inténtalo de nuevo!");
+                jPanelOpcion1.setVisible(false);
+                jPanelOpcion2.setVisible(false);
+                jPanelOpcion3.setVisible(false);
+                jPanelOpcion4.setVisible(false);
+                jLabelPregunta.setVisible(false);
+                jScrollPane1.setVisible(false);
+                Temporizador.setVisible(false);
+            
+                // Decrementas la vida
+                vidas--;
+                jLabelVida.setText(String.valueOf(vidas));
+                if (vidas == 0) {
+                    Ranking ranking = new Ranking(userIDF,idJuegoF);
+                    Puntuacion puntuacion = new Puntuacion();
+                    System.out.println(idJuegoF);
+                    System.out.println(puntos);
+                    System.out.println(userIDF);
+                    puntuacion.almacenarPuntuacion(idJuegoF, puntos, userIDF);
+                    ranking.setVisible(true);
+                    this.dispose();
+                }
+                
+            // Aquí puedes manejar intentos fallidos, como reducir el número de vidas o similar.
+        }
+        // Se crea un Timer que se ejecutará después de 5 segundos (5000 milisegundos)
+        javax.swing.Timer timer = new javax.swing.Timer(5000, new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                jLabelResultado.setVisible(false);
+            }
+        });
+        timer.setRepeats(false); // Esto es importante para que el Timer solo se ejecute una vez
+        timer.start();
+    }
+
+    
 
 
     /**
@@ -655,14 +1448,15 @@ private int entryY = 150; // posición Y ficticia de entrada
         /* ... Código existente ... */
         java.awt.EventQueue.invokeLater(new Runnable() {
         public void run() {
-            MundoLiterario ml = new MundoLiterario();
+            MundoLiterario ml = new MundoLiterario(idJuegoF,userIDF);
             ml.setVisible(true);
-            ml.testPlayerMovementAndEntryDetection();
+
         }
     });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Temporizador;
     private Clases.PanelRound changeMode;
     private Clases.PanelRound exitButton;
     private javax.swing.JPanel header;
@@ -673,6 +1467,7 @@ private int entryY = 150; // posición Y ficticia de entrada
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -681,8 +1476,20 @@ private int entryY = 150; // posición Y ficticia de entrada
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelCorazon;
+    private javax.swing.JLabel jLabelPregunta;
+    private javax.swing.JLabel jLabelResultado;
+    private javax.swing.JLabel jLabelVida;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanelOpcion1;
+    private javax.swing.JPanel jPanelOpcion2;
+    private javax.swing.JPanel jPanelOpcion3;
+    private javax.swing.JPanel jPanelOpcion4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextFieldOpcion1;
+    private javax.swing.JTextField jTextFieldOpcion2;
+    private javax.swing.JTextField jTextFieldOpcion3;
+    private javax.swing.JTextField jTextFieldOpcion4;
     private Clases.PanelRound minimizeWindow;
     private Clases.PanelRound panelNivel1;
     private Clases.PanelRound panelNivel10;
@@ -696,50 +1503,8 @@ private int entryY = 150; // posición Y ficticia de entrada
     private Clases.PanelRound panelNivel9;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void keyTyped(KeyEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+  
 
-    @Override
-    public void keyPressed(KeyEvent e) {
-        switch (e.getKeyCode()) {
-                case KeyEvent.VK_UP:
-                    playerY -= 10;
-                    break;
-                case KeyEvent.VK_DOWN:
-                    playerY += 10;
-                    break;
-                case KeyEvent.VK_LEFT:
-                    playerX -= 10;
-                    break;
-                case KeyEvent.VK_RIGHT:
-                    playerX += 10;
-                    break;
-            }
-            // Actualizar posición del punto del jugador
-            playerDot.setLocation(playerX, playerY);
-            
-            // Lógica para mostrar el JOptionPane al intentar acceder a un nivel
-            if (isPlayerAtEntry()) {
-                String answer = JOptionPane.showInputDialog("Responda la pregunta para acceder al nivel:");
-                if (answer != null && answer.equals("respuesta correcta")) {
-                    // El jugador respondió correctamente y puede acceder al nivel
-                } else {
-                    // Respuesta incorrecta
-                    JOptionPane.showMessageDialog(null, "Respuesta incorrecta!");
-                }
-            }
-        }
+
    
-    // Función para verificar si el jugador está en la posición de entrada
-    private boolean isPlayerAtEntry() {
-        return playerX == entryX && playerY == entryY;
-    }
-
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }

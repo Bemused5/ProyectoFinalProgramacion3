@@ -1,0 +1,100 @@
+Internet	Red global de comunicación entre computadoras.
+Software	Conjunto de programas e instrucciones para un computador.
+Hardware	Partes físicas y tangibles de un equipo informático.
+Teclado	Dispositivo con botones para ingresar datos.
+Monitor	Pantalla donde se visualiza la información de la computadora.
+Ratón	Dispositivo de mano para controlar el cursor en la pantalla.
+Impresora	Aparato que transfiere textos o gráficos de la computadora al papel.
+USB	Dispositivo de almacenamiento portátil y conectable.
+Bluetooth	Tecnología que permite la transmisión de datos sin cables.
+Wi-Fi	Tecnología que permite conectividad inalámbrica a internet.
+Navegador	Software que permite acceder a la web.
+Virus	Programa malicioso que infecta sistemas.
+Antivirus	Software para detectar y eliminar programas maliciosos.
+Pixel	Menor unidad gráfica en una pantalla.
+Memoria	Componente que almacena información temporal o permanente.
+Disco	Medio de almacenamiento de datos.
+Batería	Fuente de energía recargable en dispositivos.
+Correo	Sistema de mensajes digitales.
+Archivo	Conjunto de datos digitales almacenados.
+Carpeta	Ubicación virtual para organizar archivos.
+Emoticono	Símbolos gráficos que expresan emociones.
+Contraseña	Secuencia de caracteres para autenticar el acceso.
+Nube	Almacenamiento y procesamiento de datos en servidores remotos.
+Descarga	Transferencia de datos desde internet al computador.
+Multimedia	Integración de texto, imagen, video y sonido en un solo medio.
+Pantalla	Superficie de visualización gráfica.
+Blog	Sitio web que incluye entradas periódicas de comentarios o informaciones.
+Chat	Comunicación escrita en tiempo real a través de internet.
+Clic	Acción de presionar un botón en el ratón.
+Base de datos	Colección organizada de información.
+Digital	Información representada por números binarios.
+E-book	Libro en formato digital.
+Enlace	Conexión entre dos páginas web.
+Foro	Espacio de discusión en línea.
+Gráfico	Representación visual de datos.
+Icono	Pequeña imagen que representa un programa o función.
+Interfaz	Medio por el cual el usuario interactúa con una máquina.
+Joystick	Dispositivo de control para juegos.
+Megabyte	Unidad de almacenamiento de información.
+Menú	Lista de opciones disponibles.
+Red	Conjunto de equipos conectados para compartir información.
+Servidor	Sistema que proporciona recursos a otras computadoras.
+Spam	Correos electrónicos no deseados.
+Streaming	Transmisión de audio o video en tiempo real.
+Tableta	Dispositivo táctil portátil como un computador.
+Usuario	Persona que utiliza un sistema o servicio.
+Firewall	Sistema de seguridad para una red.
+Intranet	Red interna limitada a una organización.
+Podcast	Serie de contenidos de audio o video disponibles en internet.
+Portátil	Computador personal transportable.
+Programa	Conjunto de instrucciones para realizar tareas específicas.
+Dominio	Nombre único que identifica un sitio web.
+Motor de búsqueda	Programa que busca información en la web.
+Computadora	Dispositivo electrónico para procesar información.
+Algoritmo	Conjunto de instrucciones para resolver problemas.
+Backup	Copia de seguridad de la información.
+Bit	Unidad básica de información en informática.
+Byte	Unidad de almacenamiento de información.
+Código	Lenguaje de programación escrito.
+Cookies	Datos almacenados por sitios web en tu navegador.
+CPU	Cerebro del computador donde se procesan las instrucciones.
+Escáner	Dispositivo que digitaliza imágenes.
+Ethernet	Estándar de red para la conexión de computadoras.
+GIF	Formato de imagen que soporta animaciones.
+HTML	Lenguaje de marcado para crear páginas web.
+IP	Número que identifica un dispositivo en la red.
+JPEG	Formato común de imagen con compresión.
+Kernel	Núcleo central de un sistema operativo.
+Login	Proceso de identificación en un sistema.
+Malware	Software diseñado para dañar sistemas.
+Modem	Dispositivo que modula y demodula señales digitales.
+OCR	Tecnología para convertir imágenes de texto en texto editable.
+PDF	Formato de archivo para documentos fijos.
+Periférico	Dispositivo externo conectado a la computadora.
+Plugin	Programa que agrega funciones a otros programas.
+Router	Dispositivo que dirige datos en una red.
+Script	Código que se ejecuta en aplicaciones web.
+SSD	Tipo de dispositivo de almacenamiento sin partes móviles.
+Tarjeta Madre	Placa principal en una computadora.
+URL	Localizador uniforme de recursos para encontrar sitios web.
+Vlog	Blog que publica principalmente videos.
+Web	Sistema de información en internet.
+Wiki	Sitio web colaborativo que los usuarios pueden editar.
+XHTML	Versión más estricta y limpia de HTML.
+XML	Lenguaje de marcado para documentos con información estructurada.
+Captcha	Prueba para comprobar que el usuario no es un robot.
+Dashboard	Panel de control visual para sistemas.
+E-commerce	Comercio de bienes y servicios por internet.
+Fintech	Tecnologías aplicadas a servicios financieros.
+Gamificación	Uso de elementos de juego en contextos no lúdicos.
+Hashtag	Etiqueta de palabra clave precedida por una almohadilla en redes.
+LMS	Sistema de gestión de aprendizaje.
+Meme	Imagen, video o texto típicamente humorístico en internet.
+Phishing	Estafa electrónica para obtener información sensible.
+Avatar	Imagen que representa a un usuario en entornos virtuales.
+Benchmarking	Evaluación comparativa de rendimiento.
+Freelance	Trabajo independiente sin contrato a largo plazo.
+Interface	Punto de interacción entre componentes de un sistema.
+Outsourcing	Subcontratación de servicios externos.
+Ticket	Notificación o reporte de un incidente en sistemas.

@@ -1,0 +1,40 @@
+¿Que tipo de rima es usada en los sonetos?	Consonante	Asonante	Libre	Ninguna	Consonante
+¿Que elemento NO es tipico de una leyenda?	Hechos historicos	Milagros o magia	Elementos ficticios	Espacio exterior	Espacio exterior
+¿Cual es el primer paso al estructurar un ensayo?	Escribir la conclusión	Redactar el cuerpo	Definir la tesis	Elegir un titulo	Definir la tesis
+¿Quien escribio "Cien años de soledad"?	Julio Cortazar	Gabriel Garcia Márquez	Mario Vargas Llosa	Carlos Fuentes	Gabriel Garcia Marquez
+¿Cual es la metrica del haiku?	5-7-5	7-5-7	5-5-7	7-7-5	5-7-5
+¿Que es una metafora?	Comparacion directa	Exageracion	Descripcion literal	Comparacion implícita	Comparacion implícita
+¿Cual de los siguientes NO es un genero literario?	Lirico	Dramatico	Didactico	Culinario	Culinario
+¿Que tipo de narrador sabe los pensamientos de todos los personajes?	Protagonista	Omnisciente	Testigo	Limitado	Omnisciente
+¿Que estrofa tiene cuatro versos?	Terceto	Cuarteto	Quinteto	Sexteto	Cuarteto
+¿Como se denomina la parte de la historia donde se presentan los personajes y la situación inicial?	Climax	Desenlace	Introduccion	Nudo	Introduccion
+¿Que figura literaria se utiliza en "El viento susurra secretos"?	Personificacion	Hiperbole	Metonimia	Sinestesia	Personificacion
+¿Que obra escribio William Shakespeare?	El Quijote	Hamlet	La Divina Comedia	Moby Dick	Hamlet
+¿Que es una antitesis?	Repeticion	Exageracion	Contraposicion de ideas	Uso de sinonimos	Contraposicion de ideas
+¿Cual es el conflicto principal en "Romeo y Julieta"?	Politica	Amor y odio entre familias	Poder	Riqueza		Amor y odio entre familias
+¿Que tipo de texto argumenta a favor o en contra de una idea?	Narrativo	Expositivo	Argumentativo	Descriptivo	Argumentativo
+¿Que personaje de ficción es conocido como el caballero de la triste figura?	Hamlet	Don Juan	Don Quijote	Sherlock Holmes	Don Quijote
+¿Que es el ritmo en un poema?	Argumento	Metrica	Emocion expresada	Patron de sonidos	Patron de sonidos
+¿Que movimiento literario enfatiza lo irracional y los sueños?	Realismo	Romanticismo	Surrealismo	Modernismo	Surrealismo
+¿Que es una hiperbole?	Comparacion	Exageracion	Pregunta retorica	Definicion	Exageracion
+¿Cual es el final de una historia llamado?	Prologo	Epílogo	Climax	Desenlace	Desenlace
+¿Que significa "in media res"?	En lugares medianos	En resumen	En medio de las cosas	En el medio tiempo	En medio de las cosas
+¿Cual es el proposito de un ensayo persuasivo?	Informar	Entretener	Convencer	Describir	Convencer
+¿Que autor es conocido por "La metamorfosis"?	Franz Kafka	Fyodor Dostoevsky	George Orwell	Ernest Hemingway	Franz Kafka
+¿Que es la aliteracion?	Repetición de consonantes iniciales	Uso de adjetivos	Comparacion de ideas	Contraste de sonidos	Repeticion de consonantes iniciales
+¿Cual es la ciudad principal en "El ingenioso hidalgo Don Quijote de la Mancha"?	Barcelona	Madrid	La Mancha	Sevilla	La Mancha
+¿Que figura retorica se emplea en "susurro de hojas"?	Metafora	Onomatopeya	Hiperbole	Aliteracion	Onomatopeya
+¿Que movimiento literario busca representar la realidad tal como es?	Surrealismo	Romanticismo	Realismo	Simbolismo	Realismo
+¿Como se llama la introduccion en un ensayo?	Prefacio	Prologo	Tesis	Argumento	Tesis
+¿Que autor creo el personaje de Harry Potter?	J.K. Rowling	Stephen King	Suzanne Collins	J.R.R. Tolkien	J.K. Rowling
+¿Que es una anafora?	Contraste entre dos ideas	Repeticion de palabras al principio de versos consecutivos	Uso excesivo de adjetivos	Interrupcion en la secuencia logica de una oracion	Repeticion de palabras al principio de versos consecutivos
+¿En que tiempo verbal esta escrito un texto que dice "Caminaba bajo la intensa lluvia"?	Presente	Preterito perfecto	Preterito imperfecto	Futuro	Preterito imperfecto
+¿Quien es el autor de "La Odisea"?	Sofocles	Euripides	Homero	Aristoteles	Homero
+¿Cual es el nombre dado a un poema de catorce lineas?	Soneto	Oda	Elegia	Haiku	Soneto
+¿Que tipo de obra es "Fausto" de Goethe?	Novela	Poema	Drama	Ensayo	Drama
+¿Que narrativa breve, con una moraleja, utiliza animales como personajes?	Cuento	Fabula	Novela	Epopeya	Fabula
+¿Cual es la palabra para un "giro sorprendente" en una historia?	Ironia	Paradoja	Climax	Peripeteia	Peripeteia
+¿Que es un epiteto en la literatura?	Adjetivo que expresa una cualidad caracteristica	Critica literaria	Forma de poesia	Tipo de drama	Adjetivo que expresa una cualidad caracteristica
+¿Que movimiento literario celebraba la naturaleza, los sentimientos y la imaginación?	Realismo	Romanticismo	Clasicismo	Modernismo	Romanticismo
+¿Que característica es esencial en la ciencia ficcion?	Elementos sobrenaturales	Uso de tecnologia y ciencia	Historias de amor	Eventos históricos	Uso de tecnologia y ciencia
+¿Que personaje es central en "El viejo y el mar"?	Un rey	Un soldado	Un pescador	Un escritor	Un pescador

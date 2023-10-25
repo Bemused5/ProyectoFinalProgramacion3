@@ -6,7 +6,16 @@ package proyectofinal.UInterfaces;
 
 import java.awt.Color;
 import java.awt.Frame;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import javax.swing.ImageIcon;
+import proyectofinal.AnagramManager;
 import proyectofinal.ApiIntegration;
 
 
@@ -20,14 +29,14 @@ public class Anagrama extends javax.swing.JFrame {
     private ImageIcon sunIcon = new ImageIcon(getClass().getResource("/proyectofinal/UInterfaces/resources/sun.png"));
     private ImageIcon moonIcon = new ImageIcon(getClass().getResource("/proyectofinal/UInterfaces/resources/moon.png"));
     private boolean isDarkMode = false;  // Variable para rastrear el tema actual
-
+    private AnagramManager anagramManager;
 
     static int userIDF;
     static int puntuacionF;
     static int idJuegoF;
     static int rondaF;
-
-    static String palabraAlmacenada;
+    String palabra;
+    static String palabraRevuelta;
     int xMouse, yMouse;
    
 
@@ -43,22 +52,9 @@ public class Anagrama extends javax.swing.JFrame {
         applyTheme(lightTheme);
         jLabel6.setIcon(moonIcon);  // Establece el ícono inicial del sol
         
-        String[] response = ApiIntegration.callOpenAIApi();
-        if(response != null && response.length == 3) {
-            String palabra = response[0];
-            String descripcion = response[1];
-            String palabraRevuelta = response[2];
-
-            jLabel3.setText(descripcion);
-            jLabel2.setText(palabraRevuelta);
-
-            // Si quieres almacenar "palabra" en una variable
-            palabraAlmacenada = palabra; 
-        } else {
-            jLabel3.setText("Error al obtener datos");
-            jLabel2.setText("Error al obtener datos");
-        }
-        
+        inicializarAnagramManager();
+        inicializarPalabraRevuelta();  // Ahora 'palabraRevuelta' tendrá los caracteres mezclados de 'palabra'.
+        jLabel2.setText(palabraRevuelta);
     }
     private void applyTheme(Theme theme) {
         jPanel1.setBackground(theme.backgroundColor);
@@ -375,17 +371,70 @@ public class Anagrama extends javax.swing.JFrame {
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
         
-        System.out.println(palabraAlmacenada);
         String textoIngresado = jTextField1.getText();;
         System.out.println(textoIngresado);
-        if (textoIngresado.equalsIgnoreCase(palabraAlmacenada)) {
+        if (textoIngresado.equalsIgnoreCase(palabra)) {
             puntuacionF += 20;
         }
         PuntuacionRonda puntuacionRonda = new PuntuacionRonda(userIDF,puntuacionF,idJuegoF,1);
         puntuacionRonda.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel8MouseClicked
-                                  
+       
+    public void inicializarAnagramManager() {
+    // Utiliza un InputStream para cargar el archivo como un recurso, necesario especialmente dentro de un archivo JAR.
+    InputStream inputStream = getClass().getResourceAsStream("/proyectofinal/UInterfaces/resources/anagramasData.txt");
+    
+    if (inputStream != null) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) { // Asegúrate de manejar la codificación correcta
+            this.anagramManager = new AnagramManager(reader);
+            
+            // Obtener un nuevo anagrama y actualizar la interfaz de usuario.
+            String[] nuevoAnagrama = this.anagramManager.obtenerNuevoAnagrama();
+            if (nuevoAnagrama != null && nuevoAnagrama.length == 2) {
+                palabra = nuevoAnagrama[0];
+                String descripcion = nuevoAnagrama[1];
+                
+                // Suponiendo que jLabel2 y jLabel3 son los componentes de tu interfaz de usuario para mostrar la información.
+                
+                jLabel3.setText(descripcion);
+            } else {
+                // Manejar la situación de error, por ejemplo, no hay más anagramas o no se pudo leer.
+                jLabel2.setText("Error");
+                jLabel3.setText("No se pudo obtener un nuevo anagrama.");
+            }
+            
+        } catch (IOException e) {
+            // Maneja la excepción aquí (mostrar un mensaje, etc.)
+            e.printStackTrace();
+            jLabel2.setText("Error");
+            jLabel3.setText("Error al leer los datos de anagramas.");
+        }
+    } else {
+        // No se pudo encontrar el archivo. Maneja este caso como prefieras.
+        System.err.println("No se pudo encontrar el archivo 'anagramasData.txt'.");
+        jLabel2.setText("Error");
+        jLabel3.setText("No se pudo encontrar el recurso de datos.");
+    }
+}
+    
+    private String mezclarCaracteres(String texto) {
+        List<Character> caracteres = new ArrayList<Character>();
+        for(char c : texto.toCharArray()) {
+            caracteres.add(c);
+        }
+        Collections.shuffle(caracteres);
+        StringBuilder textoMezclado = new StringBuilder();
+        for(char c : caracteres) {
+            textoMezclado.append(c);
+        }
+        return textoMezclado.toString();
+    }
+    
+    private void inicializarPalabraRevuelta() {
+        palabraRevuelta = mezclarCaracteres(palabra);
+    }
+
 
 
     /**

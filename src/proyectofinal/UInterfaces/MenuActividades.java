@@ -619,10 +619,8 @@ public class MenuActividades extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel10MouseClicked
 
     private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
-        Random generador = new Random();
-        int puntuacion = generador.nextInt(100);
-        PuntuacionFinal puntuacionFinal = new PuntuacionFinal(userIDF,puntuacion,6);
-        puntuacionFinal.setVisible(true);
+        MundoLiterario mundoLiterario = new MundoLiterario(6,userIDF);
+        mundoLiterario.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jPanel4MouseClicked
                                   
