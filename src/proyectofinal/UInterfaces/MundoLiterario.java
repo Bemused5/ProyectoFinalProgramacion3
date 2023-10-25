@@ -33,6 +33,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTextField;
 import proyectofinal.Puntuacion;
+import java.util.ArrayList;
+import java.util.Random;
 import static proyectofinal.UInterfaces.PuntuacionRonda.idJuegoF;
 import static proyectofinal.UInterfaces.PuntuacionRonda.puntuacionF;
 import static proyectofinal.UInterfaces.PuntuacionRonda.userIDF;
@@ -68,6 +70,10 @@ public class MundoLiterario extends javax.swing.JFrame {
     
     static int userIDF;
     static int idJuegoF;
+    
+    // Lista para mantener un registro de los números que ya han aparecido.
+    private ArrayList<Integer> numerosGenerados;
+    private Random random;
 
 
     int xMouse, yMouse;
@@ -77,6 +83,8 @@ public class MundoLiterario extends javax.swing.JFrame {
      */
     public MundoLiterario(int idJuego,int userID) {
         initComponents();
+        numerosGenerados = new ArrayList<>();
+        random = new Random();
         userIDF=userID;
         idJuegoF= idJuego;
         applyTheme(lightTheme);
@@ -847,192 +855,27 @@ public class MundoLiterario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void headerMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headerMousePressed
-        xMouse = evt.getX();
-        yMouse = evt.getY();
-    }//GEN-LAST:event_headerMousePressed
+    private void jTextFieldOpcion4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldOpcion4MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldOpcion4MouseClicked
 
-    private void headerMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headerMouseDragged
-        int x = evt.getXOnScreen();
-        int y = evt.getYOnScreen();
-        this.setLocation(x - xMouse,y - yMouse);
-    }//GEN-LAST:event_headerMouseDragged
+    private void jTextFieldOpcion3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldOpcion3MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldOpcion3MouseClicked
 
-    private void exitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseClicked
-        System.exit(0);
-    }//GEN-LAST:event_exitButtonMouseClicked
+    private void jTextFieldOpcion2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldOpcion2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldOpcion2MouseClicked
 
-    private void exitButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseEntered
-        exitButton.setBackground(new Color(128, 0, 0));
-    }//GEN-LAST:event_exitButtonMouseEntered
-
-    private void exitButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseExited
-        exitButton.setBackground(Color.red);
-    }//GEN-LAST:event_exitButtonMouseExited
-
-    private void changeModeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changeModeMouseEntered
-        changeMode.setBackground(new Color(90, 0, 138));
-    }//GEN-LAST:event_changeModeMouseEntered
-
-    private void changeModeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changeModeMouseExited
-        changeMode.setBackground(new Color(102, 0, 153));
-    }//GEN-LAST:event_changeModeMouseExited
-
-    private void minimizeWindowMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeWindowMouseEntered
-        minimizeWindow.setBackground(new Color(64, 64, 64));
-    }//GEN-LAST:event_minimizeWindowMouseEntered
-
-    private void minimizeWindowMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeWindowMouseExited
-        minimizeWindow.setBackground(Color.gray);
-    }//GEN-LAST:event_minimizeWindowMouseExited
-
-    private void minimizeWindowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeWindowMouseClicked
-        this.setState(Frame.ICONIFIED);  // Minimiza la ventana
-    }//GEN-LAST:event_minimizeWindowMouseClicked
-
-    private void changeModeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changeModeMouseClicked
-        if (isDarkMode) {
-            applyTheme(lightTheme);  // Cambiar al tema claro
-            jLabel6.setIcon(moonIcon);  // Mostrar la luna
-        } else {
-            applyTheme(darkTheme);   // Cambiar al tema oscuro
-            jLabel6.setIcon(sunIcon);  // Mostrar el sol
-        }
-        isDarkMode = !isDarkMode;  // Invertir el estado del tema
-    }//GEN-LAST:event_changeModeMouseClicked
-
-    private void panelNivel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelNivel1MouseClicked
-        panelNivelMouseClicked(1); // para el nivel 1
-        iniciarTemporizador();
-        nivelSeleccionado=1;
-    }//GEN-LAST:event_panelNivel1MouseClicked
-
-    private void panelNivel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelNivel2MouseClicked
-        
-        if(puntos==10){
-            nivelSeleccionado=2;
-
-            panelNivelMouseClicked(2);
-            iniciarTemporizador();
-        } else{
-            jLabelResultado.setVisible(true);
-            jLabelResultado.setText("Todavia no puedes acceder a este nivel");
-            javax.swing.Timer timer = new javax.swing.Timer(3000, new java.awt.event.ActionListener() {
-                @Override
-                public void actionPerformed(java.awt.event.ActionEvent e) {
-                    jLabelResultado.setVisible(false);
-                }
-            });
-            timer.setRepeats(false); // Esto es importante para que el Timer solo se ejecute una vez
-            timer.start();
-        }
-        
-    }//GEN-LAST:event_panelNivel2MouseClicked
-
-    private void panelNivel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelNivel3MouseClicked
-        
-        if(puntos==20){
-            nivelSeleccionado=3;
-            panelNivelMouseClicked(3); // para el nivel 1
-            iniciarTemporizador();
-        } else{
-            jLabelResultado.setVisible(true);
-            jLabelResultado.setText("Todavia no puedes acceder a este nivel");
-            javax.swing.Timer timer = new javax.swing.Timer(3000, new java.awt.event.ActionListener() {
-                @Override
-                public void actionPerformed(java.awt.event.ActionEvent e) {
-                    jLabelResultado.setVisible(false);
-                }
-            });
-            timer.setRepeats(false); // Esto es importante para que el Timer solo se ejecute una vez
-            timer.start();
-        }
-    }//GEN-LAST:event_panelNivel3MouseClicked
-
-    private void panelNivel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelNivel4MouseClicked
-        if(puntos==30){
-            nivelSeleccionado=4;
-            panelNivelMouseClicked(4); // para el nivel 1
-            iniciarTemporizador();
-        } else{
-            jLabelResultado.setVisible(true);
-            jLabelResultado.setText("Todavia no puedes acceder a este nivel");
-            javax.swing.Timer timer = new javax.swing.Timer(3000, new java.awt.event.ActionListener() {
-                @Override
-                public void actionPerformed(java.awt.event.ActionEvent e) {
-                    jLabelResultado.setVisible(false);
-                }
-            });
-            timer.setRepeats(false); // Esto es importante para que el Timer solo se ejecute una vez
-            timer.start();
-        }
-    }//GEN-LAST:event_panelNivel4MouseClicked
-
-    private void panelNivel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelNivel6MouseClicked
-        if(puntos==50){
-            nivelSeleccionado=6;
-            panelNivelMouseClicked(6); // para el nivel 1
-            iniciarTemporizador();
-        } else{
-            jLabelResultado.setVisible(true);
-            jLabelResultado.setText("Todavia no puedes acceder a este nivel");
-            javax.swing.Timer timer = new javax.swing.Timer(3000, new java.awt.event.ActionListener() {
-                @Override
-                public void actionPerformed(java.awt.event.ActionEvent e) {
-                    jLabelResultado.setVisible(false);
-                }
-            });
-            timer.setRepeats(false); // Esto es importante para que el Timer solo se ejecute una vez
-            timer.start();
-        }
-        
-    }//GEN-LAST:event_panelNivel6MouseClicked
-
-    private void panelNivel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelNivel7MouseClicked
-        
-        if(puntos==60){
-            nivelSeleccionado=7;
-            panelNivelMouseClicked(7); // para el nivel 1
-            iniciarTemporizador();
-        } else{
-            jLabelResultado.setVisible(true);
-            jLabelResultado.setText("Todavia no puedes acceder a este nivel");
-            javax.swing.Timer timer = new javax.swing.Timer(3000, new java.awt.event.ActionListener() {
-                @Override
-                public void actionPerformed(java.awt.event.ActionEvent e) {
-                    jLabelResultado.setVisible(false);
-                }
-            });
-            timer.setRepeats(false); // Esto es importante para que el Timer solo se ejecute una vez
-            timer.start();
-        }
-    }//GEN-LAST:event_panelNivel7MouseClicked
-
-    private void panelNivel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelNivel8MouseClicked
-        
-        if(puntos==70){
-            nivelSeleccionado=8;
-            panelNivelMouseClicked(8); // para el nivel 1
-            iniciarTemporizador();
-        } else{
-            jLabelResultado.setVisible(true);
-            jLabelResultado.setText("Todavia no puedes acceder a este nivel");
-            javax.swing.Timer timer = new javax.swing.Timer(3000, new java.awt.event.ActionListener() {
-                @Override
-                public void actionPerformed(java.awt.event.ActionEvent e) {
-                    jLabelResultado.setVisible(false);
-                }
-            });
-            timer.setRepeats(false); // Esto es importante para que el Timer solo se ejecute una vez
-            timer.start();
-        }
-    }//GEN-LAST:event_panelNivel8MouseClicked
+    private void jTextFieldOpcion1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldOpcion1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldOpcion1MouseClicked
 
     private void panelNivel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelNivel9MouseClicked
-        
+
         if(puntos==80){
             nivelSeleccionado=9;
-            panelNivelMouseClicked(9); // para el nivel 1
+            panelNivelMouseClicked(generarNumeroAleatorio()); // para el nivel 1
             iniciarTemporizador();
         } else{
             jLabelResultado.setVisible(true);
@@ -1048,11 +891,71 @@ public class MundoLiterario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_panelNivel9MouseClicked
 
+    private void panelNivel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelNivel6MouseClicked
+        if(puntos==50){
+            nivelSeleccionado=6;
+            panelNivelMouseClicked(generarNumeroAleatorio()); // para el nivel 1
+            iniciarTemporizador();
+        } else{
+            jLabelResultado.setVisible(true);
+            jLabelResultado.setText("Todavia no puedes acceder a este nivel");
+            javax.swing.Timer timer = new javax.swing.Timer(3000, new java.awt.event.ActionListener() {
+                @Override
+                public void actionPerformed(java.awt.event.ActionEvent e) {
+                    jLabelResultado.setVisible(false);
+                }
+            });
+            timer.setRepeats(false); // Esto es importante para que el Timer solo se ejecute una vez
+            timer.start();
+        }
+
+    }//GEN-LAST:event_panelNivel6MouseClicked
+
+    private void panelNivel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelNivel8MouseClicked
+
+        if(puntos==70){
+            nivelSeleccionado=8;
+            panelNivelMouseClicked(generarNumeroAleatorio()); // para el nivel 1
+            iniciarTemporizador();
+        } else{
+            jLabelResultado.setVisible(true);
+            jLabelResultado.setText("Todavia no puedes acceder a este nivel");
+            javax.swing.Timer timer = new javax.swing.Timer(3000, new java.awt.event.ActionListener() {
+                @Override
+                public void actionPerformed(java.awt.event.ActionEvent e) {
+                    jLabelResultado.setVisible(false);
+                }
+            });
+            timer.setRepeats(false); // Esto es importante para que el Timer solo se ejecute una vez
+            timer.start();
+        }
+    }//GEN-LAST:event_panelNivel8MouseClicked
+
+    private void panelNivel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelNivel7MouseClicked
+
+        if(puntos==60){
+            nivelSeleccionado=7;
+            panelNivelMouseClicked(generarNumeroAleatorio()); // para el nivel 1
+            iniciarTemporizador();
+        } else{
+            jLabelResultado.setVisible(true);
+            jLabelResultado.setText("Todavia no puedes acceder a este nivel");
+            javax.swing.Timer timer = new javax.swing.Timer(3000, new java.awt.event.ActionListener() {
+                @Override
+                public void actionPerformed(java.awt.event.ActionEvent e) {
+                    jLabelResultado.setVisible(false);
+                }
+            });
+            timer.setRepeats(false); // Esto es importante para que el Timer solo se ejecute una vez
+            timer.start();
+        }
+    }//GEN-LAST:event_panelNivel7MouseClicked
+
     private void panelNivel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelNivel10MouseClicked
-        
+
         if(puntos==90){
             nivelSeleccionado=10;
-            panelNivelMouseClicked(10); // para el nivel 1
+            panelNivelMouseClicked(generarNumeroAleatorio()); // para el nivel 1
             iniciarTemporizador();
         } else{
             jLabelResultado.setVisible(true);
@@ -1068,11 +971,78 @@ public class MundoLiterario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_panelNivel10MouseClicked
 
+    private void panelNivel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelNivel1MouseClicked
+        panelNivelMouseClicked(generarNumeroAleatorio()); // para el nivel 1
+        iniciarTemporizador();
+        nivelSeleccionado=1;
+    }//GEN-LAST:event_panelNivel1MouseClicked
+
+    private void panelNivel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelNivel4MouseClicked
+        if(puntos==30){
+            nivelSeleccionado=4;
+            panelNivelMouseClicked(generarNumeroAleatorio()); // para el nivel 1
+            iniciarTemporizador();
+        } else{
+            jLabelResultado.setVisible(true);
+            jLabelResultado.setText("Todavia no puedes acceder a este nivel");
+            javax.swing.Timer timer = new javax.swing.Timer(3000, new java.awt.event.ActionListener() {
+                @Override
+                public void actionPerformed(java.awt.event.ActionEvent e) {
+                    jLabelResultado.setVisible(false);
+                }
+            });
+            timer.setRepeats(false); // Esto es importante para que el Timer solo se ejecute una vez
+            timer.start();
+        }
+    }//GEN-LAST:event_panelNivel4MouseClicked
+
+    private void panelNivel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelNivel3MouseClicked
+
+        if(puntos==20){
+            nivelSeleccionado=3;
+            panelNivelMouseClicked(generarNumeroAleatorio()); // para el nivel 1
+            iniciarTemporizador();
+        } else{
+            jLabelResultado.setVisible(true);
+            jLabelResultado.setText("Todavia no puedes acceder a este nivel");
+            javax.swing.Timer timer = new javax.swing.Timer(3000, new java.awt.event.ActionListener() {
+                @Override
+                public void actionPerformed(java.awt.event.ActionEvent e) {
+                    jLabelResultado.setVisible(false);
+                }
+            });
+            timer.setRepeats(false); // Esto es importante para que el Timer solo se ejecute una vez
+            timer.start();
+        }
+    }//GEN-LAST:event_panelNivel3MouseClicked
+
+    private void panelNivel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelNivel2MouseClicked
+
+        if(puntos==10){
+            nivelSeleccionado=2;
+
+            panelNivelMouseClicked(generarNumeroAleatorio());
+            iniciarTemporizador();
+        } else{
+            jLabelResultado.setVisible(true);
+            jLabelResultado.setText("Todavia no puedes acceder a este nivel");
+            javax.swing.Timer timer = new javax.swing.Timer(3000, new java.awt.event.ActionListener() {
+                @Override
+                public void actionPerformed(java.awt.event.ActionEvent e) {
+                    jLabelResultado.setVisible(false);
+                }
+            });
+            timer.setRepeats(false); // Esto es importante para que el Timer solo se ejecute una vez
+            timer.start();
+        }
+
+    }//GEN-LAST:event_panelNivel2MouseClicked
+
     private void panelNivel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelNivel5MouseClicked
-        
+
         if(puntos==40){
             nivelSeleccionado=5;
-            panelNivelMouseClicked(5); // para el nivel 1
+            panelNivelMouseClicked(generarNumeroAleatorio()); // para el nivel 1
             iniciarTemporizador();
         } else{
             jLabelResultado.setVisible(true);
@@ -1088,21 +1058,59 @@ public class MundoLiterario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_panelNivel5MouseClicked
 
-    private void jTextFieldOpcion1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldOpcion1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldOpcion1MouseClicked
+    private void headerMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headerMousePressed
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+    }//GEN-LAST:event_headerMousePressed
 
-    private void jTextFieldOpcion2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldOpcion2MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldOpcion2MouseClicked
+    private void headerMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headerMouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xMouse,y - yMouse);
+    }//GEN-LAST:event_headerMouseDragged
 
-    private void jTextFieldOpcion3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldOpcion3MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldOpcion3MouseClicked
+    private void minimizeWindowMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeWindowMouseEntered
+        minimizeWindow.setBackground(new Color(64, 64, 64));
+    }//GEN-LAST:event_minimizeWindowMouseEntered
 
-    private void jTextFieldOpcion4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldOpcion4MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldOpcion4MouseClicked
+    private void minimizeWindowMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeWindowMouseExited
+        minimizeWindow.setBackground(Color.gray);
+    }//GEN-LAST:event_minimizeWindowMouseExited
+
+    private void minimizeWindowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeWindowMouseClicked
+        this.setState(Frame.ICONIFIED);  // Minimiza la ventana
+    }//GEN-LAST:event_minimizeWindowMouseClicked
+
+    private void changeModeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changeModeMouseEntered
+        changeMode.setBackground(new Color(90, 0, 138));
+    }//GEN-LAST:event_changeModeMouseEntered
+
+    private void changeModeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changeModeMouseExited
+        changeMode.setBackground(new Color(102, 0, 153));
+    }//GEN-LAST:event_changeModeMouseExited
+
+    private void changeModeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changeModeMouseClicked
+        if (isDarkMode) {
+            applyTheme(lightTheme);  // Cambiar al tema claro
+            jLabel6.setIcon(moonIcon);  // Mostrar la luna
+        } else {
+            applyTheme(darkTheme);   // Cambiar al tema oscuro
+            jLabel6.setIcon(sunIcon);  // Mostrar el sol
+        }
+        isDarkMode = !isDarkMode;  // Invertir el estado del tema
+    }//GEN-LAST:event_changeModeMouseClicked
+
+    private void exitButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseEntered
+        exitButton.setBackground(new Color(128, 0, 0));
+    }//GEN-LAST:event_exitButtonMouseEntered
+
+    private void exitButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseExited
+        exitButton.setBackground(Color.red);
+    }//GEN-LAST:event_exitButtonMouseExited
+
+    private void exitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_exitButtonMouseClicked
              
 
     private String[] cargarPreguntaDesdeArchivo(int nivel) {
@@ -1206,12 +1214,13 @@ public class MundoLiterario extends javax.swing.JFrame {
             if (tiempoRestante < 0) {
                 // Si las vidas llegan a 0, muestras el mensaje
                 if (vidas == 0) {
-                    Ranking ranking = new Ranking(userIDF,idJuegoF);
+                    
                     Puntuacion puntuacion = new Puntuacion();
                     System.out.println(idJuegoF);
                     System.out.println(puntos);
                     System.out.println(userIDF);
                     puntuacion.almacenarPuntuacion(idJuegoF, puntos, userIDF);
+                    Ranking ranking = new Ranking(userIDF,idJuegoF);
                     ranking.setVisible(true);
                     MundoLiterario mundoLiterario = new MundoLiterario();
                     mundoLiterario.dispose();
@@ -1441,12 +1450,10 @@ public class MundoLiterario extends javax.swing.JFrame {
                 vidas--;
                 jLabelVida.setText(String.valueOf(vidas));
                 if (vidas == 0) {
-                    Ranking ranking = new Ranking(userIDF,idJuegoF);
+                    
                     Puntuacion puntuacion = new Puntuacion();
-                    System.out.println(idJuegoF);
-                    System.out.println(puntos);
-                    System.out.println(userIDF);
                     puntuacion.almacenarPuntuacion(idJuegoF, puntos, userIDF);
+                    Ranking ranking = new Ranking(userIDF,idJuegoF);
                     ranking.setVisible(true);
                     this.dispose();
                 }
@@ -1487,6 +1494,24 @@ public class MundoLiterario extends javax.swing.JFrame {
         });
         timer.setRepeats(false); // Esto es importante para que el Timer solo se ejecute una vez
         timer.start();
+    }
+    
+    public int generarNumeroAleatorio() {
+        // Si todos los números posibles ya han aparecido, limpia la lista.
+        if (numerosGenerados.size() == 40) {
+            numerosGenerados.clear();
+        }
+
+        int numeroAleatorio;
+        do {
+            // Generar un número aleatorio entre 1 y 40.
+            numeroAleatorio = 1 + random.nextInt(40);
+        } while (numerosGenerados.contains(numeroAleatorio)); // Si el número ya está en la lista, genera otro.
+
+        // Si el número es único (no está en la lista), añádelo a la lista.
+        numerosGenerados.add(numeroAleatorio);
+
+        return numeroAleatorio;
     }
     
 
