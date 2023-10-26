@@ -613,14 +613,14 @@ public class MenuActividades extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel8MouseClicked
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
-        Anagrama anagrama = new Anagrama(0,5,userIDF,1);
-        anagrama.setVisible(true);
+        NivelDificultad nivelDificultad = new NivelDificultad(5,userIDF);
+        nivelDificultad.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel10MouseClicked
 
     private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
-        MundoLiterario mundoLiterario = new MundoLiterario(6,userIDF);
-        mundoLiterario.setVisible(true);
+        NivelDificultad nivelDificultad = new NivelDificultad(6,userIDF);
+        nivelDificultad.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jPanel4MouseClicked
                                   

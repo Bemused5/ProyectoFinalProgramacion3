@@ -715,7 +715,7 @@ public class MundoLiterario extends javax.swing.JFrame {
         jPanelOpcion1.setForeground(new java.awt.Color(51, 255, 51));
 
         jTextFieldOpcion1.setEditable(false);
-        jTextFieldOpcion1.setBackground(new java.awt.Color(51, 255, 51));
+        jTextFieldOpcion1.setBackground(new java.awt.Color(70, 195, 54));
         jTextFieldOpcion1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         jTextFieldOpcion1.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldOpcion1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -743,7 +743,7 @@ public class MundoLiterario extends javax.swing.JFrame {
         jPanelOpcion2.setBackground(new java.awt.Color(0, 255, 0));
 
         jTextFieldOpcion2.setEditable(false);
-        jTextFieldOpcion2.setBackground(new java.awt.Color(51, 255, 51));
+        jTextFieldOpcion2.setBackground(new java.awt.Color(70, 195, 54));
         jTextFieldOpcion2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         jTextFieldOpcion2.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldOpcion2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -771,7 +771,7 @@ public class MundoLiterario extends javax.swing.JFrame {
         jPanelOpcion3.setBackground(new java.awt.Color(0, 255, 0));
 
         jTextFieldOpcion3.setEditable(false);
-        jTextFieldOpcion3.setBackground(new java.awt.Color(51, 255, 51));
+        jTextFieldOpcion3.setBackground(new java.awt.Color(70, 195, 54));
         jTextFieldOpcion3.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         jTextFieldOpcion3.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldOpcion3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -799,7 +799,7 @@ public class MundoLiterario extends javax.swing.JFrame {
         jPanelOpcion4.setBackground(new java.awt.Color(51, 255, 51));
 
         jTextFieldOpcion4.setEditable(false);
-        jTextFieldOpcion4.setBackground(new java.awt.Color(51, 255, 51));
+        jTextFieldOpcion4.setBackground(new java.awt.Color(70, 195, 54));
         jTextFieldOpcion4.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         jTextFieldOpcion4.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldOpcion4.setHorizontalAlignment(javax.swing.JTextField.CENTER);
