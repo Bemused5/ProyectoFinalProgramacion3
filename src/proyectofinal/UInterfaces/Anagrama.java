@@ -374,7 +374,7 @@ public class Anagrama extends javax.swing.JFrame {
         String textoIngresado = jTextField1.getText();;
         System.out.println(textoIngresado);
         if (textoIngresado.equalsIgnoreCase(palabra)) {
-            puntuacionF += 20;
+            puntuacionF += 10;
         }
         PuntuacionRonda puntuacionRonda = new PuntuacionRonda(userIDF,puntuacionF,idJuegoF,1);
         puntuacionRonda.setVisible(true);

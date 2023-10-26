@@ -1247,7 +1247,7 @@ public class MundoLiterario extends javax.swing.JFrame {
                 Temporizador.setVisible(false);
                 jLabelResultado.setText("¡Felicidades! Pasaste el nivel.");
                 if(intentosNivel1==0){
-                    puntos+=10;
+                    puntos+=5;
                     jLabel15.setText(String.valueOf(puntos));
                     intentosNivel1++;
                 }else{
@@ -1266,7 +1266,7 @@ public class MundoLiterario extends javax.swing.JFrame {
                 Temporizador.setVisible(false);
                 jLabelResultado.setText("¡Felicidades! Pasaste el nivel.");
                 if(intentosNivel2==0){
-                    puntos+=10;
+                    puntos+=5;
                     jLabel15.setText(String.valueOf(puntos));
                     intentosNivel2++;
                 }else{
@@ -1287,7 +1287,7 @@ public class MundoLiterario extends javax.swing.JFrame {
                 Temporizador.setVisible(false);
                 jLabelResultado.setText("¡Felicidades! Pasaste el nivel.");
                 if(intentosNivel3==0){
-                    puntos+=10;
+                    puntos+=5;
                     jLabel15.setText(String.valueOf(puntos));
                     intentosNivel3++;
                 }else{
@@ -1307,7 +1307,7 @@ public class MundoLiterario extends javax.swing.JFrame {
                 Temporizador.setVisible(false);
                 jLabelResultado.setText("¡Felicidades! Pasaste el nivel.");
                 if(intentosNivel4==0){
-                    puntos+=10;
+                    puntos+=5;
                     jLabel15.setText(String.valueOf(puntos));
                     intentosNivel4++;
                 }else{
@@ -1326,7 +1326,7 @@ public class MundoLiterario extends javax.swing.JFrame {
                 Temporizador.setVisible(false);
                 jLabelResultado.setText("¡Felicidades! Pasaste el nivel.");
                 if(intentosNivel5==0){
-                    puntos+=10;
+                    puntos+=5;
                     jLabel15.setText(String.valueOf(puntos));
                     intentosNivel5++;
                 }else{
@@ -1346,7 +1346,7 @@ public class MundoLiterario extends javax.swing.JFrame {
                 Temporizador.setVisible(false);
                 jLabelResultado.setText("¡Felicidades! Pasaste el nivel.");
                 if(intentosNivel6==0){
-                    puntos+=10;
+                    puntos+=5;
                     jLabel15.setText(String.valueOf(puntos));
                     intentosNivel6++;
                 }else{
@@ -1366,7 +1366,7 @@ public class MundoLiterario extends javax.swing.JFrame {
                 Temporizador.setVisible(false);
                 jLabelResultado.setText("¡Felicidades! Pasaste el nivel.");
                 if(intentosNivel7==0){
-                    puntos+=10;
+                    puntos+=5;
                     jLabel15.setText(String.valueOf(puntos));
                     intentosNivel7++;
                 }else{
@@ -1385,7 +1385,7 @@ public class MundoLiterario extends javax.swing.JFrame {
                 Temporizador.setVisible(false);
                 jLabelResultado.setText("¡Felicidades! Pasaste el nivel.");
                 if(intentosNivel8==0){
-                    puntos+=10;
+                    puntos+=5;
                     jLabel15.setText(String.valueOf(puntos));
                     intentosNivel8++;
                 }else{
@@ -1404,7 +1404,7 @@ public class MundoLiterario extends javax.swing.JFrame {
                 Temporizador.setVisible(false);
                 jLabelResultado.setText("¡Felicidades! Pasaste el nivel.");
                 if(intentosNivel9==0){
-                    puntos+=10;
+                    puntos+=5;
                     jLabel15.setText(String.valueOf(puntos));
                     intentosNivel9++;
                 }else{
@@ -1424,7 +1424,7 @@ public class MundoLiterario extends javax.swing.JFrame {
                 Temporizador.setVisible(false);
                 jLabelResultado.setText("¡Felicidades! Pasaste el nivel. Completaste el Juego exitosamente");
                 if(intentosNivel10==0){
-                    puntos+=10;
+                    puntos+=5;
                     jLabel15.setText(String.valueOf(puntos));
                     intentosNivel10++;
                     verificarAcabado();
