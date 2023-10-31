@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package juego2;
+package proyectofinal.UInterfaces.Judith;
 
 /**
  *
@@ -14,6 +14,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.text.Normalizer;
 import java.util.Arrays;
+import proyectofinal.Puntuacion;
+import proyectofinal.UInterfaces.Ranking;
 
 /**
  *
@@ -21,6 +23,8 @@ import java.util.Arrays;
  */
 public class Nivel2 extends JFrame implements ActionListener{
     private int puntuacion =0;
+    private static int userIDF;
+    private static int idJuegoF;
     private String[] palabras = {"ORBITA", "NUCLEO", "CELULA", "ECOSISTEMA", "HORMONA", "ATMOSFERA","GENETICA", "EVOLUCION", "OSMOSIS"};
     private String[] significados = {
             "Trayectoria curva que describe un cuerpo alrededor de otro debido a la acción de una fuerza gravitacional entre ellos.",
@@ -54,7 +58,9 @@ public class Nivel2 extends JFrame implements ActionListener{
     private JButton[][] botones;
     private JTextField textField;
 
-    public Nivel2 () {
+    public Nivel2 (int userID,int idJuego) {
+        userIDF=userID;
+        idJuegoF=idJuego;
         setTitle("Juego de Sopa de Letras");
         setSize(800, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -117,9 +123,12 @@ public class Nivel2 extends JFrame implements ActionListener{
                 
                 // Comprobamos si ha alcanzado los 50 puntos
                 if (puntuacion == 90) {
-                    //Puntuacion puntuacionObj = new Puntuacion();
-                    //puntuacionObj.almacenarPuntuacion(idJuegoF, puntuacion, userIDF);
+                    Puntuacion puntuacionObj = new Puntuacion();
+                    puntuacionObj.almacenarPuntuacion(idJuegoF, puntuacion, userIDF);
                     System.out.println("fin del juego");
+                    Ranking ranking = new Ranking(userIDF,idJuegoF);
+                    ranking.setVisible(true);
+                    this.dispose();
                 }
             }
         } else {

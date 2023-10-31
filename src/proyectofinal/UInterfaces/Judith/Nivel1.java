@@ -3,19 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package juego2;
+package proyectofinal.UInterfaces.Judith;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.Normalizer;
 import java.util.Arrays;
+import proyectofinal.Puntuacion;
+import proyectofinal.UInterfaces.Ranking;
 
 /**
  *
  * @author Damian Carmona
  */
 public class Nivel1 extends JFrame implements ActionListener{
+    private static int userIDF;
+    private static int idJuegoF;
     private String[] palabras = {"ADN", "CELULA", "BACTERIA", "CLOROFILA", "ORGANO"};
     private int puntuacion = 0; // Añadimos la variable puntuacion
     private String[] significados = {
@@ -40,7 +44,9 @@ public class Nivel1 extends JFrame implements ActionListener{
     private JButton[][] botones;
     private JTextField textField;
 
-    public Nivel1 () {
+    public Nivel1 (int userID,int idJuego) {
+        userIDF=userID;
+        idJuegoF=idJuego;
         setTitle("Juego de Sopa de Letras");
         setSize(500, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -103,9 +109,12 @@ public void actionPerformed(ActionEvent e) {
                 
                 // Comprobamos si ha alcanzado los 50 puntos
                 if (puntuacion == 50) {
-                    //Puntuacion puntuacionObj = new Puntuacion();
-                    //puntuacionObj.almacenarPuntuacion(idJuegoF, puntuacion, userIDF);
+                    Puntuacion puntuacionObj = new Puntuacion();
+                    puntuacionObj.almacenarPuntuacion(idJuegoF, puntuacion, userIDF);
                     System.out.println("fin del juego");
+                    Ranking ranking = new Ranking(userIDF,idJuegoF);
+                    ranking.setVisible(true);
+                    this.dispose();
                 }
             }
     } else {

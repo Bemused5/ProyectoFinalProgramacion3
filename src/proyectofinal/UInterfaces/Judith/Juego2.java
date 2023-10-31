@@ -7,12 +7,16 @@ package proyectofinal.UInterfaces.Judith;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import juego2.Nivel1;
-import juego2.Nivel2;
+
 
 public class Juego2 {
-    private  static JFrame frame;
-    public Juego2() {
+    
+    private static JFrame frame;
+    private static int userIDF;
+    private static int idJuegoF;
+    public Juego2(int userID,int idJuego) {
+        userIDF=userID;
+        idJuegoF=idJuego;
         frame = new JFrame("Juego de Sopa de Letras");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(600, 400);
@@ -34,7 +38,7 @@ public class Juego2 {
         
     }
     public static void main(String[] args) {
-        new Juego2();
+        new Juego2(userIDF,idJuegoF);
     }
 
     private static void mostrarTexto(JPanel panel) {
@@ -62,7 +66,7 @@ public class Juego2 {
 
         nivel1Button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Nivel1 nivel1 = new Nivel1();
+                Nivel1 nivel1 = new Nivel1(userIDF,idJuegoF);
                 nivel1.setVisible(true);
                 frame.dispose();
             }
@@ -70,7 +74,7 @@ public class Juego2 {
 
         nivel2Button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Nivel2 nivel2 = new Nivel2();
+                Nivel2 nivel2 = new Nivel2(userIDF,idJuegoF);
                 nivel2.setVisible(true);
                 frame.dispose();
             }

@@ -611,7 +611,7 @@ public class MenuActividades extends javax.swing.JFrame {
         PuntuacionFinal puntuacionFinal = new PuntuacionFinal(userIDF,puntuacion,4);
         puntuacionFinal.setVisible(true);
         this.dispose();*/
-        Juego2 juego2 = new Juego2();
+        Juego2 juego2 = new Juego2(userIDF,4);
         juego2.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jPanel8MouseClicked
