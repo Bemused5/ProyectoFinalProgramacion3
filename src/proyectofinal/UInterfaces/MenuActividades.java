@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.Frame;
 import java.util.Random;
 import javax.swing.ImageIcon;
+import proyectofinal.UInterfaces.Judith.*;
 
 
 /**
@@ -605,10 +606,13 @@ public class MenuActividades extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel9MouseClicked
 
     private void jPanel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MouseClicked
-        Random generador = new Random();
+        /*Random generador = new Random();
         int puntuacion = generador.nextInt(100);
         PuntuacionFinal puntuacionFinal = new PuntuacionFinal(userIDF,puntuacion,4);
         puntuacionFinal.setVisible(true);
+        this.dispose();*/
+        Juego2 juego2 = new Juego2();
+        juego2.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jPanel8MouseClicked
 
