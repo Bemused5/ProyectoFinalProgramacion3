@@ -8,7 +8,10 @@ import java.awt.Color;
 import java.awt.Frame;
 import java.util.Random;
 import javax.swing.ImageIcon;
+import proyectofinal.UInterfaces.AntoniJuego1.wordquest.Ventana1;
 import proyectofinal.UInterfaces.Judith.*;
+import proyectofinal.UInterfaces.AntonioJuego2.MenuPrincipal;
+import proyectofinal.UInterfaces.AntonioJuego2.TimeTrek;
 
 
 /**
@@ -283,7 +286,7 @@ public class MenuActividades extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 24)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("Actividad 6");
+        jLabel12.setText("Mundo Literario");
         jLabel12.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -318,7 +321,7 @@ public class MenuActividades extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Actividad 1");
+        jLabel4.setText("WordQuest");
         jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -349,7 +352,7 @@ public class MenuActividades extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 24)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("Actividad 2");
+        jLabel9.setText("TimeTrek");
         jLabel9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -380,7 +383,7 @@ public class MenuActividades extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 24)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Actividad 4");
+        jLabel8.setText("Crucigrama Quimico");
         jLabel8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -411,7 +414,7 @@ public class MenuActividades extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 24)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("Actividad 3");
+        jLabel11.setText("Ordena la tabla periodica");
         jLabel11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
@@ -437,7 +440,7 @@ public class MenuActividades extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 24)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("Actividad 5");
+        jLabel10.setText("Anagramas Informaticos");
         jLabel10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -582,18 +585,14 @@ public class MenuActividades extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel11MouseClicked
 
     private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
-        Random generador = new Random();
-        int puntuacion = generador.nextInt(100);
-        PuntuacionFinal puntuacionFinal = new PuntuacionFinal(userIDF,puntuacion,1);
-        puntuacionFinal.setVisible(true);
+        Ventana1 inicioJuegoWordquest = new Ventana1();
+        inicioJuegoWordquest.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jPanel5MouseClicked
 
     private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
-        Random generador = new Random();
-        int puntuacion = generador.nextInt(100);
-        PuntuacionFinal puntuacionFinal = new PuntuacionFinal(userIDF,puntuacion,2);
-        puntuacionFinal.setVisible(true);
+        MenuPrincipal menuPrincipalTimeTrek = new MenuPrincipal();
+        menuPrincipalTimeTrek.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jPanel6MouseClicked
 

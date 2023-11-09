@@ -17,9 +17,12 @@ import proyectofinal.UInterfaces.Ranking;
  *
  * @author Damian Carmona
  */
+
+// Clase para el primer nivel del juego
 public class Nivel1 extends JFrame implements ActionListener{
     private static int userIDF;
     private static int idJuegoF;
+    // Arreglos de palabras y sus significados
     private String[] palabras = {"ADN", "CELULA", "BACTERIA", "CLOROFILA", "ORGANO"};
     private int puntuacion = 0; // Añadimos la variable puntuacion
     private String[] significados = {
@@ -44,6 +47,7 @@ public class Nivel1 extends JFrame implements ActionListener{
     private JButton[][] botones;
     private JTextField textField;
 
+    // Constructor de la clase
     public Nivel1 (int userID,int idJuego) {
         userIDF=userID;
         idJuegoF=idJuego;
@@ -51,9 +55,11 @@ public class Nivel1 extends JFrame implements ActionListener{
         setSize(500, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        // Crear un panel para la sopa de letras
         JPanel panelSopa = new JPanel(new GridLayout(10, 10));
         botones = new JButton[10][10];
 
+        // Configurar botones de la sopa de letras
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 botones[i][j] = new JButton(String.valueOf(sopaLetras[i][j]));
@@ -64,6 +70,7 @@ public class Nivel1 extends JFrame implements ActionListener{
             }
         }
 
+        // Crear un panel inferior con etiqueta, campo de texto y botón de comprobación
         JPanel panelInferior = new JPanel();
         JLabel label = new JLabel("Encuentra la palabra:");
         textField = new JTextField(10);
@@ -74,12 +81,15 @@ public class Nivel1 extends JFrame implements ActionListener{
         panelInferior.add(textField);
         panelInferior.add(botonComprobar);
 
+        // Agregar los paneles a la ventana
         add(panelSopa, BorderLayout.CENTER);
         add(panelInferior, BorderLayout.SOUTH);
 
+        // Hacer la ventana visible
         setVisible(true);
     }
 
+// Método para manejar la acción del botón de comprobación
 @Override
 public void actionPerformed(ActionEvent e) {
     String palabraBuscada = textField.getText().toUpperCase();

@@ -21,7 +21,8 @@ import proyectofinal.UInterfaces.Ranking;
  *
  * @author Damian Carmona
  */
-public class Nivel2 extends JFrame implements ActionListener{
+    // Clase para el segundo nivel del juego
+    public class Nivel2 extends JFrame implements ActionListener{
     private int puntuacion =0;
     private static int userIDF;
     private static int idJuegoF;
@@ -58,16 +59,19 @@ public class Nivel2 extends JFrame implements ActionListener{
     private JButton[][] botones;
     private JTextField textField;
 
+    // Constructor de la clase
     public Nivel2 (int userID,int idJuego) {
         userIDF=userID;
         idJuegoF=idJuego;
         setTitle("Juego de Sopa de Letras");
         setSize(800, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        
+        // Crear un panel para la sopa de letras
         JPanel panelSopa = new JPanel(new GridLayout(15, 15));
         botones = new JButton[15][15];
 
+        // Configurar botones de la sopa de letras
         for (int i = 0; i < 15; i++) {
             for (int j = 0; j < 15; j++) {
                 botones[i][j] = new JButton(String.valueOf(sopaLetras[i][j]));
@@ -78,6 +82,7 @@ public class Nivel2 extends JFrame implements ActionListener{
             }
         }
 
+        // Crear un panel inferior con etiqueta, campo de texto y botón de comprobación
         JPanel panelInferior = new JPanel();
         JLabel label = new JLabel("Encuentra la palabra:");
         textField = new JTextField(10);
@@ -94,7 +99,7 @@ public class Nivel2 extends JFrame implements ActionListener{
         setVisible(true);
     }
 
-
+// Método para manejar la acción del botón de comprobación
 @Override
     public void actionPerformed(ActionEvent e) {
         String palabraBuscada = textField.getText().toUpperCase();
@@ -136,6 +141,7 @@ public class Nivel2 extends JFrame implements ActionListener{
         }
     }
 
+    // Método para buscar la palabra en la sopa de letras
     private boolean buscarPalabra(int fila, int columna, String palabra) {
     int[] dx = {-1, -1, -1, 0, 0, 1, 1, 1};
     int[] dy = {-1, 0, 1, -1, 1, -1, 0, 1};
