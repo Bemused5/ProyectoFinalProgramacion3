@@ -12,6 +12,7 @@ import proyectofinal.UInterfaces.AntoniJuego1.wordquest.Ventana1;
 import proyectofinal.UInterfaces.Judith.*;
 import proyectofinal.UInterfaces.AntonioJuego2.MenuPrincipal;
 import proyectofinal.UInterfaces.AntonioJuego2.TimeTrek;
+import proyectofinal.UInterfaces.Judith.Juego1.Química;
 
 
 /**
@@ -597,10 +598,8 @@ public class MenuActividades extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel6MouseClicked
 
     private void jPanel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel9MouseClicked
-        Random generador = new Random();
-        int puntuacion = generador.nextInt(100);
-        PuntuacionFinal puntuacionFinal = new PuntuacionFinal(userIDF,puntuacion,3);
-        puntuacionFinal.setVisible(true);
+        Química quimica = new Química();
+        quimica.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jPanel9MouseClicked
 
